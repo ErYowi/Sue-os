@@ -1,0 +1,17 @@
+{
+  "name": "Sueños",
+  "short_name": "Sueños",
+  "description": "Diario de sueños para conseguir sueños lúcidos",
+  "lang": "es",
+  "start_url": "./#/inicio",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#030816",
+  "theme_color": "#030816",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
