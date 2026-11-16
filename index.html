@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#030816">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -25,7 +25,8 @@
   --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
   --ease:cubic-bezier(.2,.8,.2,1);
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+html,body{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 html,body{margin:0;min-height:100%;background:var(--bg0);color:var(--text)}
 body{
   font:16px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;
@@ -71,7 +72,7 @@ h1,h2,h3,.round{font-family:ui-rounded,"SF Pro Rounded",-apple-system,system-ui,
 .pill.casi{background:rgba(125,211,252,.1);color:var(--accent2)}
 .section-title{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin:22px 4px 10px;font-weight:700}
 .empty{text-align:center;padding:30px 10px;color:var(--muted)}
-.empty .big{font-size:44px;display:block;margin-bottom:8px}
+.empty .big{display:block;margin:0 auto 10px;width:40px;height:40px;color:var(--dim)}.empty .big svg{width:40px;height:40px}
 a{color:var(--accent2)}
 
 /* ---------- Home ---------- */
@@ -91,6 +92,8 @@ a{color:var(--accent2)}
 .orb.on .ring{animation:ripple 2s ease-out infinite}.orb.on .ring:nth-child(2){animation-delay:.66s}.orb.on .ring:nth-child(3){animation-delay:1.33s}
 @keyframes ripple{from{transform:scale(1);opacity:.8}to{transform:scale(2.1);opacity:0}}
 .today-done{display:flex;gap:14px;align-items:flex-start;cursor:pointer}
+.today-done .check svg{width:22px;height:22px}
+.today-done .check.none{background:rgba(150,190,255,.1);color:var(--muted)}
 .today-done .check{flex:none;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,rgba(125,211,252,.3),rgba(99,102,241,.35))}
 .today-done h2{margin:0 0 4px;font-size:19px}
 .clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -101,11 +104,12 @@ a{color:var(--accent2)}
 .week i{display:block;height:30px;border-radius:9px;margin-bottom:4px;background:rgba(255,255,255,.05);border:1px solid var(--stroke)}
 .week i.on{background:linear-gradient(180deg,#60a5fa,#4f46e5);border-color:transparent;box-shadow:0 4px 14px rgba(79,70,229,.4)}
 .week i.lu{background:linear-gradient(180deg,#a5f3fc,#38bdf8);box-shadow:0 4px 14px rgba(56,189,248,.5)}
+.week i.none{background:rgba(150,190,255,.16);border-color:transparent}
 .week i.today{outline:2px solid rgba(125,211,252,.5);outline-offset:2px}
 .ringwrap{position:relative;width:58px;height:58px;flex:none}
 .ringwrap svg{width:58px;height:58px;transform:rotate(-90deg)}
 .ringwrap b{position:absolute;inset:0;display:grid;place-items:center;font-size:14px}
-.tip{display:flex;gap:12px}.tip .e{font-size:24px}
+.tip{display:flex;gap:12px}.tip .e{flex:none;width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:var(--card2);color:var(--accent2)}.tip .e svg{width:18px;height:18px}
 
 /* ---------- Sleep ---------- */
 .sleep-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:8px}
@@ -156,6 +160,7 @@ textarea::placeholder,.input::placeholder{color:var(--dim)}
 .filters::-webkit-scrollbar{display:none}
 .dream{display:flex;gap:14px;align-items:flex-start;cursor:pointer;padding:15px}
 .dream:active{transform:scale(.985)}
+.dream.none{opacity:.62}.dream.none .datebox{background:rgba(255,255,255,.04)}
 .datebox{flex:none;width:52px;text-align:center;padding:8px 0;border-radius:14px;background:linear-gradient(180deg,rgba(91,157,255,.22),rgba(99,102,241,.12));border:1px solid var(--stroke)}
 .datebox b{display:block;font:700 21px/1.05 ui-rounded,-apple-system,sans-serif}
 .datebox span{font-size:11px;text-transform:uppercase;color:var(--muted);letter-spacing:.05em}
@@ -221,6 +226,10 @@ mark{background:rgba(125,211,252,.2);color:#dff4ff;border-radius:5px;padding:0 3
 .hbar .bar i{display:block;height:100%;width:var(--w);background:linear-gradient(90deg,#3b82f6,#7dd3fc);border-radius:10px;animation:grow 1s var(--ease) both .2s}
 
 /* ---------- Settings ---------- */
+.switch{position:relative;flex:none;width:52px;height:32px;border-radius:32px;background:rgba(255,255,255,.12);border:0;cursor:pointer;transition:background .25s;padding:0}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.3);transition:transform .25s var(--ease)}
+.switch.on{background:linear-gradient(135deg,#38bdf8,#6366f1)}.switch.on::after{transform:translateX(20px)}
+.ob-dots{display:flex;gap:6px;justify-content:center;margin:0 0 14px}.ob-dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.2)}.ob-dots i.on{background:var(--accent2);width:20px;border-radius:7px}
 .set-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--stroke)}
 .set-row:last-child{border-bottom:0}
 .set-row .t{font-weight:600}.set-row .s{font-size:13px;color:var(--muted)}
@@ -275,7 +284,7 @@ body.hide-tabs #tabbar{transform:translate(-50%,140%);transition:transform .3s}
 .burst i{position:absolute;width:8px;height:8px;border-radius:50%;background:#bfdbfe;box-shadow:0 0 10px #60a5fa;animation:fly 1.1s var(--ease) forwards}
 @keyframes fly{to{transform:translate(var(--x),var(--y)) scale(.2);opacity:0}}
 .saved-msg{position:fixed;z-index:70;left:50%;top:45%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;animation:pop 1.3s var(--ease) forwards}
-.saved-msg div{font-size:54px}.saved-msg b{font:700 22px ui-rounded,-apple-system,sans-serif}
+.saved-msg .mini-moon{width:46px;height:46px;border-radius:50%;box-shadow:inset -12px -4px 0 0 #dbeafe;margin:0 auto 12px;transform:rotate(-20deg);filter:drop-shadow(0 0 16px rgba(147,197,253,.7))}.saved-msg b{font:700 22px ui-rounded,-apple-system,sans-serif}
 @keyframes pop{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}75%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(1)}}
 
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important}}
@@ -308,12 +317,12 @@ body.hide-tabs #tabbar{transform:translate(-50%,140%);transition:transform .3s}
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const KEY = 'suenos.v1';
-const VERSION = '1.0';
+const VERSION = '1.1';
 
 /* ---------- Datos ---------- */
 const DEFAULT = () => ({
-  v: 1, name: 'Yoel', dreams: {}, sleep: {}, plan: {}, signs: [], draft: null, pendingImport: 0, welcomed: false,
-  settings: { pinHash: null, shortcut: 'Sueños Salud' }
+  v: 1, name: '', dreams: {}, sleep: {}, plan: {}, signs: [], draft: null, pendingImport: 0, welcomed: false,
+  settings: { pinHash: null, shortcut: 'Sueños Salud', health: false, autoImport: true }
 });
 let DB;
 function load() {
@@ -321,10 +330,12 @@ function load() {
   try { raw = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { raw = null; }
   DB = Object.assign(DEFAULT(), raw || {});
   DB.settings = Object.assign(DEFAULT().settings, (raw && raw.settings) || {});
+  // Usuarios de la v1.0: si ya habían traído datos de Salud, se deja activado
+  if (raw && raw.settings && raw.settings.health === undefined) DB.settings.health = Object.keys(DB.sleep || {}).length > 0;
 }
 function save() {
   try { localStorage.setItem(KEY, JSON.stringify(DB)); }
-  catch (e) { toast('⚠️ No se pudo guardar: ' + e.message); }
+  catch (e) { toast('No se pudo guardar: ' + e.message); }
 }
 
 /* ---------- Utilidades de fecha ---------- */
@@ -352,7 +363,10 @@ const EMOS = [
   ['verguenza', '😳', 'Vergüenza'], ['pesadilla', '😱', 'Pesadilla']
 ];
 const EMO = Object.fromEntries(EMOS.map(([id, e, n]) => [id, { e, n }]));
-const LUCID = { si: 'Lúcido ✨', casi: 'Casi lúcido', no: 'No lúcido' };
+const LUCID = { si: 'Lúcido', casi: 'Casi lúcido', no: 'No lúcido' };
+const KIND = { olvido: 'No recordé el sueño', nada: 'Noche sin sueños' };
+const isReal = (d) => !!d && !d.kind;
+const realCount = () => Object.values(DB.dreams).filter(isReal).length;
 const ST = {
   w: { n: 'Despierto', c: '#e2e8f0' }, r: { n: 'REM', c: '#38bdf8' },
   l: { n: 'Ligero', c: '#3b82f6' }, d: { n: 'Profundo', c: '#6366f1' }, a: { n: 'Dormido', c: '#60a5fa' }
@@ -365,6 +379,8 @@ const ICON = {
   search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
   edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
   heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>',
+  moon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 13.2A8.5 8.5 0 1 1 10.8 3.5a6.6 6.6 0 0 0 9.7 9.7z"/></svg>',
+  spark: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/></svg>',
   chev: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>'
 };
 const TIPS = [
@@ -419,7 +435,7 @@ function wakeInfo(k) {
   return null;
 }
 function phase() {
-  const n = Object.keys(DB.dreams).length;
+  const n = realCount();
   if (n < 14) return { i: 1, name: 'Fase 1 · Recordar', txt: `Objetivo: apuntar cada mañana y recordar más. Llevas ${n} de 14 sueños para pasar a la fase 2.` };
   if (n < 30) return { i: 2, name: 'Fase 2 · Intención', txt: `Ya recuerdas mejor. Ahora: MILD cada noche y atento a tus señales. ${n}/30 para la fase 3.` };
   return { i: 3, name: 'Fase 3 · Potenciar', txt: 'Añade WBTB en noches sin clase. Sigue apuntando: es lo que sostiene todo.' };
@@ -519,8 +535,9 @@ function parseHealth(text) {
     g.items.push(x); if (x.e > g.end) g.end = x.e;
   }
   const sleepMin = (gr) => gr.items.filter((x) => x.st !== 'w').reduce((a, x) => a + (x.e - x.s), 0);
-  groups.sort((a, b) => sleepMin(b) - sleepMin(a) || b.end - a.end);
-  const G = groups[0];
+  // La noche más reciente con al menos 2 h de sueño (no la más larga)
+  const nights = groups.filter((gr) => sleepMin(gr) >= 120 * 6e4);
+  const G = (nights.length ? nights : groups).sort((a, b) => b.end - a.end)[0];
   const t0 = new Date(Math.floor(G.start / 6e4) * 6e4), n = Math.ceil((G.end - t0) / 6e4);
   if (n > 20 * 60) return { error: 'Los datos abarcan demasiadas horas. Revisa que el Atajo busque solo el último día.' };
   const PRI = { r: 6, d: 6, l: 6, w: 5, a: 4 };
@@ -558,7 +575,7 @@ function confirmSheet(title, text, okLabel, onOk, danger = true) {
 function celebrate(text = '¡Sueño guardado!') {
   const b = document.createElement('div'); b.className = 'burst';
   for (let i = 0; i < 26; i++) { const a = (i / 26) * Math.PI * 2, r = 90 + Math.random() * 90; const p = document.createElement('i'); p.style.setProperty('--x', Math.cos(a) * r + 'px'); p.style.setProperty('--y', Math.sin(a) * r + 'px'); p.style.animationDelay = Math.random() * 0.12 + 's'; if (i % 3 === 0) p.style.background = '#7dd3fc'; b.appendChild(p); }
-  const m = document.createElement('div'); m.className = 'saved-msg'; m.innerHTML = `<div>🌙</div><b>${text}</b>`;
+  const m = document.createElement('div'); m.className = 'saved-msg'; m.innerHTML = `<div class="mini-moon"></div><b>${text}</b>`;
   document.body.append(b, m); setTimeout(() => { b.remove(); m.remove(); }, 1400);
 }
 function ring(p, size = 58) { const r = 24, c = 2 * Math.PI * r; return `<svg viewBox="0 0 58 58"><circle cx="29" cy="29" r="${r}" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="6"/><circle cx="29" cy="29" r="${r}" fill="none" stroke="url(#rg)" stroke-width="6" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - p)}" style="transition:stroke-dashoffset 1s"/><defs><linearGradient id="rg"><stop offset="0" stop-color="#7dd3fc"/><stop offset="1" stop-color="#818cf8"/></linearGradient></defs></svg>`; }
@@ -568,24 +585,21 @@ const header = (title, sub, back) => `<header class="top">${back ? `<button clas
    PANTALLAS
    ========================================================= */
 function renderHome() {
-  const k = dkey(), dr = DB.dreams[k], sl = DB.sleep[k], s = streak(), h = new Date().getHours();
+  const k = dkey(), dr = DB.dreams[k], s = streak(), h = new Date().getHours();
   const greet = h < 6 ? 'Buenas noches' : h < 13 ? 'Buenos días' : h < 21 ? 'Buenas tardes' : 'Buenas noches';
   let week = '';
-  for (let i = 6; i >= 0; i--) { const d = addDays(new Date(), -i), kk = dkey(d), x = DB.dreams[kk]; week += `<div><i class="${x ? (x.lucid === 'si' ? 'on lu' : 'on') : ''} ${i === 0 ? 'today' : ''}"></i>${DIAS_C[d.getDay()]}</div>`; }
+  for (let i = 6; i >= 0; i--) { const d = addDays(new Date(), -i), kk = dkey(d), x = DB.dreams[kk]; week += `<div><i class="${x ? (x.kind ? 'none' : x.lucid === 'si' ? 'on lu' : 'on') : ''} ${i === 0 ? 'today' : ''}"></i>${DIAS_C[d.getDay()]}</div>`; }
   const tasks = tasksFor(k), done = tasks.filter((t) => taskDone(k, t.id)).length;
   const tip = TIPS[Math.floor(Date.now() / 864e5) % TIPS.length];
-  const today = dr
-    ? `<div class="card today-done" data-act="go" data-to="#/sueno/${k}"><div class="check">${dr.lucid === 'si' ? '✨' : '✓'}</div><div style="flex:1;min-width:0"><div class="muted small">Sueño de hoy apuntado</div><h2>${esc(dr.title)}</h2><p class="muted small clamp" style="margin:0">${esc(dr.text)}</p></div></div>`
-    : `<div class="card cta" data-act="go" data-to="#/nuevo"><div class="orb lg">${ICON.mic}</div><h2>¿Qué has soñado?</h2><p>Toca y dicta antes de que se te olvide</p></div>`;
-  const sleepBlock = sl
-    ? `<div class="card" data-act="go" data-to="${dr ? '#/sueno/' + k : '#/nuevo'}"><h3>${ICON.heart.replace('<svg', '<svg width="17" height="17"')} Última noche</h3><div class="sleep-head"><div class="big">${dur(sl.total)}</div><div class="muted small">${hm(sl.bed)} → ${hm(sl.wake)}</div></div>${hypno(sl, true)}<div class="row wrap" style="gap:12px;margin-top:6px">${(sl.hasStages ? ['r', 'd', 'l'] : ['a']).map((c) => `<span class="small muted"><i class="dot" style="background:${ST[c].c}"></i>${ST[c].n} ${dur(sl.st[c] || 0)}</span>`).join('')}</div></div>`
-    : `<div class="card"><h3>${ICON.heart.replace('<svg', '<svg width="17" height="17"')} Última noche</h3><p class="muted small" style="margin:0 0 12px">Trae tus horas y fases de sueño desde Salud (Zepp).</p><button class="btn block" data-act="importHealth">Importar de Salud</button></div>`;
-  return `<section class="hello"><h1>${greet}, ${esc(DB.name || '')} 🌙</h1><p>${longDate(k)}</p></section>
+  let today;
+  if (!dr) today = `<div class="card cta" data-act="go" data-to="#/nuevo"><div class="orb lg">${ICON.mic}</div><h2>¿Qué has soñado?</h2><p>Toca y dicta antes de que se te olvide</p></div>`;
+  else if (dr.kind) today = `<div class="card today-done" data-act="go" data-to="#/nuevo/${k}"><div class="check none">${ICON.moon}</div><div style="flex:1;min-width:0"><div class="muted small">Hoy</div><h2>${KIND[dr.kind]}</h2><p class="muted small" style="margin:0">Si lo recuerdas más tarde, toca aquí para añadirlo.</p></div></div>`;
+  else today = `<div class="card today-done" data-act="go" data-to="#/sueno/${k}"><div class="check">${dr.lucid === 'si' ? ICON.spark : ICON.check}</div><div style="flex:1;min-width:0"><div class="muted small">Sueño de hoy apuntado</div><h2>${esc(dr.title)}</h2><p class="muted small clamp" style="margin:0">${esc(dr.text)}</p></div></div>`;
+  return `<section class="hello"><h1>${greet}${DB.name ? ', ' + esc(DB.name) : ''}</h1><p>${longDate(k)}</p></section>
   ${today}
-  <div class="card"><div class="streak"><div class="num">${s}</div><div><div style="font-weight:700">${s === 1 ? 'día seguido' : 'días seguidos'}</div><div class="muted small">${dr || s === 0 ? 'Mejor racha: ' + bestStreak() : '¡Apunta hoy para no perder la racha!'}</div></div></div><div class="week">${week}</div></div>
-  ${sleepBlock}
+  <div class="card"><div class="streak"><div class="num">${s}</div><div><div style="font-weight:700">${s === 1 ? 'día seguido' : 'días seguidos'}</div><div class="muted small">${dr || s === 0 ? 'Mejor racha: ' + bestStreak() : 'Apunta hoy para no perder la racha'}</div></div></div><div class="week">${week}</div></div>
   <div class="card row" data-act="go" data-to="#/lucidos/plan" style="cursor:pointer"><div class="ringwrap">${ring(done / tasks.length)}<b>${done}/${tasks.length}</b></div><div style="flex:1"><div style="font-weight:700">Plan de hoy</div><div class="muted small">${phase().name}</div></div><span class="dim">${ICON.chev}</span></div>
-  <div class="card tip"><div class="e">${tip[0]}</div><div><div class="muted small" style="font-weight:700;margin-bottom:2px">Consejo del día</div><div class="small">${tip[1]}</div></div></div>`;
+  <div class="card tip"><div class="e">${ICON.spark}</div><div><div class="muted small" style="font-weight:700;margin-bottom:2px">Consejo del día</div><div class="small">${tip[1]}</div></div></div>`;
 }
 
 /* ---- Nuevo / editar sueño ---- */
@@ -593,31 +607,25 @@ let F = null; // formulario actual
 function renderNew(arg) {
   const k = arg && /^\d{4}-\d{2}-\d{2}$/.test(arg) ? arg : dkey();
   const ex = DB.dreams[k];
-  if (ex) F = { date: k, title: ex.title, text: ex.text, lucid: ex.lucid, emotions: [...(ex.emotions || [])], recordedAt: ex.recordedAt, editing: true };
+  if (isReal(ex)) F = { date: k, title: ex.title, text: ex.text, lucid: ex.lucid, emotions: [...(ex.emotions || [])], recordedAt: ex.recordedAt, editing: true };
+  else if (ex) F = { date: k, title: '', text: '', lucid: null, emotions: [], recordedAt: ex.recordedAt, editing: false, wasNone: true };
   else if (DB.draft && DB.draft.date === k) F = Object.assign({ emotions: [] }, DB.draft, { editing: false });
   else F = { date: k, title: '', text: '', lucid: null, emotions: [], recordedAt: null, editing: false };
-  const isToday = k === dkey();
-  const sl = DB.sleep[k];
   return `${header(F.editing ? 'Editar sueño' : 'Nuevo sueño', longDate(k), true)}
-  <div class="meta"><span class="pill">📅 Sueño del ${shortDate(k)}</span><span class="pill" id="wakePill">⏰ ${wakeLabel(k)}</span></div>
+  <div class="meta"><span class="pill">Sueño del ${shortDate(k)}</span><span class="pill" id="wakePill">${wakeLabel(k)}</span></div>
   <div class="rec-area"><button class="orb lg" id="micBtn" data-act="mic" aria-label="Dictar"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span id="micIco">${ICON.mic}</span></button>
     <div class="bars" id="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <p class="status" id="micStatus">Toca el micro y cuéntalo todo</p></div>
   <label class="field"><span>Tu sueño</span><textarea id="txt" placeholder="Estaba en…">${esc(F.text)}</textarea></label>
   <p class="tiny dim" style="margin:-6px 4px 16px">Si el dictado de la app falla, toca el texto y usa el 🎤 del teclado del iPhone.</p>
   <label class="field"><span>Nombre del sueño</span><input class="input" id="title" maxlength="80" placeholder="Ej: La casa bajo el mar" value="${esc(F.title)}"></label>
-  <div class="field"><span>¿Fue lúcido?</span><div class="seg" id="lucidSeg">${['si', 'casi', 'no'].map((v) => `<button data-act="lucid" data-v="${v}" class="${F.lucid === v ? 'on' : ''}">${{ si: 'Sí ✨', casi: 'Casi', no: 'No' }[v]}</button>`).join('')}</div></div>
-  <div class="field"><span>Emoción</span><div class="chips">${EMOS.map(([id, e, n]) => `<button class="chip ${F.emotions.includes(id) ? 'on' : ''}" data-act="emo" data-v="${id}">${e} ${n}</button>`).join('')}</div></div>
-  <div class="card" id="newSleep">${newSleepInner(k)}</div>
+  <div class="field"><span>¿Fue lúcido?</span><div class="seg" id="lucidSeg">${['si', 'casi', 'no'].map((v) => `<button data-act="lucid" data-v="${v}" class="${F.lucid === v ? 'on' : ''}">${{ si: 'Sí', casi: 'Casi', no: 'No' }[v]}</button>`).join('')}</div></div>
+  <div class="field"><span>Emoción</span><div class="chips">${EMOS.map(([id, e, n]) => `<button class="chip ${F.emotions.includes(id) ? 'on' : ''}" data-act="emo" data-v="${id}">${n}</button>`).join('')}</div></div>
   <button class="btn primary big block" data-act="saveDream">${F.editing ? 'Guardar cambios' : 'Guardar sueño'}</button>
-  ${F.editing ? '' : `<p class="tiny dim" style="text-align:center;margin-top:10px">Se guarda un borrador automático mientras escribes.</p>`}`;
+  ${F.editing ? '' : `<button class="btn ghost block" data-act="noDream" style="margin-top:10px;border-color:var(--stroke);color:var(--muted)">No recuerdo ningún sueño</button>
+  <p class="tiny dim" style="text-align:center;margin-top:10px">Se guarda un borrador automático mientras escribes.</p>`}`;
 }
 function wakeLabel(k) { const w = wakeInfo(k); return w ? `Despertar ${w.t} · ${w.src}` : 'Despertar: al empezar a dictar'; }
-function newSleepInner(k) {
-  const sl = DB.sleep[k];
-  if (sl) return `<div class="row between"><div><div style="font-weight:700">${dur(sl.total)} dormido</div><div class="muted small">${hm(sl.bed)} → ${hm(sl.wake)}${sl.hasStages ? ` · REM ${dur(sl.st.r || 0)}` : ''}</div></div><span class="pill">Salud ✓</span></div>`;
-  return `<div class="row between"><div><div style="font-weight:700">Datos de sueño</div><div class="muted small">Desde Salud (Zepp)</div></div><button class="btn" data-act="importHealth">Importar</button></div>`;
-}
 function afterNew() {
   const ta = $('#txt'), ti = $('#title');
   const autosize = () => { ta.style.height = 'auto'; ta.style.height = Math.max(170, ta.scrollHeight + 2) + 'px'; };
@@ -628,7 +636,7 @@ function afterNew() {
   rec.autosize = autosize;
 }
 function markRecorded() {
-  if (!F.recordedAt && F.date === dkey()) { F.recordedAt = new Date().toISOString(); const p = $('#wakePill'); if (p && !DB.sleep[F.date]) p.textContent = `⏰ Despertar ${hm(F.recordedAt)} · al empezar a dictar`; }
+  if (!F.recordedAt && F.date === dkey()) { F.recordedAt = new Date().toISOString(); const p = $('#wakePill'); if (p && !DB.sleep[F.date]) p.textContent = `Despertar ${hm(F.recordedAt)} · al empezar a dictar`; }
 }
 let draftT;
 function draftSoon() { clearTimeout(draftT); draftT = setTimeout(saveDraft, 400); }
@@ -637,15 +645,33 @@ function saveDream() {
   stopRec();
   const ta = $('#txt'), ti = $('#title');
   F.text = ta.value.trim(); F.title = ti.value.trim();
-  if (!F.text) { ta.classList.add('shake'); setTimeout(() => ta.classList.remove('shake'), 450); toast('Cuenta tu sueño primero ✍️'); return; }
+  if (!F.text) { ta.classList.add('shake'); setTimeout(() => ta.classList.remove('shake'), 450); toast('Cuenta tu sueño primero'); return; }
   if (!F.title) { ti.classList.add('shake'); setTimeout(() => ti.classList.remove('shake'), 450); ti.focus(); toast('Ponle un nombre al sueño'); return; }
   const prev = DB.dreams[F.date] || {};
   DB.dreams[F.date] = { date: F.date, title: F.title, text: F.text, lucid: F.lucid, emotions: F.emotions, recordedAt: F.recordedAt || prev.recordedAt || null, createdAt: prev.createdAt || new Date().toISOString(), updatedAt: new Date().toISOString() };
   if (DB.draft && DB.draft.date === F.date) DB.draft = null;
   save();
-  celebrate(F.lucid === 'si' ? '¡Sueño lúcido! ✨' : F.editing ? 'Cambios guardados' : '¡Sueño guardado!');
-  const k = F.date;
-  setTimeout(() => go('#/sueno/' + k, true), 650);
+  celebrate(F.lucid === 'si' ? '¡Sueño lúcido!' : F.editing ? 'Cambios guardados' : '¡Sueño guardado!');
+  const k = F.date, wasEditing = F.editing;
+  setTimeout(() => {
+    go('#/sueno/' + k, true);
+    // Con Salud activado, trae la noche automáticamente al guardar el sueño de hoy
+    if (!wasEditing && DB.settings.health && DB.settings.autoImport && k === dkey() && !DB.sleep[k]) setTimeout(importHealth, 700);
+  }, 650);
+}
+function noDream() {
+  const k = F.date, typed = ($('#txt') || {}).value;
+  openSheet(`<h2>¿Qué ha pasado esta noche?</h2><p class="small">Registrarlo también cuenta para tu racha: el hábito es abrir la app cada mañana. Si luego lo recuerdas, podrás añadirlo.</p>
+    ${typed && typed.trim() ? '<p class="small" style="color:var(--warn)">Se descartará lo que has escrito.</p>' : ''}
+    <div style="display:grid;gap:10px;margin-top:14px"><button class="btn block big" data-act="saveNone" data-v="olvido">No me acuerdo de lo que soñé</button><button class="btn block big" data-act="saveNone" data-v="nada">No he soñado nada</button><button class="btn ghost block" data-act="closeSheet">Cancelar</button></div>`);
+}
+function saveNone(kind) {
+  stopRec();
+  const k = F.date, prev = DB.dreams[k] || {};
+  DB.dreams[k] = { date: k, kind, title: '', text: '', lucid: null, emotions: [], recordedAt: F.recordedAt || prev.recordedAt || (k === dkey() ? new Date().toISOString() : null), createdAt: prev.createdAt || new Date().toISOString(), updatedAt: new Date().toISOString() };
+  if (DB.draft && DB.draft.date === k) DB.draft = null;
+  save(); closeSheet(); celebrate('Registrado');
+  setTimeout(() => go('#/inicio', true), 650);
 }
 
 /* ---- Dictado por voz ---- */
@@ -659,7 +685,7 @@ function setMicUI(on, msg) {
 }
 function startRec() {
   if (!SR) {
-    openSheet(`<h2>Dicta con el teclado 🎤</h2><p>Este navegador no deja que la app use el dictado directamente. Haz esto: toca el cuadro de texto y pulsa el <b>micrófono del teclado</b> del iPhone (abajo a la derecha). Transcribe muy bien y no inventa palabras.</p><button class="btn primary block" data-act="focusText">Entendido</button>`);
+    openSheet(`<h2>Dicta con el teclado</h2><p>Este navegador no deja que la app use el dictado directamente. Haz esto: toca el cuadro de texto y pulsa el <b>micrófono del teclado</b> del iPhone (abajo a la derecha). Transcribe muy bien y no inventa palabras.</p><button class="btn primary block" data-act="focusText">Entendido</button>`);
     return;
   }
   const ta = $('#txt');
@@ -706,9 +732,9 @@ function stopRec() { if (!rec.on) return; rec.on = false; try { rec.r && rec.r.s
 /* ---- Diario ---- */
 let diaryQ = '', diaryF = 'todos';
 function renderDiary() {
-  return `${header('Diario', Object.keys(DB.dreams).length + ' sueños guardados')}
+  return `${header('Diario', realCount() + (realCount() === 1 ? ' sueño guardado' : ' sueños guardados'))}
   <div class="search">${ICON.search}<input class="input" id="q" type="search" placeholder="Buscar en tus sueños" value="${esc(diaryQ)}"></div>
-  <div class="filters">${[['todos', 'Todos'], ['si', '✨ Lúcidos'], ['casi', 'Casi lúcidos'], ['pesadilla', '😱 Pesadillas'], ['salud', '💤 Con datos de Salud']].map(([v, n]) => `<button class="chip ${diaryF === v ? 'on' : ''}" data-act="filter" data-v="${v}">${n}</button>`).join('')}</div>
+  <div class="filters">${[['todos', 'Todos'], ['si', 'Lúcidos'], ['casi', 'Casi lúcidos'], ['pesadilla', 'Pesadillas'], ['ninguno', 'Sin recuerdo']].map(([v, n]) => `<button class="chip ${diaryF === v ? 'on' : ''}" data-act="filter" data-v="${v}">${n}</button>`).join('')}</div>
   <div id="list">${diaryList()}</div>`;
 }
 function diaryList() {
@@ -718,18 +744,20 @@ function diaryList() {
     const d = DB.dreams[k];
     if (diaryF === 'si' || diaryF === 'casi') { if (d.lucid !== diaryF) return false; }
     if (diaryF === 'pesadilla' && !(d.emotions || []).includes('pesadilla')) return false;
-    if (diaryF === 'salud' && !DB.sleep[k]) return false;
-    return !q || norm(d.title + ' ' + d.text).includes(q);
+    if (diaryF === 'ninguno') return !!d.kind;
+    return !q || norm((d.kind ? KIND[d.kind] : d.title) + ' ' + d.text).includes(q);
   });
   if (!ks.length) return Object.keys(DB.dreams).length
-    ? `<div class="empty"><span class="big">🔭</span>No hay sueños que coincidan.</div>`
-    : `<div class="empty"><span class="big">📖</span>Tu diario está vacío.<br>Mañana al despertar, toca el micro y cuéntalo.</div>`;
+    ? `<div class="empty"><span class="big">${ICON.search}</span>No hay sueños que coincidan.</div>`
+    : `<div class="empty"><span class="big">${ICON.moon}</span>Tu diario está vacío.<br>Mañana al despertar, toca el micro y cuéntalo.</div>`;
   let out = '', month = '';
   for (const k of ks) {
     const d = DB.dreams[k], dt = fromKey(k), m = cap(MESES[dt.getMonth()]) + ' ' + dt.getFullYear();
     if (m !== month) { out += `<div class="section-title">${m}</div>`; month = m; }
-    const sl = DB.sleep[k];
-    out += `<div class="card dream" data-act="go" data-to="#/sueno/${k}"><div class="datebox"><b>${dt.getDate()}</b><span>${MESES[dt.getMonth()].slice(0, 3)}</span></div><div style="flex:1;min-width:0"><h3>${esc(d.title)}</h3><p class="clamp">${esc(d.text)}</p><div class="tags">${d.lucid === 'si' ? '<span class="pill lucid">✨ Lúcido</span>' : d.lucid === 'casi' ? '<span class="pill casi">Casi</span>' : ''}${(d.emotions || []).map((e) => EMO[e] ? `<span>${EMO[e].e}</span>` : '').join('')}<span>${cap(DIAS[dt.getDay()]).slice(0, 3)} ${shortDate(k)}</span>${sl ? `<span>· 💤 ${dur(sl.total)}</span>` : ''}</div></div></div>`;
+    const sl = DB.sleep[k], db = `<div class="datebox"><b>${dt.getDate()}</b><span>${MESES[dt.getMonth()].slice(0, 3)}</span></div>`;
+    if (d.kind) { out += `<div class="card dream none" data-act="go" data-to="#/sueno/${k}">${db}<div style="flex:1;min-width:0"><h3>${KIND[d.kind]}</h3><div class="tags"><span>${cap(DIAS[dt.getDay()])} ${shortDate(k)}</span></div></div></div>`; continue; }
+    const emos = (d.emotions || []).filter((e) => EMO[e]).map((e) => EMO[e].n).join(' · ');
+    out += `<div class="card dream" data-act="go" data-to="#/sueno/${k}">${db}<div style="flex:1;min-width:0"><h3>${esc(d.title)}</h3><p class="clamp">${esc(d.text)}</p><div class="tags">${d.lucid === 'si' ? '<span class="pill lucid">Lúcido</span>' : d.lucid === 'casi' ? '<span class="pill casi">Casi</span>' : ''}<span>${cap(DIAS[dt.getDay()]).slice(0, 3)} ${shortDate(k)}${emos ? ' · ' + emos : ''}${sl ? ' · ' + dur(sl.total) + ' dormido' : ''}</span></div></div></div>`;
   }
   return out;
 }
@@ -747,14 +775,18 @@ function highlight(text) {
 }
 function renderDetail(k) {
   const d = DB.dreams[k];
-  if (!d) return `${header('Sueño', '', true)}<div class="empty"><span class="big">🌫️</span>Este sueño ya no existe.</div>`;
+  if (!d) return `${header('Sueño', '', true)}<div class="empty"><span class="big">${ICON.moon}</span>Este sueño ya no existe.</div>`;
   const sl = DB.sleep[k], dt = fromKey(k);
+  const sleepPart = sl ? sleepCard(sl) : DB.settings.health && k === dkey() ? `<div class="card row between"><div><div style="font-weight:700">Datos de sueño</div><div class="muted small">Aún no hay datos de Salud de hoy</div></div><button class="btn" data-act="importHealth">Traer</button></div>` : '';
+  if (d.kind) return `${header(KIND[d.kind], cap(DIAS[dt.getDay()]) + ' ' + fullDate(k), true)}
+  <div class="card"><p class="muted" style="margin:0 0 14px">Registraste esta mañana sin sueño. Si lo recuerdas ahora, puedes añadirlo.</p><button class="btn primary block" data-act="go" data-to="#/nuevo/${k}">Ahora lo recuerdo</button></div>
+  ${sleepPart}<button class="btn danger block" data-act="delDream" data-k="${k}" style="margin-top:6px">Borrar registro</button>`;
   const wake = sl ? `Despertar ${hm(sl.wake)} (pulsera)${d.recordedAt ? ` · dictado a las ${hm(d.recordedAt)}` : ''}` : d.recordedAt ? `Despertar ${hm(d.recordedAt)} (al empezar a dictar)` : '';
   return `<header class="top"><button class="icon-btn" data-act="back" aria-label="Volver">${ICON.back}</button><div style="flex:1"></div><button class="icon-btn" data-act="go" data-to="#/nuevo/${k}" aria-label="Editar">${ICON.edit}</button></header>
   <section class="detail"><h1>${esc(d.title)}</h1><div class="when">${cap(DIAS[dt.getDay()])} ${fullDate(k)}${wake ? '<br>' + wake : ''}</div>
-  <div class="row wrap" style="gap:7px;margin-bottom:16px">${d.lucid ? `<span class="pill ${d.lucid === 'si' ? 'lucid' : d.lucid === 'casi' ? 'casi' : ''}">${LUCID[d.lucid]}</span>` : ''}${(d.emotions || []).map((e) => EMO[e] ? `<span class="pill">${EMO[e].e} ${EMO[e].n}</span>` : '').join('')}</div></section>
+  <div class="row wrap" style="gap:7px;margin-bottom:16px">${d.lucid ? `<span class="pill ${d.lucid === 'si' ? 'lucid' : d.lucid === 'casi' ? 'casi' : ''}">${LUCID[d.lucid]}</span>` : ''}${(d.emotions || []).map((e) => EMO[e] ? `<span class="pill">${EMO[e].n}</span>` : '').join('')}</div></section>
   <div class="card"><div class="dream-text">${highlight(d.text)}</div></div>
-  ${sl ? sleepCard(sl) : `<div class="card"><h3>${ICON.heart.replace('<svg', '<svg width="17" height="17"')} Datos del sueño</h3><p class="muted small" style="margin:0 0 12px">Aún no hay datos de Salud para este día.</p>${k === dkey() ? '<button class="btn block" data-act="importHealth">Importar de Salud</button>' : '<p class="tiny dim" style="margin:0">El Atajo trae la última noche, así que solo se puede importar el mismo día.</p>'}</div>`}
+  ${sleepPart}
   <button class="btn danger block" data-act="delDream" data-k="${k}" style="margin-top:6px">Borrar sueño</button>`;
 }
 
@@ -771,11 +803,11 @@ function lucidPlan() {
   let hist = '';
   for (let i = 6; i >= 0; i--) { const d = addDays(new Date(), -i), kk = dkey(d), ts = tasksFor(kk), dn = ts.filter((t) => taskDone(kk, t.id)).length; const p = dn / ts.length; hist += `<div><i style="background:rgba(125,211,252,${0.06 + p * 0.75});${i === 0 ? 'outline:2px solid rgba(125,211,252,.5);outline-offset:2px' : ''}"></i>${DIAS_C[d.getDay()]}</div>`; }
   return `<div class="card phase"><div class="row between"><b class="round" style="font-size:18px">${ph.name}</b><span class="pill">Nivel principiante</span></div><p class="small" style="margin:8px 0 0;color:#c9d6f0">${ph.txt}</p><div class="lvl">${[1, 2, 3].map((i) => `<i class="${i <= ph.i ? 'on' : ''}"></i>`).join('')}</div></div>
-  <div class="card"><h3>✅ Hoy · ${longDate(k)}</h3>${tasks.map((t) => {
+  <div class="card"><h3>Hoy · ${longDate(k)}</h3>${tasks.map((t) => {
     const on = taskDone(k, t.id);
-    return `<div class="task"><button class="tcheck ${on ? 'on' : ''}" data-act="task" data-id="${t.id}" ${t.auto ? 'data-auto="1"' : ''} aria-label="Marcar">${ICON.check}</button><div style="flex:1"><div class="when">${t.icon} ${t.when}</div><div class="tt">${t.t}</div><details><summary>¿Cómo se hace? ›</summary><div class="how">${t.d}</div>${t.src ? `<div class="src">${t.src}</div>` : ''}</details></div></div>`;
+    return `<div class="task"><button class="tcheck ${on ? 'on' : ''}" data-act="task" data-id="${t.id}" ${t.auto ? 'data-auto="1"' : ''} aria-label="Marcar">${ICON.check}</button><div style="flex:1"><div class="when">${t.when}</div><div class="tt">${t.t}</div><details><summary>¿Cómo se hace? ›</summary><div class="how">${t.d}</div>${t.src ? `<div class="src">${t.src}</div>` : ''}</details></div></div>`;
   }).join('')}</div>
-  <div class="card"><h3>📆 Últimos 7 días</h3><div class="week">${hist}</div></div>`;
+  <div class="card"><h3>Últimos 7 días</h3><div class="week">${hist}</div></div>`;
 }
 const SOURCES = [
   ['Aspy, D. J. (2020). Findings From the International Lucid Dream Induction Study. Frontiers in Psychology, 11:1746.', 'https://doi.org/10.3389/fpsyg.2020.01746'],
@@ -797,7 +829,7 @@ function lucidTech() {
     ['🤲', 'Cuando te vuelvas lúcido', 'Que no se escape', `<ul><li>Calma: emocionarte demasiado suele despertarte.</li><li>Si la imagen se desvanece, frótate las manos o gira sobre ti mismo; LaBerge propone girar para mantenerte en el sueño.</li><li>Ten un plan sencillo pensado de antemano (volar, hablar con alguien…).</li><li>No esperes controlarlo todo: se estima que el control deliberado es posible en aproximadamente un tercio de los sueños lúcidos (citado en Aspy, 2020).</li></ul><p class="src">Fuentes: LaBerge y Rheingold (1990); Aspy (2020).</p>`]
   ];
   return T.map(([e, t, s, b]) => `<details class="card tech"><summary><span class="e">${e}</span><div><h3>${t}</h3><p>${s}</p></div><span class="chev">${ICON.chev}</span></summary><div class="body">${b}</div></details>`).join('') +
-    `<div class="card"><h3>📚 Fuentes</h3>${SOURCES.map(([t, u]) => `<p class="small" style="margin:0 0 10px;color:#c9d6f0">${t}${u ? ` <a href="${u}" target="_blank" rel="noopener">Ver estudio</a>` : ''}</p>`).join('')}</div>`;
+    `<div class="card"><h3>Fuentes</h3>${SOURCES.map(([t, u]) => `<p class="small" style="margin:0 0 10px;color:#c9d6f0">${t}${u ? ` <a href="${u}" target="_blank" rel="noopener">Ver estudio</a>` : ''}</p>`).join('')}</div>`;
 }
 function wordStats() {
   const df = new Map(), forms = new Map();
@@ -815,19 +847,19 @@ function wordStats() {
     .map(([n, c]) => ({ n, c, w: [...forms.get(n).entries()].sort((a, b) => b[1] - a[1])[0][0] }));
 }
 function lucidSigns() {
-  const words = wordStats(), signsN = DB.signs.map(norm), total = Object.keys(DB.dreams).length;
+  const words = wordStats(), signsN = DB.signs.map(norm), total = realCount();
   const emoCount = {}; Object.values(DB.dreams).forEach((d) => (d.emotions || []).forEach((e) => (emoCount[e] = (emoCount[e] || 0) + 1)));
   const emoArr = Object.entries(emoCount).sort((a, b) => b[1] - a[1]); const maxE = emoArr[0] ? emoArr[0][1] : 1;
-  return `<div class="card"><h3>⭐ Tus señales de sueño</h3>${DB.signs.length ? `<div class="chips">${DB.signs.map((s, i) => `<span class="sign">${esc(s)}<button data-act="delSign" data-i="${i}" aria-label="Quitar">✕</button></span>`).join('')}</div><p class="tiny dim" style="margin:12px 0 0">Se resaltan en tus sueños. Cuando veas una de estas cosas despierto, pregúntate: "¿estoy soñando?".</p>` : '<p class="muted small" style="margin:0">Aún no has marcado ninguna. Añádelas abajo o escríbelas tú.</p>'}
+  return `<div class="card"><h3>Tus señales de sueño</h3>${DB.signs.length ? `<div class="chips">${DB.signs.map((s, i) => `<span class="sign">${esc(s)}<button data-act="delSign" data-i="${i}" aria-label="Quitar">✕</button></span>`).join('')}</div><p class="tiny dim" style="margin:12px 0 0">Se resaltan en tus sueños. Cuando veas una de estas cosas despierto, pregúntate: "¿estoy soñando?".</p>` : '<p class="muted small" style="margin:0">Aún no has marcado ninguna. Añádelas abajo o escríbelas tú.</p>'}
   <div class="row" style="margin-top:12px"><input class="input" id="newSign" placeholder="Añadir señal (ej: colegio)" style="font-size:16px;padding:11px 13px"><button class="btn" data-act="addSign">Añadir</button></div></div>
-  <div class="card"><h3>🔁 Se repite en tus sueños</h3>${words.length ? words.map((x) => `<div class="wordrow"><span class="w">${esc(x.w)}</span><span class="c">en ${x.c} de ${total} sueños</span>${signsN.includes(x.n) ? '<span class="pill">✓ señal</span>' : `<button class="btn" style="padding:7px 11px;font-size:13px" data-act="markSign" data-w="${esc(x.w)}">+ Señal</button>`}</div>`).join('') : `<p class="muted small" style="margin:0">Cuando lleves unos cuantos sueños, aquí aparecerán las palabras que se repiten entre ellos.</p>`}</div>
-  <div class="card"><h3>💭 Emociones más frecuentes</h3>${emoArr.length ? emoArr.map(([e, c]) => `<div class="hbar"><span>${EMO[e].e} ${EMO[e].n}</span><div class="bar"><i style="--w:${(c / maxE) * 100}%"></i></div><span class="muted small" style="text-align:right">${c}</span></div>`).join('') : '<p class="muted small" style="margin:0">Marca emociones al guardar tus sueños.</p>'}</div>`;
+  <div class="card"><h3>Se repite en tus sueños</h3>${words.length ? words.map((x) => `<div class="wordrow"><span class="w">${esc(x.w)}</span><span class="c">en ${x.c} de ${total} sueños</span>${signsN.includes(x.n) ? '<span class="pill">Señal</span>' : `<button class="btn" style="padding:7px 11px;font-size:13px" data-act="markSign" data-w="${esc(x.w)}">+ Señal</button>`}</div>`).join('') : `<p class="muted small" style="margin:0">Cuando lleves unos cuantos sueños, aquí aparecerán las palabras que se repiten entre ellos.</p>`}</div>
+  <div class="card"><h3>Emociones más frecuentes</h3>${emoArr.length ? emoArr.map(([e, c]) => `<div class="hbar"><span>${EMO[e].n}</span><div class="bar"><i style="--w:${(c / maxE) * 100}%"></i></div><span class="muted small" style="text-align:right">${c}</span></div>`).join('') : '<p class="muted small" style="margin:0">Marca emociones al guardar tus sueños.</p>'}</div>`;
 }
 function lucidStats() {
-  const ds = Object.values(DB.dreams), n = ds.length, lu = ds.filter((d) => d.lucid === 'si').length, casi = ds.filter((d) => d.lucid === 'casi').length;
+  const all = Object.values(DB.dreams), ds = all.filter(isReal), none = all.length - ds.length, n = ds.length, lu = ds.filter((d) => d.lucid === 'si').length, casi = ds.filter((d) => d.lucid === 'casi').length;
   // últimas 8 semanas
   const now = new Date(); const monday = addDays(now, -((now.getDay() + 6) % 7)); let cols = '', max = 1; const weeks = [];
-  for (let w = 7; w >= 0; w--) { const st = addDays(monday, -7 * w); let c = 0, l = 0; for (let i = 0; i < 7; i++) { const x = DB.dreams[dkey(addDays(st, i))]; if (x) { c++; if (x.lucid === 'si') l++; } } weeks.push({ st, c, l }); max = Math.max(max, c); }
+  for (let w = 7; w >= 0; w--) { const st = addDays(monday, -7 * w); let c = 0, l = 0; for (let i = 0; i < 7; i++) { const x = DB.dreams[dkey(addDays(st, i))]; if (isReal(x)) { c++; if (x.lucid === 'si') l++; } } weeks.push({ st, c, l }); max = Math.max(max, c); }
   weeks.forEach(({ st, c, l }, i) => { cols += `<div class="col"><span class="v">${c || ''}</span><div class="stack"><div class="b" style="height:${(l / 7) * 100}%;background:linear-gradient(180deg,#a5f3fc,#38bdf8);animation-delay:${i * 0.05}s"></div><div class="b" style="height:${((c - l) / 7) * 100}%;background:linear-gradient(180deg,#60a5fa,#4f46e5);animation-delay:${i * 0.05}s"></div></div><span class="x">${st.getDate()}/${st.getMonth() + 1}</span></div>`; });
   // sueño (Salud) últimas 14 noches
   const sk = Object.keys(DB.sleep).sort().slice(-14), sls = sk.map((k) => DB.sleep[k]);
@@ -840,37 +872,40 @@ function lucidStats() {
     <div class="card"><div class="n">${streak()}</div><div class="l">racha actual · mejor ${bestStreak()}</div></div>
     <div class="card"><div class="n" style="color:var(--accent2)">${lu}</div><div class="l">lúcidos ${n ? '· ' + Math.round((lu / n) * 100) + '%' : ''}</div></div>
     <div class="card"><div class="n">${casi}</div><div class="l">casi lúcidos</div></div></div>
-  <div class="card"><h3>📊 Sueños por semana</h3><div class="chart">${cols}</div><div class="row tiny dim" style="gap:14px;margin-top:8px"><span><i class="dot" style="background:#4f46e5"></i>apuntados</span><span><i class="dot" style="background:#38bdf8"></i>lúcidos</span></div></div>
-  <div class="card"><h3>💤 Tu sueño (Salud${sls.length > 1 ? ', últimas ' + sls.length + ' noches' : ''})</h3>${sls.length ? `<div class="grid2" style="margin-bottom:6px"><div><div class="round" style="font-size:24px;font-weight:700">${dur(avgTot)}</div><div class="muted small">media dormido</div></div><div><div class="round" style="font-size:24px;font-weight:700">${withSt.length ? dur(avgRem) : '—'}</div><div class="muted small">media de REM</div></div></div>${withSt.length ? `<div class="muted small" style="margin-top:10px">Minutos de REM por noche (más claro = noche con lúcido)</div><div class="chart">${remCols}</div>` : ''}` : '<p class="muted small" style="margin:0">Importa tus datos de Salud cada mañana para ver aquí tu duración y tu REM.</p>'}</div>`;
+  <div class="card"><h3>Sueños por semana</h3><div class="chart">${cols}</div><div class="row tiny dim" style="gap:14px;margin-top:8px"><span><i class="dot" style="background:#4f46e5"></i>apuntados</span><span><i class="dot" style="background:#38bdf8"></i>lúcidos</span>${none ? `<span style="margin-left:auto">${none} ${none === 1 ? 'mañana' : 'mañanas'} sin recuerdo</span>` : ''}</div></div>
+  ${DB.settings.health || sls.length ? '' : '<!--'}<div class="card"><h3>Tu sueño (Salud${sls.length > 1 ? ', últimas ' + sls.length + ' noches' : ''})</h3>${sls.length ? `<div class="grid2" style="margin-bottom:6px"><div><div class="round" style="font-size:24px;font-weight:700">${dur(avgTot)}</div><div class="muted small">media dormido</div></div><div><div class="round" style="font-size:24px;font-weight:700">${withSt.length ? dur(avgRem) : '—'}</div><div class="muted small">media de REM</div></div></div>${withSt.length ? `<div class="muted small" style="margin-top:10px">Minutos de REM por noche (más claro = noche con lúcido)</div><div class="chart">${remCols}</div>` : ''}` : '<p class="muted small" style="margin:0">Cuando traigas datos de Salud, aquí verás tu duración y tu REM.</p>'}</div>${DB.settings.health || sls.length ? '' : '-->'}`;
 }
 
 /* ---- Ajustes ---- */
 function renderSettings() {
-  const pin = !!DB.settings.pinHash;
+  const pin = !!DB.settings.pinHash, hl = !!DB.settings.health;
   return `${header('Ajustes', 'Sueños v' + VERSION)}
-  <div class="card"><div class="set-row"><div><div class="t">Tu nombre</div><div class="s">Para el saludo de la mañana</div></div><input class="input" id="nameIn" value="${esc(DB.name)}" style="width:140px;font-size:16px;padding:9px 12px"></div>
+  <div class="card"><div class="set-row"><div><div class="t">Tu nombre</div><div class="s">Para el saludo de la mañana</div></div><input class="input" id="nameIn" value="${esc(DB.name)}" placeholder="Tu nombre" style="width:140px;font-size:16px;padding:9px 12px"></div>
   <div class="set-row"><div><div class="t">Bloqueo con PIN</div><div class="s">${pin ? 'Activado · se pide al abrir' : 'Desactivado'}</div></div>${pin ? '<div class="row"><button class="btn" data-act="pinSet">Cambiar</button><button class="btn danger" data-act="pinOff">Quitar</button></div>' : '<button class="btn primary" data-act="pinSet">Activar</button>'}</div></div>
-  <div class="section-title">Salud · Zepp</div>
-  <div class="card"><div class="set-row"><div><div class="t">Nombre del Atajo</div><div class="s">Tiene que coincidir exactamente</div></div><input class="input" id="scIn" value="${esc(DB.settings.shortcut)}" style="width:150px;font-size:16px;padding:9px 12px"></div>
-  <div class="set-row"><div><div class="t">Probar conexión</div><div class="s">Abre el Atajo y pega los datos</div></div><button class="btn" data-act="importHealth">Probar</button></div>
-  <details style="margin-top:8px"><summary class="muted small" style="cursor:pointer;padding:6px 0">Cómo crear el Atajo (resumen) ›</summary><ol class="steps" style="margin-top:12px">
-    <li>En Zepp: Perfil → Cuentas de terceros/Salud → activa Apple Salud con permiso de <b>Sueño</b>.</li>
+  <div class="section-title">Datos de sueño · opcional</div>
+  <div class="card"><div class="set-row"><div style="padding-right:10px"><div class="t">Usar datos de Salud</div><div class="s">Para Apple Watch, Amazfit/Zepp u otra pulsera que guarde el sueño en Salud. Muestra tus fases bajo cada sueño.</div></div><button class="switch ${hl ? 'on' : ''}" data-act="toggleHealth" aria-label="Usar datos de Salud"></button></div>
+  ${hl ? `<div class="set-row"><div style="padding-right:10px"><div class="t">Traer al guardar un sueño</div><div class="s">Al guardar el sueño de hoy se abre el Atajo solo</div></div><button class="switch ${DB.settings.autoImport ? 'on' : ''}" data-act="toggleAuto" aria-label="Traer al guardar"></button></div>
+  <div class="set-row"><div><div class="t">Traer la última noche</div><div class="s">Prueba la conexión</div></div><button class="btn" data-act="importHealth">Traer</button></div>
+  <div class="set-row"><div><div class="t">Nombre del Atajo</div><div class="s">Tiene que coincidir exactamente</div></div><input class="input" id="scIn" value="${esc(DB.settings.shortcut)}" style="width:150px;font-size:16px;padding:9px 12px"></div>
+  <p class="tiny dim" style="margin:12px 0 0">Apple no deja que las apps web lean Salud directamente, así que en esta versión se usa un Atajo de iPhone que se configura una sola vez.</p>
+  <details style="margin-top:8px"><summary class="muted small" style="cursor:pointer;padding:6px 0">Cómo crear el Atajo ›</summary><ol class="steps" style="margin-top:12px">
+    <li>Asegúrate de que tu reloj o pulsera guarda el sueño en Salud (en Zepp: Perfil → Apple Salud → permiso de Sueño).</li>
     <li>Abre <b>Atajos</b> → <b>+</b> → nómbralo <code>${esc(DB.settings.shortcut)}</code>.</li>
-    <li>Añade <b>Buscar muestras de salud</b>: tipo <b>Análisis del sueño</b>, fecha de inicio <b>en los últimos 1 días</b>, orden por fecha de inicio, sin límite.</li>
-    <li>Añade <b>Repetir con cada</b> elemento de las muestras.</li>
-    <li>Dentro, añade <b>Texto</b> con: <code>Valor | Fecha de inicio | Fecha de finalización | Fuente</code> (toca "Elemento de repetición" para elegir cada dato).</li>
-    <li>Fuera del bucle: <b>Combinar texto</b> (Resultados de repetir, con Nueva línea) → <b>Copiar al portapapeles</b>.</li>
-    <li>Ejecútalo una vez y pulsa <b>Permitir</b> el acceso a Salud.</li></ol></details></div>
+    <li>Añade <b>Buscar muestras médicas</b>: tipo <b>Sueño</b>, fecha de inicio <b>en los últimos 1 días</b>, ordenar por fecha de inicio, sin límite.</li>
+    <li>Añade <b>Repetir con cada ítem</b> en Muestras médicas.</li>
+    <li>Dentro, añade <b>Texto</b> con <code>Valor ; Fecha de inicio ; Fecha de fin ; Fuente</code> (toca "Ítem de repetición" para elegir cada dato).</li>
+    <li>Debajo: <b>Combinar</b> Resultado de la repetición con <b>Nuevas líneas</b> y después <b>Copiar al portapapeles</b>.</li>
+    <li>Ejecútalo una vez y pulsa <b>Permitir</b> el acceso a Salud.</li></ol></details>` : ''}</div>
   <div class="section-title">Tus datos</div>
   <div class="card"><p class="small muted" style="margin:0 0 12px">Todo se guarda solo en este iPhone. Si borras la app se pierde, así que haz copia de vez en cuando.</p>
   <div class="grid2"><button class="btn" data-act="export">Exportar copia</button><button class="btn" data-act="import">Importar copia</button></div>
   <input type="file" id="fileIn" accept="application/json,.json" hidden>
   <button class="btn danger block" data-act="wipe" style="margin-top:12px">Borrar todos los datos</button></div>
-  <p class="tiny dim" style="text-align:center">Hecho para ti, ${esc(DB.name)}. Felices sueños 🌙</p>`;
+  <p class="tiny dim" style="text-align:center">Felices sueños</p>`;
 }
 function afterSettings() {
   $('#nameIn').addEventListener('change', (e) => { DB.name = e.target.value.trim().slice(0, 24); save(); toast('Nombre guardado'); });
-  $('#scIn').addEventListener('change', (e) => { DB.settings.shortcut = e.target.value.trim() || 'Sueños Salud'; save(); toast('Nombre del Atajo guardado'); });
+  $('#scIn') && $('#scIn').addEventListener('change', (e) => { DB.settings.shortcut = e.target.value.trim() || 'Sueños Salud'; save(); toast('Nombre del Atajo guardado'); });
   $('#fileIn').addEventListener('change', importFile);
 }
 
@@ -884,7 +919,7 @@ function importHealth() {
 function importPending() { return DB.pendingImport && Date.now() - DB.pendingImport < 10 * 60 * 1000; }
 function pasteSheet() {
   DB.pendingImport = 0; save();
-  openSheet(`<h2>Pegar datos de Salud 💤</h2><p class="small">El Atajo ha copiado tu sueño. Pulsa el botón y luego <b>Permitir pegar</b> si te lo pregunta.</p>
+  openSheet(`<h2>Pegar datos de Salud</h2><p class="small">El Atajo ha copiado tu sueño. Pulsa el botón y luego <b>Permitir pegar</b> si te lo pregunta.</p>
     <button class="btn primary big block" data-act="pasteHealth">Pegar datos</button>
     <details style="margin-top:14px"><summary class="muted small" style="cursor:pointer">¿No funciona el botón? Pega aquí a mano ›</summary><textarea id="pasteArea" placeholder="Mantén pulsado y elige Pegar" style="min-height:110px;margin-top:10px;font-size:14px"></textarea><button class="btn block" data-act="parsePasted" style="margin-top:8px">Usar este texto</button></details>
     <div id="pasteRes"></div>`);
@@ -895,13 +930,13 @@ async function pasteHealth() {
 }
 function handleHealthText(t) {
   const res = parseHealth(t), box = $('#pasteRes');
-  if (res.error) { box.innerHTML = `<p class="small" style="color:var(--bad);margin-top:14px">⚠️ ${res.error}</p>`; return; }
+  if (res.error) { box.innerHTML = `<p class="small" style="color:var(--bad);margin-top:14px">${res.error}</p>`; return; }
   const isToday = res.date === dkey();
-  box.innerHTML = `<div style="margin-top:16px">${sleepCard(res, 'Noche del ' + shortDate(res.date))}${isToday ? '' : `<p class="small muted">Ojo: estos datos son de la noche que terminó el ${fullDate(res.date)}.</p>`}<button class="btn primary big block" id="saveSleep">Guardar</button></div>`;
+  box.innerHTML = `<div style="margin-top:16px">${sleepCard(res, 'Noche del ' + shortDate(res.date))}${isToday ? '' : `<p class="small" style="color:var(--warn)">Estos datos son de la noche que terminó el ${fullDate(res.date)}, no de hoy. Si esperabas la de esta noche, abre Zepp (o la app de tu reloj) para que sincronice con Salud y vuelve a intentarlo.</p>`}<button class="btn primary big block" id="saveSleep">Guardar en el ${shortDate(res.date)}</button></div>`;
   $('#saveSleep').onclick = () => {
-    DB.sleep[res.date] = res; save(); closeSheet(); toast('💤 Datos de sueño guardados');
+    DB.sleep[res.date] = res; save(); closeSheet(); toast('Datos de sueño guardados en el ' + shortDate(res.date));
     // En la pantalla de grabar no recargamos, para no perder lo que estás escribiendo
-    if ((location.hash || '').startsWith('#/nuevo') && F && F.date === res.date) { $('#newSleep').innerHTML = newSleepInner(res.date); $('#wakePill').textContent = '⏰ ' + wakeLabel(res.date); }
+    if ((location.hash || '').startsWith('#/nuevo')) { const p = $('#wakePill'); if (p && F && F.date === res.date) p.textContent = wakeLabel(res.date); }
     else route();
   };
 }
@@ -943,12 +978,15 @@ function bindPad(root, onDone) {
   let v = '';
   const dots = () => $$('.dots i', root).forEach((d, i) => d.classList.toggle('on', i < v.length));
   const reset = () => { v = ''; dots(); };
-  $$('.pad button[data-k]', root).forEach((b) => b.addEventListener('click', () => {
-    const k = b.dataset.k;
+  $$('.pad button[data-k]', root).forEach((b) => {
+    b.addEventListener('touchend', (e) => e.preventDefault(), { passive: false }); // evita el zoom por doble toque
+    b.addEventListener('pointerdown', (e) => { e.preventDefault(); press(b.dataset.k); });
+  });
+  function press(k) {
     if (k === 'del') v = v.slice(0, -1); else if (v.length < 4) v += k;
     dots();
     if (v.length === 4) { const val = v; setTimeout(() => onDone(val, () => { const d = $('.dots', root); d.classList.add('shake'); setTimeout(() => d.classList.remove('shake'), 450); reset(); }, reset), 120); }
-  }));
+  }
 }
 let unlocked = false;
 function showLock() {
@@ -966,7 +1004,7 @@ function pinSetup() {
   bindPad($('#sheet'), async (val, fail, reset) => {
     if (!first) { first = val; reset(); $('#pinT').textContent = 'Repite el PIN'; $('#pinS').textContent = 'Para confirmar'; return; }
     if (val !== first) { first = null; $('#pinT').textContent = 'No coinciden'; $('#pinS').textContent = 'Vuelve a elegir 4 cifras'; fail(); return; }
-    DB.settings.pinHash = await hashPin(val); save(); closeSheet(); toast('🔒 PIN activado'); route();
+    DB.settings.pinHash = await hashPin(val); save(); closeSheet(); toast('PIN activado'); route();
   });
 }
 
@@ -997,7 +1035,12 @@ const ACT = {
   focusText: () => { closeSheet(); setTimeout(() => { const t = $('#txt'); if (t) t.focus(); }, 350); },
   lucid: (el) => { F.lucid = F.lucid === el.dataset.v ? null : el.dataset.v; $$('#lucidSeg button').forEach((b) => b.classList.toggle('on', b.dataset.v === F.lucid)); draftSoon(); },
   emo: (el) => { const v = el.dataset.v; F.emotions = F.emotions.includes(v) ? F.emotions.filter((x) => x !== v) : [...F.emotions, v]; el.classList.toggle('on'); draftSoon(); },
-  saveDream,
+  saveDream, noDream,
+  saveNone: (el) => saveNone(el.dataset.v),
+  toggleHealth: () => { DB.settings.health = !DB.settings.health; save(); route(); },
+  toggleAuto: (el) => { DB.settings.autoImport = !DB.settings.autoImport; save(); el.classList.toggle('on', DB.settings.autoImport); },
+  obNext: () => obStep(),
+  obHealth: (el) => { DB.settings.health = el.dataset.v === '1'; save(); obStep(); },
   delDream: (el) => confirmSheet('¿Borrar este sueño?', 'No se puede deshacer.', 'Borrar', () => { delete DB.dreams[el.dataset.k]; save(); toast('Sueño borrado'); go('#/diario', true); }),
   filter: (el) => { diaryF = el.dataset.v; $$('.filters .chip').forEach((c) => c.classList.toggle('on', c.dataset.v === diaryF)); $('#list').innerHTML = diaryList(); },
   ltab: (el) => go('#/lucidos/' + el.dataset.v, true),
@@ -1008,7 +1051,7 @@ const ACT = {
     const ts = tasksFor(k); if (ts.every((t) => taskDone(k, t.id))) celebrate('¡Plan de hoy completo!');
   },
   addSign: () => { const i = $('#newSign'), v = i.value.trim().toLowerCase(); if (!v) return; if (!DB.signs.map(norm).includes(norm(v))) DB.signs.push(v); save(); route(); },
-  markSign: (el) => { const v = el.dataset.w; if (!DB.signs.map(norm).includes(norm(v))) DB.signs.push(v); save(); toast('⭐ Añadida a tus señales'); route(); },
+  markSign: (el) => { const v = el.dataset.w; if (!DB.signs.map(norm).includes(norm(v))) DB.signs.push(v); save(); toast('Añadida a tus señales'); route(); },
   delSign: (el) => { DB.signs.splice(+el.dataset.i, 1); save(); route(); },
   importHealth, pasteHealth,
   parsePasted: () => handleHealthText($('#pasteArea').value),
@@ -1017,7 +1060,8 @@ const ACT = {
   wipe: () => confirmSheet('¿Borrar todo?', 'Se eliminarán todos tus sueños, datos de sueño y ajustes de este iPhone. Exporta una copia antes si quieres conservarlos.', 'Borrar todo', () => { localStorage.removeItem(KEY); load(); DB.welcomed = true; save(); toast('Datos borrados'); go('#/inicio'); route(); }),
   pinSet: pinSetup,
   pinOff: () => confirmSheet('¿Quitar el PIN?', 'La app se abrirá sin pedir código.', 'Quitar PIN', () => { DB.settings.pinHash = null; save(); toast('PIN quitado'); route(); }),
-  welcomeOk: () => { DB.welcomed = true; save(); closeSheet(); }
+  welcomeOk: () => { DB.welcomed = true; save(); closeSheet(); route(); },
+  welcomeSetup: () => { DB.welcomed = true; save(); closeSheet(); go('#/ajustes'); }
 };
 document.addEventListener('click', (e) => {
   const el = e.target.closest('[data-act]'); if (!el) return;
@@ -1027,6 +1071,24 @@ document.addEventListener('click', (e) => {
 });
 // Escribir y pulsar Enter en "añadir señal"
 document.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.id === 'newSign') ACT.addSign(); });
+
+/* ---------- Sin zoom: que se sienta como una app ---------- */
+['gesturestart', 'gesturechange', 'gestureend'].forEach((ev) => document.addEventListener(ev, (e) => e.preventDefault(), { passive: false }));
+document.addEventListener('dblclick', (e) => e.preventDefault(), { passive: false });
+
+/* ---------- Bienvenida (primera vez) ---------- */
+let obI = 0;
+function obStep() {
+  if (obI === 0) { const n = $('#obName'); DB.name = n ? n.value.trim().slice(0, 24) : DB.name; save(); }
+  obI++;
+  const dots = (i) => `<div class="ob-dots">${[0, 1, 2].map((x) => `<i class="${x === i ? 'on' : ''}"></i>`).join('')}</div>`;
+  if (obI === 1) openSheet(`${dots(1)}<h2>¿Usas reloj o pulsera para dormir?</h2><p class="small">Si tu Apple Watch, Amazfit u otra pulsera guarda el sueño en la app Salud, Sueños puede mostrar tus fases (REM, profundo…) debajo de cada sueño. Es opcional: la app funciona igual sin nada.</p><div style="display:grid;gap:10px;margin-top:16px"><button class="btn primary big block" data-act="obHealth" data-v="1">Sí, quiero usar Salud</button><button class="btn big block" data-act="obHealth" data-v="0">No, ahora no</button></div>`);
+  else openSheet(`${dots(2)}<h2>Todo listo${DB.name ? ', ' + esc(DB.name) : ''}</h2><ol class="steps"><li>Cada mañana, nada más despertar, toca el <b>micro</b> y cuenta tu sueño.</li><li>Ponle un nombre. Se guarda con la fecha del día en que te despiertas.</li><li>¿No recuerdas nada? Márcalo igual: el hábito es lo que importa.</li><li>Sigue el <b>plan diario</b> de la pestaña Lúcidos.</li></ol>${DB.settings.health ? '<p class="small muted">Para conectar Salud, ve a Ajustes → Datos de sueño. Se configura una sola vez.</p><div class="grid2"><button class="btn big" data-act="welcomeSetup">Configurar Salud</button><button class="btn primary big" data-act="welcomeOk">Empezar</button></div>' : '<button class="btn primary big block" data-act="welcomeOk">Empezar</button>'}`);
+}
+function showWelcome() {
+  obI = 0;
+  openSheet(`<div class="ob-dots"><i class="on"></i><i></i><i></i></div><h2>Bienvenido a Sueños</h2><p>Tu diario para recordar tus sueños y aprender a tener sueños lúcidos.</p><label class="field"><span>¿Cómo te llamas?</span><input class="input" id="obName" maxlength="24" placeholder="Tu nombre" autocomplete="given-name"></label><button class="btn primary big block" data-act="obNext">Continuar</button>`);
+}
 
 /* ---------- Ciclo de vida ---------- */
 let hiddenAt = 0;
@@ -1072,9 +1134,7 @@ if (!location.hash) location.replace('#/inicio');
 route();
 sky.start();
 if (DB.settings.pinHash) showLock();
-if (!DB.welcomed && !DB.settings.pinHash && !Object.keys(DB.dreams).length) {
-  setTimeout(() => openSheet(`<h2>Bienvenido a Sueños 🌙</h2><p>Tu diario para llegar a tener sueños lúcidos.</p><ol class="steps"><li>Cada mañana, nada más despertar, toca el <b>micro</b> y cuenta tu sueño.</li><li>Ponle un nombre. Se guarda con la fecha del día en que te despiertas.</li><li>Importa tus fases de sueño de <b>Salud</b> (Zepp) con el Atajo.</li><li>Sigue el <b>plan diario</b> de la pestaña Lúcidos.</li></ol><button class="btn primary big block" data-act="welcomeOk">Empezar</button>`), 600);
-}
+if (!DB.welcomed && !DB.settings.pinHash) setTimeout(showWelcome, 500);
 if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
 </script>
 </body>
