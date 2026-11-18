@@ -1,0 +1,103 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Suenos//Avisos//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Sueños · pruebas de realidad
+BEGIN:VEVENT
+UID:suenos-avisos-6-tarde-0@eryowi.github.io
+DTSTAMP:20261118T120000Z
+DTSTART:20261118T130500
+DURATION:PT1M
+RRULE:FREQ=DAILY
+SUMMARY:¿Estás soñando?
+DESCRIPTION:Prueba de realidad: tápate la nariz e intenta respirar y p
+ regúntate en serio si estás soñando. (Sueños)
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:¿Estás soñando?
+TRIGGER:PT0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:suenos-avisos-6-tarde-1@eryowi.github.io
+DTSTAMP:20261118T120000Z
+DTSTART:20261118T151200
+DURATION:PT1M
+RRULE:FREQ=DAILY
+SUMMARY:¿Estás soñando?
+DESCRIPTION:Prueba de realidad: tápate la nariz e intenta respirar y p
+ regúntate en serio si estás soñando. (Sueños)
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:¿Estás soñando?
+TRIGGER:PT0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:suenos-avisos-6-tarde-2@eryowi.github.io
+DTSTAMP:20261118T120000Z
+DTSTART:20261118T162200
+DURATION:PT1M
+RRULE:FREQ=DAILY
+SUMMARY:¿Estás soñando?
+DESCRIPTION:Prueba de realidad: tápate la nariz e intenta respirar y p
+ regúntate en serio si estás soñando. (Sueños)
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:¿Estás soñando?
+TRIGGER:PT0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:suenos-avisos-6-tarde-3@eryowi.github.io
+DTSTAMP:20261118T120000Z
+DTSTART:20261118T175900
+DURATION:PT1M
+RRULE:FREQ=DAILY
+SUMMARY:¿Estás soñando?
+DESCRIPTION:Prueba de realidad: tápate la nariz e intenta respirar y p
+ regúntate en serio si estás soñando. (Sueños)
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:¿Estás soñando?
+TRIGGER:PT0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:suenos-avisos-6-tarde-4@eryowi.github.io
+DTSTAMP:20261118T120000Z
+DTSTART:20261118T195700
+DURATION:PT1M
+RRULE:FREQ=DAILY
+SUMMARY:¿Estás soñando?
+DESCRIPTION:Prueba de realidad: tápate la nariz e intenta respirar y p
+ regúntate en serio si estás soñando. (Sueños)
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:¿Estás soñando?
+TRIGGER:PT0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:suenos-avisos-6-tarde-5@eryowi.github.io
+DTSTAMP:20261118T120000Z
+DTSTART:20261118T222200
+DURATION:PT1M
+RRULE:FREQ=DAILY
+SUMMARY:¿Estás soñando?
+DESCRIPTION:Prueba de realidad: tápate la nariz e intenta respirar y p
+ regúntate en serio si estás soñando. (Sueños)
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:¿Estás soñando?
+TRIGGER:PT0S
+END:VALARM
+END:VEVENT
+END:VCALENDAR

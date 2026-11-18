@@ -290,12 +290,21 @@ body.hide-tabs #tabbar{transform:translate(-50%,140%);transition:transform .3s}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important}}
 
 /* ===== v1.2 ===== */
-#splash{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
-  background:radial-gradient(120% 70% at 50% -10%,#0d2257 0%,#061235 45%,#030816 100%);transition:opacity .5s ease,visibility 0s .5s}
+#splash{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;overflow:hidden;
+  background:radial-gradient(120% 70% at 50% -10%,#0d2257 0%,#061235 45%,#030816 100%);transition:opacity .7s ease,visibility 0s .7s}
 #splash.out{opacity:0;visibility:hidden}
-#splash .sm{width:84px;height:84px;border-radius:50%;box-shadow:inset -20px -7px 0 0 #dbeafe;transform:rotate(-20deg);filter:drop-shadow(0 0 26px rgba(147,197,253,.75));animation:moonIn 1s var(--ease) both}
-#splash b{font:700 28px ui-rounded,-apple-system,sans-serif;letter-spacing:.01em;animation:rise .8s var(--ease) .25s both}
-@keyframes moonIn{from{opacity:0;transform:translateY(26px) rotate(-60deg) scale(.7)}to{opacity:1;transform:rotate(-20deg)}}
+#splash .sm{position:relative;z-index:2;width:92px;height:92px;border-radius:50%;box-shadow:inset -22px -8px 0 0 #dbeafe;transform:rotate(-20deg);filter:drop-shadow(0 0 28px rgba(147,197,253,.85));opacity:0;animation:moonPop 1.1s cubic-bezier(.2,1.4,.3,1) .35s both, moonGlow 2.4s ease-in-out 1.4s infinite}
+#splash .sp-halo{position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(125,211,252,.45),rgba(99,102,241,.15) 45%,transparent 70%);opacity:0;animation:halo 1.6s ease-out .35s both;top:50%;left:50%;margin:-170px 0 0 -130px}
+#splash .sp-wave{position:absolute;top:50%;left:50%;width:120px;height:120px;margin:-100px 0 0 -60px;border-radius:50%;border:2px solid rgba(147,197,253,.6);opacity:0;animation:wave2 1.6s ease-out .45s both}
+#splash .sp-wave.w2{animation-delay:.75s}
+#splash b{font:700 32px ui-rounded,-apple-system,sans-serif;letter-spacing:.02em;z-index:2}
+#splash b span{display:inline-block;opacity:0;animation:letter .6s var(--ease) both;animation-delay:calc(1s + var(--i) * .08s)}
+#splash small{color:var(--muted);font-size:14px;opacity:0;animation:rise .7s var(--ease) 1.7s both;z-index:2}
+@keyframes moonPop{0%{opacity:0;transform:rotate(-80deg) scale(.15)}55%{opacity:1;transform:rotate(-12deg) scale(1.18)}100%{opacity:1;transform:rotate(-20deg) scale(1)}}
+@keyframes moonGlow{50%{filter:drop-shadow(0 0 44px rgba(147,197,253,1))}}
+@keyframes halo{0%{opacity:0;transform:scale(.3)}40%{opacity:1}100%{opacity:.55;transform:scale(1)}}
+@keyframes wave2{0%{opacity:.9;transform:scale(.4)}100%{opacity:0;transform:scale(3.2)}}
+@keyframes letter{from{opacity:0;transform:translateY(14px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
 #view.enter-r>*{animation:inR .48s var(--ease) both}
 #view.enter-l>*{animation:inL .48s var(--ease) both}
 #view.enter-r>*:nth-child(2),#view.enter-l>*:nth-child(2){animation-delay:.04s}
@@ -340,10 +349,35 @@ body.hide-tabs #tabbar{transform:translate(-50%,140%);transition:transform .3s}
 select.input{appearance:none;-webkit-appearance:none;font-size:16px;padding:10px 12px}
 input[type=range]{width:100%;accent-color:#60a5fa}
 .miss{border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.06)}
+.tipx{position:relative;overflow:hidden;padding:18px 18px 14px;background:linear-gradient(150deg,rgba(99,102,241,.2),rgba(59,130,246,.08) 55%,rgba(125,211,252,.06));border-color:rgba(165,180,252,.28)}
+.tipx::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:linear-gradient(180deg,#7dd3fc,#818cf8)}
+.tipx .tk{display:flex;align-items:center;gap:7px;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:var(--accent2)}
+.tipx .tk svg{width:15px;height:15px}
+.tipx .tt{font:700 19px/1.25 ui-rounded,-apple-system,sans-serif;margin:8px 0 6px}
+.tipx .tb{font-size:15px;color:#c9d6f0;margin:0 0 12px}.tipx .tb b{color:#fff}
+.tipx .tf{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.tipx .tf .src{font-style:normal}
+.tipx .nx{appearance:none;border:1px solid var(--stroke2);background:rgba(255,255,255,.05);color:var(--text);font:inherit;font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;cursor:pointer}
+.tipx.swap .tt,.tipx.swap .tb,.tipx.swap .src{animation:rise .45s var(--ease) both}
+.chip.nap{font-size:13px;padding:6px 12px}.chip.nap.on{background:rgba(251,191,36,.14);border-color:rgba(251,191,36,.5);color:#fde68a}
+.ptl.napp .dotp{background:linear-gradient(135deg,#fde68a,#f59e0b);box-shadow:0 0 10px rgba(251,191,36,.5)}
+.guide{position:fixed;inset:0;z-index:95;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:calc(var(--safe-t) + 30px) 28px calc(var(--safe-b) + 30px);text-align:center;
+  background:radial-gradient(120% 80% at 50% 0%,#0a1a45 0%,#040a1c 60%,#02050f 100%);animation:fade .4s both}
+.guide .gstep{font:600 24px/1.35 ui-rounded,-apple-system,sans-serif;max-width:440px;min-height:130px;display:flex;align-items:center;justify-content:center}
+.guide .gstep.anim{animation:rise .6s var(--ease) both}
+.guide .gring{width:120px;height:120px;position:relative}.guide .gring svg{width:120px;height:120px;transform:rotate(-90deg)}
+.guide .gring b{position:absolute;inset:0;display:grid;place-items:center;font:700 26px ui-rounded,-apple-system,sans-serif}
+.guide .gsub{color:var(--muted);font-size:14px}
+.guide .gbtns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.practice{display:grid;gap:10px}
+.practice .pbtn{display:flex;align-items:center;gap:12px;text-align:left;width:100%;appearance:none;border:1px solid var(--stroke);background:rgba(4,10,30,.45);color:var(--text);font:inherit;padding:13px 14px;border-radius:16px;cursor:pointer}
+.practice .pbtn:active{transform:scale(.98)}
+.practice .pbtn .e{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:linear-gradient(135deg,rgba(125,211,252,.22),rgba(99,102,241,.28))}
+.practice .pbtn b{display:block;font-size:15.5px}.practice .pbtn span{font-size:12.5px;color:var(--muted)}
 </style>
 </head>
 <body>
-<div id="splash" aria-hidden="true"><div class="sm"></div><b>Sueños</b></div>
+<div id="splash" aria-hidden="true"><div class="sp-halo"></div><div class="sp-wave"></div><div class="sp-wave w2"></div><div class="sm"></div><b><span style="--i:0">S</span><span style="--i:1">u</span><span style="--i:2">e</span><span style="--i:3">ñ</span><span style="--i:4">o</span><span style="--i:5">s</span></b><small>Tu diario de sueños lúcidos</small></div>
 <canvas id="sky" aria-hidden="true"></canvas>
 <div class="nebula a"></div><div class="nebula b"></div>
 <div id="app"><main id="view"></main></div>
@@ -370,13 +404,14 @@ input[type=range]{width:100%;accent-color:#60a5fa}
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const KEY = 'suenos.v1';
-const VERSION = '1.2';
+const VERSION = '1.3';
 
 /* ---------- Datos ---------- */
 const DEFAULT = () => ({
   v: 2, name: '', dreams: {}, sleep: {}, plan: {}, signs: [], draft: null, pendingImport: 0, importTarget: null, welcomed: false,
   settings: { pinHash: null, shortcut: 'Sueños Salud', health: false, autoImport: true, voice: '', rate: 1,
-    rc: { n: 5, from: 10, to: 22, msg: '¿Estás soñando?', added: null, wanted: false } }
+    pinHint: '', secQ: '', secA: '', fails: 0, hiddenUntil: 0, ttsHinted: false,
+    rc: { n: 5, franja: 'normal', added: null, wanted: false } }
 });
 let DB;
 function load() {
@@ -385,6 +420,7 @@ function load() {
   DB = Object.assign(DEFAULT(), raw || {});
   DB.settings = Object.assign(DEFAULT().settings, (raw && raw.settings) || {});
   DB.settings.rc = Object.assign(DEFAULT().settings.rc, (raw && raw.settings && raw.settings.rc) || {});
+  if (!['manana', 'normal', 'tarde'].includes(DB.settings.rc.franja)) DB.settings.rc.franja = 'normal';
   // Usuarios de la v1.0: si ya habían traído datos de Salud, se deja activado
   if (raw && raw.settings && raw.settings.health === undefined) DB.settings.health = Object.keys(DB.sleep || {}).length > 0;
   migrate();
@@ -399,7 +435,7 @@ function migrate() {
   if (DB.draft && !Array.isArray(DB.draft.parts)) DB.draft = null;
 }
 function save() {
-  try { localStorage.setItem(KEY, JSON.stringify(DB)); }
+  try { localStorage.setItem(KEY, JSON.stringify(REAL || DB)); } // con los sueños ocultos, se guardan los datos reales intactos
   catch (e) { toast('No se pudo guardar: ' + e.message); }
 }
 
@@ -439,7 +475,7 @@ function deriveDream(d) {
   d.text = ps.map((p) => p.text.trim()).join('\n\n');
   d.lucid = ps.reduce((b, p) => ((LUCID_RANK[p.lucid] || 0) > (LUCID_RANK[b] || 0) ? p.lucid : b), null);
   d.emotions = [...new Set(ps.flatMap((p) => p.emotions || []))];
-  d.recordedAt = (ps.find((p) => p.at) || {}).at || d.recordedAt || null;
+  d.recordedAt = (ps.find((p) => p.at && !p.nap) || ps.find((p) => p.at) || {}).at || d.recordedAt || null;
   return d;
 }
 
@@ -498,14 +534,18 @@ const ICON = {
   chev: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>'
 };
 const TIPS = [
-  ['🌅', 'Al despertar, no te muevas ni mires el móvil: quédate quieto y repasa el sueño hacia atrás. El recuerdo se va en minutos.'],
-  ['✍️', 'Apunta aunque solo recuerdes una imagen o una sensación. Recordar sueños se entrena, y recordar más se asocia a más lucidez.'],
-  ['🔎', 'Busca lo que se repite en tus sueños: lugares, personas, situaciones. Esas son tus señales de sueño.'],
-  ['⏱️', 'Después de hacer MILD, intenta dormirte rápido: en el estudio ILDIS funcionó mejor si te dormías en menos de 10 minutos.'],
-  ['🌙', 'El sueño REM, donde hay más sueños vívidos, se alarga al final de la noche. Dormir poco te quita justo esa parte.'],
-  ['🤲', 'Si te vuelves lúcido y el sueño se desvanece, frótate las manos o gira sobre ti mismo para estabilizarlo (LaBerge).'],
-  ['🧘', 'Paciencia: incluso en los estudios con gente motivada, lo normal es un lúcido cada varias mañanas, no cada noche al principio.'],
-  ['💭', 'Durante el día, cuando veas algo raro, pregúntate en serio: "¿estoy soñando?" y busca una respuesta, no lo digas por decir.']
+  { t: 'Quédate quieto al despertar', b: 'Antes de moverte o mirar el móvil, <b>recorre el sueño hacia atrás</b>, escena a escena. El recuerdo se borra en minutos.', src: 'Práctica básica del diario de sueños' },
+  { t: 'Todo cuenta', b: 'Apunta aunque solo recuerdes <b>una imagen o una sensación</b>. Recordar sueños se entrena, y recordar más se asocia a más lucidez.', src: 'Aspy (2020)' },
+  { t: 'Busca tus señales', b: 'Lo que se repite en tus sueños (lugares, personas, situaciones) son tus <b>señales de sueño</b>: la pista para darte cuenta.', src: 'LaBerge y Rheingold (1990)' },
+  { t: 'Duérmete rápido tras MILD', b: 'En el estudio ILDIS funcionó mejor cuando la gente se dormía en <b>menos de 10 minutos</b> después de la técnica.', src: 'Aspy (2020)' },
+  { t: 'El REM está al final', b: 'Las fases REM, donde hay más sueños vívidos, <b>se alargan hacia el final de la noche</b>. Dormir poco te quita justo esa parte.', src: 'Fisiología del sueño' },
+  { t: 'Que no se escape', b: 'Si te vuelves lúcido y la imagen se desvanece, <b>frótate las manos o gira sobre ti mismo</b>.', src: 'LaBerge y Rheingold (1990)' },
+  { t: 'Paciencia y constancia', b: 'En ILDIS, la gente que practicó tuvo un lúcido en <b>1 de cada 6 mañanas</b> aproximadamente. Es una habilidad, no un truco.', src: 'Aspy (2020)' },
+  { t: 'Pregúntatelo en serio', b: 'Cuando veas algo raro, pregúntate <b>de verdad</b> si estás soñando y busca la respuesta, no lo digas por decir.', src: 'LaBerge y Rheingold (1990)' },
+  { t: 'No te quita descanso', b: 'En ILDIS, conseguir sueños lúcidos <b>no empeoró la calidad del sueño</b> de los participantes.', src: 'Aspy (2020)' },
+  { t: 'Ten un plan', b: 'Decide antes de dormir <b>qué harás</b> cuando te vuelvas lúcido: volar, hablar con alguien, explorar un sitio.', src: 'Consejo práctico' },
+  { t: 'Si no puedes moverte', b: 'Despertar sin poder moverte unos segundos es <b>parálisis del sueño</b>. Asusta, pero es frecuente: la ha tenido alrededor del 28 % de los estudiantes.', src: 'Sharpless y Barber (2011)' },
+  { t: 'WBTB, solo sin clase', b: '<b>Despertarte a las 5 horas</b> para practicar funciona, pero hazlo solo cuando al día siguiente puedas descansar.', src: 'Aspy (2020)' }
 ];
 const TASKS = [
   { id: 'quieto', when: 'Mañana', icon: '🌅', t: 'Quieto 1 minuto al despertar',
@@ -526,7 +566,7 @@ const TASKS = [
     d: 'Pon una alarma 5 horas después de acostarte, lejos de la cama para tener que levantarte. Haz MILD (o SSILD) unos minutos y vuelve a dormir. Mejor si te duermes en menos de 10 min. Solo cuando al día siguiente no tengas clase.',
     src: 'ILDIS: 18,3 % de éxito al dormirse en <10 min frente a 11,1 %.' }
 ];
-const STOP = new Set(('a al algo alguien algun alguna algunas alguno algunos ante antes aqui asi aun aunque bien cada casi como con contra cosa cosas cual cuales cuando cuanto de del desde despues donde dos el ella ellas ello ellos en entonces entre era eran eras eres es esa esas ese eso esos esta estaba estaban estabamos estabas estado estamos estan estar estas este esto estos estoy fue fueron fui fuimos ha habia habian habiamos hace hacer hacia han hasta hay he la las le les lo los luego mas me mi mis mucho muchos muy nada ni no nos nosotros o otra otras otro otros para pero poco por porque que quien se sea ser si sido siempre sin sobre solo son soy su sus tal tambien tan tanto te tenia tenian tengo ti tiene tienen todo todos tu tus un una unas uno unos y ya yo era momento parte vez veces sueno sueño sonaba soñaba soñe soñé creo como cuenta dije dijo decia decía ver veia veía voy iba iban ibamos estuve estuvo tenemos tener queria quería puede podia podía igual dentro fuera arriba abajo cerca lejos aqui alli allí ahi ahí luego pues osea bueno vale').split(' ').map(norm));
+const STOP = new Set(('a al algo alguien algun alguna algunas alguno algunos ante antes aqui asi aun aunque bien cada casi como con contra cosa cosas cual cuales cuando cuanto de del desde despues donde dos el ella ellas ello ellos en entonces entre era eran eras eres es esa esas ese eso esos esta estaba estaban estabamos estabas estado estamos estan estar estas este esto estos estoy fue fueron fui fuimos ha habia habian habiamos hace hacer hacia han hasta hay he la las le les lo los luego mas me mi mis mucho muchos muy nada ni no nos nosotros o otra otras otro otros para pero poco por porque que quien se sea ser si sido siempre sin sobre solo son soy su sus tal tambien tan tanto te tenia tenian tengo ti tiene tienen todo todos tu tus un una unas uno unos y ya yo era momento parte vez veces sueno sueño sonaba soñaba soñe soñé creo como cuenta dije dijo decia decía ver veia veía voy iba iban ibamos estuve estuvo tenemos tener queria quería puede podia podía igual dentro fuera arriba abajo cerca lejos aqui alli allí ahi ahí luego pues osea bueno vale sonado sonar sonando sonaba sonabas sonabamos sone suenos sueno sonamos hoy anoche primero primera segundo segunda despues noche manana recuerdo recuerda acuerdo acordaba parecia pasaba pasaron habia hacia sabia rato gente empezaba empece empezo despierto despertar desperte final principio otra vez').split(' ').map(norm));
 
 /* ---------- Cálculos ---------- */
 function streak() {
@@ -621,7 +661,7 @@ function mapStage(v) {
   if (/dormid|asleep|unspecified|sueno|sleep/.test(t)) return 'a';
   return null;
 }
-function parseHealth(text, target) {
+function parseNights(text) {
   const lines = String(text || '').split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
   let samples = [];
   for (const line of lines) {
@@ -642,21 +682,20 @@ function parseHealth(text, target) {
   // Si hay fases o "dormido", ignorar "en cama"
   if (samples.some((x) => x.st !== 'i')) samples = samples.filter((x) => x.st !== 'i'); else samples.forEach((x) => (x.st = 'a'));
   samples.sort((a, b) => a.s - b.s);
-  // Agrupar en sesiones (huecos > 90 min = otra sesión)
+  // Agrupar en noches (huecos > 90 min = otra noche)
   const groups = []; let g = null;
   for (const x of samples) {
     if (!g || x.s - g.end > 90 * 6e4) { g = { items: [], start: x.s, end: x.e }; groups.push(g); }
     g.items.push(x); if (x.e > g.end) g.end = x.e;
   }
   const sleepMin = (gr) => gr.items.filter((x) => x.st !== 'w').reduce((a, x) => a + (x.e - x.s), 0);
-  // La noche más reciente con al menos 2 h de sueño (no la más larga)
   const nights = groups.filter((gr) => sleepMin(gr) >= 120 * 6e4);
   const pool = (nights.length ? nights : groups).sort((a, b) => b.end - a.end);
-  let G = pool[0];
-  // Si se pide la noche de un día concreto (el del sueño), solo vale la que termina ese día
-  if (target) { const m = pool.find((gr) => dkey(new Date(gr.end)) === target); if (!m) return { error: 'missing', latest: dkey(new Date(pool[0].end)) }; G = m; }
+  return { list: pool.map(buildNight).filter((n) => !n.error) };
+}
+function buildNight(G) {
   const t0 = new Date(Math.floor(G.start / 6e4) * 6e4), n = Math.ceil((G.end - t0) / 6e4);
-  if (n > 20 * 60) return { error: 'Los datos abarcan demasiadas horas. Revisa que el Atajo busque solo el último día.' };
+  if (n > 20 * 60) return { error: 'demasiado largo' };
   const PRI = { r: 6, d: 6, l: 6, w: 5, a: 4 };
   const tl = new Array(n).fill(null);
   for (const x of G.items) {
@@ -665,7 +704,7 @@ function parseHealth(text, target) {
   }
   let first = tl.findIndex((v) => v && v !== 'w'), last = -1;
   for (let i = n - 1; i >= 0; i--) if (tl[i] && tl[i] !== 'w') { last = i; break; }
-  if (first < 0) return { error: 'Solo hay datos de "despierto", no de sueño.' };
+  if (first < 0) return { error: 'solo despierto' };
   const seg = []; const st = {};
   for (let i = first; i <= last; i++) {
     const c = tl[i] || 'w';
@@ -677,7 +716,26 @@ function parseHealth(text, target) {
   const hasStages = !!(st.r || st.d || st.l);
   if (hasStages && st.a) { st.l = (st.l || 0) + st.a; delete st.a; seg.forEach((x) => { if (x[2] === 'a') x[2] = 'l'; }); }
   const total = (st.r || 0) + (st.d || 0) + (st.l || 0) + (st.a || 0);
-  return { date: target || dkey(wake), bed: bed.toISOString(), wake: wake.toISOString(), span: last - first + 1, total, st, seg, hasStages, importedAt: new Date().toISOString() };
+  return { date: dkey(wake), bed: bed.toISOString(), wake: wake.toISOString(), span: last - first + 1, total, st, seg, hasStages, importedAt: new Date().toISOString() };
+}
+// Devuelve la noche del día pedido (el del sueño) y también todas las demás que haya
+function parseHealth(text, target) {
+  const r = parseNights(text); if (r.error) return r;
+  if (!r.list.length) return { error: 'No he encontrado ninguna noche completa en los datos.' };
+  if (!target) return Object.assign({}, r.list[0], { all: r.list });
+  const m = r.list.find((x) => x.date === target);
+  if (!m) return { error: 'missing', latest: r.list[0].date, all: r.list };
+  return Object.assign({}, m, { all: r.list });
+}
+// Guarda la noche pedida y rellena las noches recientes que faltaban
+function saveNights(list, target) {
+  const extra = [];
+  list.forEach((n) => {
+    const x = Object.assign({}, n); delete x.all;
+    if (x.date === target) DB.sleep[x.date] = x;
+    else if (!DB.sleep[x.date] && dayDiff(x.date, dkey()) <= 7 && dayDiff(x.date, dkey()) >= 0) { DB.sleep[x.date] = x; extra.push(x.date); }
+  });
+  save(); return extra;
 }
 
 /* ---------- UI helpers ---------- */
@@ -703,20 +761,24 @@ const header = (title, sub, back) => `<header class="top">${back ? `<button clas
    ========================================================= */
 function renderHome() {
   const k = dkey(), dr = DB.dreams[k], s = streak(), h = new Date().getHours();
-  const greet = h < 6 ? 'Buenas noches' : h < 13 ? 'Buenos días' : h < 21 ? 'Buenas tardes' : 'Buenas noches';
+  const greet = h < 6 ? 'Buenas noches' : h < 14 ? 'Buenos días' : h < 21 ? 'Buenas tardes' : 'Buenas noches';
   let week = '';
   for (let i = 6; i >= 0; i--) { const d = addDays(new Date(), -i), kk = dkey(d), x = DB.dreams[kk]; week += `<div><i class="${x ? (x.kind ? 'none' : x.lucid === 'si' ? 'on lu' : 'on') : ''} ${i === 0 ? 'today' : ''}"></i>${DIAS_C[d.getDay()]}</div>`; }
   const tasks = tasksFor(k), done = tasks.filter((t) => taskDone(k, t.id)).length;
-  const tip = TIPS[Math.floor(Date.now() / 864e5) % TIPS.length];
   let today;
   if (!dr) today = `<div class="card cta" data-act="go" data-to="#/nuevo"><div class="orb lg">${ICON.mic}</div><h2>¿Qué has soñado?</h2><p>Toca y dicta antes de que se te olvide</p></div>`;
   else if (dr.kind) today = `<div class="card today-done" data-act="go" data-to="#/nuevo/${k}"><div class="check none">${ICON.moon}</div><div style="flex:1;min-width:0"><div class="muted small">Hoy</div><h2>${KIND[dr.kind]}</h2><p class="muted small" style="margin:0">Si lo recuerdas más tarde, toca aquí para añadirlo.</p></div></div>`;
-  else today = `<div class="card today-done" data-act="go" data-to="#/sueno/${k}"><div class="check">${dr.lucid === 'si' ? ICON.spark : ICON.check}</div><div style="flex:1;min-width:0"><div class="muted small">Sueño de hoy apuntado${dr.parts.length > 1 ? ' · ' + dr.parts.length + ' partes' : ''}</div><h2>${esc(dr.title)}</h2><p class="muted small clamp" style="margin:0">${esc(dr.text)}</p><button class="btn" data-act="go" data-to="#/nuevo/${k}/add" style="margin-top:12px;padding:8px 13px;font-size:13.5px">+ Añadir otra parte</button></div></div>`;
+  else today = `<div class="card today-done" data-act="go" data-to="#/sueno/${k}"><div class="check">${dr.lucid === 'si' ? ICON.spark : ICON.check}</div><div style="flex:1;min-width:0"><div class="muted small">Sueño de hoy apuntado${partsSummary(dr) ? ' · ' + partsSummary(dr) : ''}</div><h2>${esc(dr.title)}</h2><p class="muted small clamp" style="margin:0">${esc(dr.text)}</p><button class="btn" data-act="go" data-to="#/nuevo/${k}/add" style="margin-top:12px;padding:8px 13px;font-size:13.5px">+ Añadir parte o siesta</button></div></div>`;
   return `<section class="hello"><h1>${greet}${DB.name ? ', ' + esc(DB.name) : ''}</h1><p>${longDate(k)}</p></section>
   ${today}
   <div class="card"><div class="streak"><div class="num" id="streakNum" data-n="${s}">${s}</div><div><div style="font-weight:700">${s === 1 ? 'día seguido' : 'días seguidos'}</div><div class="muted small">${dr || s === 0 ? 'Mejor racha: ' + bestStreak() : 'Apunta hoy para no perder la racha'}</div></div></div><div class="week">${week}</div></div>
   <div class="card row" data-act="go" data-to="#/lucidos/plan" style="cursor:pointer"><div class="ringwrap">${ring(done / tasks.length)}<b>${done}/${tasks.length}</b></div><div style="flex:1"><div style="font-weight:700">Plan de hoy</div><div class="muted small">${phase().name}</div></div><span class="dim">${ICON.chev}</span></div>
-  <div class="card tip"><div class="e">${ICON.spark}</div><div><div class="muted small" style="font-weight:700;margin-bottom:2px">Consejo del día</div><div class="small">${tip[1]}</div></div></div>`;
+  <div class="card tipx" id="tipCard">${tipInner()}</div>`;
+}
+let tipOff = 0;
+function tipInner() {
+  const t = TIPS[(Math.floor(Date.now() / 864e5) + tipOff) % TIPS.length];
+  return `<div class="tk">${ICON.spark} Consejo del día</div><div class="tt">${t.t}</div><p class="tb">${t.b}</p><div class="tf"><span class="src">${t.src}</span><button class="nx" data-act="nextTip">Otro consejo ›</button></div>`;
 }
 function afterHome() {
   const el = $('#streakNum'); if (!el) return; const n = +el.dataset.n; if (n < 2) return;
@@ -725,9 +787,9 @@ function afterHome() {
   requestAnimationFrame(step);
 }
 
-/* ---- Nuevo / editar sueño (con partes) ---- */
+/* ---- Nuevo / editar sueño (con partes y siestas) ---- */
 let F = null; // formulario actual
-const newPart = (at) => ({ id: 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), at: at || null, text: '', lucid: null, emotions: [] });
+const newPart = (at) => ({ id: 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), at: at || null, text: '', lucid: null, emotions: [], nap: false, title: '' });
 function renderNew(arg, arg2) {
   const k = arg && /^\d{4}-\d{2}-\d{2}$/.test(arg) ? arg : dkey();
   const ex = DB.dreams[k];
@@ -737,7 +799,7 @@ function renderNew(arg, arg2) {
   } else if (DB.draft && DB.draft.date === k) F = Object.assign({ tags: [], tagsTouched: false, active: 0 }, JSON.parse(JSON.stringify(DB.draft)), { editing: false });
   else F = { date: k, title: '', parts: [newPart(ex && ex.recordedAt)], tags: [], tagsTouched: false, editing: false, active: 0 };
   if (F.active == null || F.active >= F.parts.length) F.active = F.parts.length - 1;
-  const ttl = F.adding ? 'Añadir parte' : F.editing ? 'Editar sueño' : 'Nuevo sueño';
+  const ttl = F.adding ? 'Añadir parte o siesta' : F.editing ? 'Editar sueño' : 'Nuevo sueño';
   return `${header(ttl, longDate(k), true)}
   <div class="meta"><span class="pill">Sueño del ${shortDate(k)}</span><span class="pill" id="wakePill">${wakeLabel(k)}</span></div>
   <div class="rec-area"><button class="orb lg" id="micBtn" data-act="mic" aria-label="Dictar"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span id="micIco">${ICON.mic}</span></button>
@@ -745,22 +807,26 @@ function renderNew(arg, arg2) {
     <p class="status" id="micStatus">${micIdle()}</p></div>
   <div id="parts">${partsHTML()}</div>
   <button class="btn ghost block" data-act="addPart" style="margin:0 0 6px;border-color:var(--stroke);color:var(--accent2)">+ Añadir otra parte</button>
-  <p class="tiny dim" style="margin:0 4px 18px">Si te despertaste varias veces, cuenta cada trozo en una parte distinta.</p>
-  <label class="field"><span>Nombre del sueño</span><input class="input" id="title" maxlength="80" placeholder="Ej: La casa bajo el mar" value="${esc(F.title)}"></label>
+  <p class="tiny dim" style="margin:0 4px 18px">Si te despertaste varias veces, cuenta cada trozo en una parte. Si es de una siesta, marca "Es una siesta".</p>
+  <label class="field"><span id="titleLbl">${titleLabel()}</span><input class="input" id="title" maxlength="80" placeholder="Ej: La casa bajo el mar" value="${esc(F.title)}"></label>
   <div class="field"><span>Temas detectados</span><div class="chips" id="themes">${themesHTML()}</div></div>
   <button class="btn primary big block" data-act="saveDream">${F.editing ? 'Guardar cambios' : 'Guardar sueño'}</button>
   ${F.editing ? '' : `<button class="btn ghost block" data-act="noDream" style="margin-top:10px;border-color:var(--stroke);color:var(--muted)">No recuerdo ningún sueño</button>
   <p class="tiny dim" style="text-align:center;margin-top:10px">Se guarda un borrador automático mientras escribes.</p>`}`;
 }
-function micIdle() { return F && F.parts.length > 1 ? `Toca el micro para dictar la parte ${F.active + 1}` : 'Toca el micro y cuéntalo todo'; }
+const titleLabel = () => (F.parts.every((p) => p.nap) ? 'Nombre de la siesta' : 'Nombre del sueño');
+function partLabel(parts, i) { const p = parts[i]; if (p.nap) return 'Siesta'; return 'Parte ' + (parts.slice(0, i + 1).filter((x) => !x.nap).length); }
+function micIdle() { if (!F) return ''; const p = F.parts[F.active]; return F.parts.length > 1 ? `Toca el micro para dictar: ${partLabel(F.parts, F.active).toLowerCase()}` : p && p.nap ? 'Toca el micro y cuenta tu siesta' : 'Toca el micro y cuéntalo todo'; }
 function wakeLabel(k) { const w = wakeInfo(k); return w ? `Despertar ${w.t} · ${w.src}` : 'Despertar: al empezar a dictar'; }
 function partsHTML() {
   const multi = F.parts.length > 1;
   return F.parts.map((p, i) => {
-    const head = multi ? `<div class="part-h"><span class="t">Parte ${i + 1}</span><span class="tm">${p.at ? hm(p.at) : ''}</span><button class="x" data-act="delPart" data-i="${i}" aria-label="Quitar parte">✕</button></div>` : '';
+    const head = multi ? `<div class="part-h"><span class="t">${partLabel(F.parts, i)}${p.nap && p.title ? ' · ' + esc(p.title) : ''}</span><span class="tm">${p.at ? hm(p.at) : ''}</span><button class="x" data-act="delPart" data-i="${i}" aria-label="Quitar">✕</button></div>` : '';
     if (multi && i !== F.active) return `<div class="part collapsed" data-act="activePart" data-i="${i}">${head}<div class="snip clamp">${p.text ? esc(p.text) : '<span class="dim">Vacía · toca para escribir</span>'}</div></div>`;
     return `<div class="part ${multi ? 'active' : ''}" data-i="${i}" ${multi ? '' : 'style="border:0;padding:0;background:none;box-shadow:none;animation:none"'}>${head}
-      <label class="field" style="margin-bottom:8px">${multi ? '' : '<span>Tu sueño</span>'}<textarea class="ptxt" data-i="${i}" placeholder="Estaba en…">${esc(p.text)}</textarea></label>
+      <div class="row" style="justify-content:space-between;margin:0 0 8px"><span class="small muted" style="font-weight:600">${multi ? '' : 'Tu sueño'}</span><button class="chip nap ${p.nap ? 'on' : ''}" data-act="nap" data-i="${i}">${p.nap ? '✓ Es una siesta' : 'Es una siesta'}</button></div>
+      ${p.nap && multi ? `<input class="input ntitle" data-i="${i}" maxlength="80" placeholder="Nombre de la siesta" value="${esc(p.title || '')}" style="margin-bottom:8px">` : ''}
+      <textarea class="ptxt" data-i="${i}" placeholder="${p.nap ? 'En la siesta soñé que…' : 'Estaba en…'}">${esc(p.text)}</textarea>
       <div class="field" style="margin:12px 0 10px"><span>¿Fue lúcido?</span><div class="seg">${['si', 'casi', 'no'].map((v) => `<button data-act="lucid" data-i="${i}" data-v="${v}" class="${p.lucid === v ? 'on' : ''}">${{ si: 'Sí', casi: 'Casi', no: 'No' }[v]}</button>`).join('')}</div></div>
       <div class="field" style="margin:0"><span>Emoción</span><div class="chips">${EMOS.map(([id, , n]) => `<button class="chip ${p.emotions.includes(id) ? 'on' : ''}" data-act="emo" data-i="${i}" data-v="${id}">${n}</button>`).join('')}</div>
       <div class="sugg" id="sugg${i}">${suggHTML(i)}</div></div></div>`;
@@ -782,6 +848,7 @@ function themesHTML() {
 function refreshParts() {
   $('#parts').innerHTML = partsHTML(); bindParts();
   if (!rec.on) { const s = $('#micStatus'); if (s) s.textContent = micIdle(); }
+  const tl = $('#titleLbl'); if (tl) tl.textContent = titleLabel();
 }
 function bindParts() {
   $$('.ptxt').forEach((ta) => {
@@ -791,6 +858,7 @@ function bindParts() {
     ta.addEventListener('input', () => { if (rec.on && !rec.writing) stopRec(); F.parts[i].text = ta.value; markRecorded(i); autosize(); draftSoon(); suggSoon(i); });
     ta.addEventListener('focus', () => { if (rec.on) stopRec(); F.active = i; });
   });
+  $$('.ntitle').forEach((inp) => inp.addEventListener('input', () => { F.parts[+inp.dataset.i].title = inp.value; draftSoon(); }));
 }
 function afterNew() {
   bindParts();
@@ -808,20 +876,25 @@ function suggSoon(i) { clearTimeout(suggT); suggT = setTimeout(() => { const s =
 let draftT;
 function draftSoon() { clearTimeout(draftT); draftT = setTimeout(saveDraft, 400); }
 function saveDraft() { if (!F || F.editing) return; DB.draft = { date: F.date, title: F.title, parts: F.parts, tags: F.tags, tagsTouched: F.tagsTouched, active: F.active }; save(); }
-function syncTexts() { F.parts.forEach((p, i) => { const ta = $(`.ptxt[data-i="${i}"]`); if (ta) p.text = ta.value; }); }
+function syncTexts() { F.parts.forEach((p, i) => { const ta = $(`.ptxt[data-i="${i}"]`); if (ta) p.text = ta.value; const nt = $(`.ntitle[data-i="${i}"]`); if (nt) p.title = nt.value; }); }
+function shakeEl(el) { if (!el) return; el.classList.add('shake'); setTimeout(() => el.classList.remove('shake'), 450); }
 function saveDream() {
   stopRec(); syncTexts();
   const ti = $('#title'); F.title = ti.value.trim();
-  const parts = F.parts.map((p) => Object.assign({}, p, { text: p.text.trim() })).filter((p) => p.text);
-  if (!parts.length) { const ta = activeTA(); if (ta) { ta.classList.add('shake'); setTimeout(() => ta.classList.remove('shake'), 450); } toast('Cuenta tu sueño primero'); return; }
-  if (!F.title) { ti.classList.add('shake'); setTimeout(() => ti.classList.remove('shake'), 450); ti.focus(); toast('Ponle un nombre al sueño'); return; }
+  const parts = F.parts.map((p) => Object.assign({}, p, { text: p.text.trim(), title: (p.title || '').trim() })).filter((p) => p.text);
+  if (!parts.length) { shakeEl(activeTA()); toast('Cuenta tu sueño primero'); return; }
+  if (!F.title) { shakeEl(ti); ti.focus(); toast(titleLabel() === 'Nombre de la siesta' ? 'Ponle un nombre a la siesta' : 'Ponle un nombre al sueño'); return; }
+  if (parts.length === 1 && parts[0].nap) parts[0].title = F.title;
+  const napNoTitle = parts.findIndex((p) => p.nap && !p.title);
+  if (napNoTitle >= 0 && parts.length > 1) { const idx = F.parts.findIndex((p) => p.id === parts[napNoTitle].id); F.active = idx; refreshParts(); setTimeout(() => shakeEl($(`.ntitle[data-i="${idx}"]`)), 50); toast('Ponle un nombre a la siesta'); return; }
   if (!F.tagsTouched) F.tags = [...new Set([...F.tags, ...detectedThemes()])];
   const prev = DB.dreams[F.date] || {}, now = new Date().toISOString();
   const d = deriveDream({ date: F.date, title: F.title, parts, tags: F.tags, recordedAt: isReal(prev) ? prev.recordedAt : null, createdAt: prev.createdAt || now, updatedAt: now });
   DB.dreams[F.date] = d;
   if (DB.draft && DB.draft.date === F.date) DB.draft = null;
   save();
-  celebrate(d.lucid === 'si' ? '¡Sueño lúcido!' : F.adding ? 'Parte añadida' : F.editing ? 'Cambios guardados' : '¡Sueño guardado!');
+  const lastNew = parts[parts.length - 1];
+  celebrate(d.lucid === 'si' ? '¡Sueño lúcido!' : F.adding ? (lastNew && lastNew.nap ? 'Siesta añadida' : 'Parte añadida') : F.editing ? 'Cambios guardados' : '¡Sueño guardado!');
   const k = F.date, auto = !F.editing || F.adding;
   setTimeout(() => {
     go('#/sueno/' + k, true);
@@ -1013,7 +1086,7 @@ function diaryList() {
     const sl = DB.sleep[k], db = `<div class="datebox"><b>${dt.getDate()}</b><span>${MESES[dt.getMonth()].slice(0, 3)}</span></div>`;
     if (d.kind) { out += `<div class="card dream none" data-act="go" data-to="#/sueno/${k}">${db}<div style="flex:1;min-width:0"><h3>${KIND[d.kind]}</h3><div class="tags"><span>${cap(DIAS[dt.getDay()])} ${shortDate(k)}</span></div></div></div>`; continue; }
     const emos = (d.emotions || []).filter((e) => EMO[e]).map((e) => EMO[e].n).join(' · ');
-    out += `<div class="card dream" data-act="go" data-to="#/sueno/${k}">${db}<div style="flex:1;min-width:0"><h3>${esc(d.title)}</h3><p class="clamp">${esc(d.text)}</p><div class="tags">${d.lucid === 'si' ? '<span class="pill lucid">Lúcido</span>' : d.lucid === 'casi' ? '<span class="pill casi">Casi</span>' : ''}<span>${cap(DIAS[dt.getDay()]).slice(0, 3)} ${shortDate(k)}${emos ? ' · ' + emos : ''}${d.parts && d.parts.length > 1 ? ' · ' + d.parts.length + ' partes' : ''}${sl ? ' · ' + dur(sl.total) + ' dormido' : ''}</span></div></div></div>`;
+    out += `<div class="card dream" data-act="go" data-to="#/sueno/${k}">${db}<div style="flex:1;min-width:0"><h3>${esc(d.title)}</h3><p class="clamp">${esc(d.text)}</p><div class="tags">${d.lucid === 'si' ? '<span class="pill lucid">Lúcido</span>' : d.lucid === 'casi' ? '<span class="pill casi">Casi</span>' : ''}<span>${cap(DIAS[dt.getDay()]).slice(0, 3)} ${shortDate(k)}${emos ? ' · ' + emos : ''}${partsSummary(d) ? ' · ' + partsSummary(d) : ''}${sl ? ' · ' + dur(sl.total) + ' dormido' : ''}</span></div></div></div>`;
   }
   return out;
 }
@@ -1029,28 +1102,38 @@ function highlight(text) {
     return esc(tok);
   }).join('');
 }
+function partsSummary(d) {
+  if (!d.parts) return '';
+  const n = d.parts.filter((p) => !p.nap).length, s = d.parts.length - n;
+  const a = [];
+  if (n > 1) a.push(n + ' partes');
+  if (s) a.push(s === 1 ? '1 siesta' : s + ' siestas');
+  return a.join(' · ');
+}
 function renderDetail(k) {
+  if (typeof checkHidden === 'function') checkHidden();
   const d = DB.dreams[k];
   if (!d) return `${header('Sueño', '', true)}<div class="empty"><span class="big">${ICON.moon}</span>Este sueño ya no existe.</div>`;
-  const sl = DB.sleep[k], dt = fromKey(k);
-  const sleepPart = sl ? sleepCard(sl) : DB.settings.health && k === dkey() ? `<div class="card row between"><div style="padding-right:10px"><div style="font-weight:700">Fases de esta noche</div><div class="muted small">Tráelas desde Salud para verlas aquí</div></div><button class="btn" data-act="importHealth" data-k="${k}">Traer</button></div>` : '';
+  const sl = DB.sleep[k], dt = fromKey(k), ago = dayDiff(k, dkey());
+  const sleepPart = sl ? sleepCard(sl) : DB.settings.health && ago >= 0 && ago <= 3 ? `<div class="card row between"><div style="padding-right:10px"><div style="font-weight:700">Fases de ${ago === 0 ? 'esta noche' : 'la noche del ' + shortDate(k)}</div><div class="muted small">Tráelas desde Salud para verlas aquí</div></div><button class="btn" data-act="importHealth" data-k="${k}">Traer</button></div>` : '';
   if (d.kind) return `${header(KIND[d.kind], cap(DIAS[dt.getDay()]) + ' ' + fullDate(k), true)}
   <div class="card"><p class="muted" style="margin:0 0 14px">Registraste esta mañana sin sueño. Si lo recuerdas ahora, puedes añadirlo.</p><button class="btn primary block" data-act="go" data-to="#/nuevo/${k}">Ahora lo recuerdo</button></div>
   ${sleepPart}<button class="btn danger block" data-act="delDream" data-k="${k}" style="margin-top:6px">Borrar registro</button>`;
   const wake = sl ? `Despertar ${hm(sl.wake)} (pulsera)${d.recordedAt ? ` · dictado a las ${hm(d.recordedAt)}` : ''}` : d.recordedAt ? `Despertar ${hm(d.recordedAt)} (al empezar a dictar)` : '';
-  const multi = d.parts.length > 1;
+  const multi = d.parts.length > 1, summ = partsSummary(d);
   const lp = (l) => (l ? `<span class="pill ${l === 'si' ? 'lucid' : l === 'casi' ? 'casi' : ''}">${LUCID[l]}</span>` : '');
   const ep = (es) => (es || []).map((e) => (EMO[e] ? `<span class="pill">${EMO[e].n}</span>` : '')).join('');
   const tp = (d.tags || []).map((t) => (THEME[t] ? `<span class="pill" style="background:rgba(99,102,241,.18);border-color:rgba(165,180,252,.3)">${THEME[t]}</span>` : '')).join('');
+  const onlyNap = !multi && d.parts[0].nap;
   const body = multi
-    ? d.parts.map((p, i) => `<div class="ptl"><span class="dotp"></span><div class="card"><div class="ph">Parte ${i + 1}${p.at ? ' · ' + hm(p.at) : ''} ${lp(p.lucid)}${ep(p.emotions)}</div><div class="dream-text">${highlight(p.text)}</div></div></div>`).join('')
+    ? d.parts.map((p, i) => `<div class="ptl ${p.nap ? 'napp' : ''}"><span class="dotp"></span><div class="card"><div class="ph">${partLabel(d.parts, i)}${p.at ? ' · ' + hm(p.at) : ''}${p.nap && p.title ? ' · ' + esc(p.title) : ''} ${lp(p.lucid)}${ep(p.emotions)}</div><div class="dream-text">${highlight(p.text)}</div></div></div>`).join('')
     : `<div class="card"><div class="dream-text">${highlight(d.text)}</div></div>`;
   return `<header class="top"><button class="icon-btn" data-act="back" aria-label="Volver">${ICON.back}</button><div style="flex:1"></div><button class="icon-btn" data-act="go" data-to="#/nuevo/${k}" aria-label="Editar">${ICON.edit}</button></header>
-  <section class="detail"><h1>${esc(d.title)}</h1><div class="when">${cap(DIAS[dt.getDay()])} ${fullDate(k)}${wake ? '<br>' + wake : ''}${multi ? '<br>' + d.parts.length + ' partes' : ''}</div>
-  <div class="row wrap" style="gap:7px;margin-bottom:14px">${lp(d.lucid)}${multi ? '' : ep(d.emotions)}${tp}</div>
+  <section class="detail"><h1>${esc(d.title)}</h1><div class="when">${cap(DIAS[dt.getDay()])} ${fullDate(k)}${wake && !onlyNap ? '<br>' + wake : ''}${summ ? '<br>' + summ : ''}</div>
+  <div class="row wrap" style="gap:7px;margin-bottom:14px">${onlyNap ? `<span class="pill" style="color:#fde68a;border-color:rgba(251,191,36,.4)">Siesta${d.parts[0].at ? ' · ' + hm(d.parts[0].at) : ''}</span>` : ''}${lp(d.lucid)}${multi ? '' : ep(d.emotions)}${tp}</div>
   <button class="listen" id="listenBtn" data-act="listen" data-k="${k}"><span class="ic">${ICON.speaker}</span><span class="eq"><i></i><i></i><i></i></span><span class="lt">Escuchar</span></button></section>
   <div style="margin-top:16px">${body}</div>
-  ${k === dkey() ? `<button class="btn ghost block" data-act="go" data-to="#/nuevo/${k}/add" style="margin:0 0 14px;border-color:var(--stroke);color:var(--accent2)">+ Añadir otra parte</button>` : ''}
+  ${ago === 0 ? `<button class="btn ghost block" data-act="go" data-to="#/nuevo/${k}/add" style="margin:0 0 14px;border-color:var(--stroke);color:var(--accent2)">+ Añadir parte o siesta</button>` : ''}
   ${sleepPart}
   <button class="btn danger block" data-act="delDream" data-k="${k}" style="margin-top:6px">Borrar sueño</button>`;
 }
@@ -1078,25 +1161,98 @@ function lucidPlan() {
 const SOURCES = [
   ['Aspy, D. J. (2020). Findings From the International Lucid Dream Induction Study. Frontiers in Psychology, 11:1746.', 'https://doi.org/10.3389/fpsyg.2020.01746'],
   ['Stumbrys, T., Erlacher, D., Schädlich, M. y Schredl, M. (2012). Induction of lucid dreams: A systematic review of evidence. Consciousness and Cognition, 21(3), 1456–1475.', 'https://doi.org/10.1016/j.concog.2012.07.003'],
-  ['LaBerge, S. y Rheingold, H. (1990). Exploring the World of Lucid Dreaming. Ballantine Books.', '']
+  ['LaBerge, S. y Rheingold, H. (1990). Exploring the World of Lucid Dreaming. Ballantine Books.', ''],
+  ['Sharpless, B. A. y Barber, J. P. (2011). Lifetime prevalence rates of sleep paralysis: A systematic review. Sleep Medicine Reviews, 15(5), 311–315.', 'https://doi.org/10.1016/j.smrv.2011.01.007']
 ];
 function lucidTech() {
   const T = [
     ['🔬', 'Lo que dice la ciencia', 'Expectativas realistas', `<p>Un sueño lúcido es darte cuenta de que estás soñando mientras sueñas. Es una habilidad que se puede aprender, pero hay que ser honestos con los números:</p>
       <div class="stat"><b>55%</b><span>de los adultos ha tenido al menos un sueño lúcido; un 23 % los tiene con regularidad (1 al mes o más). Datos citados en Aspy (2020).</span></div>
       <div class="stat"><b>~16%</b><span>de las mañanas con lúcido en la semana de práctica del mayor estudio (ILDIS), frente al 5,3 % de la semana anterior.</span></div>
-      <p>Una revisión de 35 estudios concluyó que ninguna técnica induce lúcidos de forma fiable y constante, aunque algunas son prometedoras (Stumbrys et al., 2012). Traducción: <b>uno cada noche no es lo normal al empezar</b>. Apuesta por constancia: apuntar cada día + MILD, y celebra cada lúcido.</p>`],
+      <p>Una revisión de 35 estudios concluyó que ninguna técnica induce lúcidos de forma fiable y constante, aunque algunas son prometedoras (Stumbrys et al., 2012). En ILDIS, conseguirlos <b>no empeoró la calidad del sueño</b>. Traducción: uno cada noche no es lo normal al empezar. Apuesta por constancia.</p>`],
     ['📖', 'Diario de sueños', 'La base de todo', `<p>Apuntar cada mañana entrena el recuerdo. En ILDIS, recordar más sueños se asoció a más lucidez: las noches con lúcido se recordaban de media 2,8 sueños frente a 1,7 en las demás.</p><ol><li>Al despertar, quieto y con los ojos cerrados.</li><li>Recorre el sueño hacia atrás, escena a escena.</li><li>Dicta todo en Sueños, aunque sea un fragmento.</li><li>Ponle nombre: ayuda a recordarlo después.</li></ol><p class="src">Fuente: Aspy (2020).</p>`],
-    ['🌙', 'MILD', 'Inducción mnemónica (LaBerge)', `<p>Consiste en crear la intención de recordar que estás soñando la próxima vez que sueñes. En ILDIS fue de las técnicas más eficaces.</p><ol><li>Al acostarte (o tras despertar a las 5 h con WBTB), recuerda un sueño reciente.</li><li>Repite con intención: <i>"La próxima vez que sueñe, me daré cuenta de que estoy soñando"</i>.</li><li>Imagina que vuelves a ese sueño, ves algo raro (una señal) y te vuelves lúcido.</li><li>Repite hasta sentir la intención fijada y duérmete.</li></ol><div class="stat"><b>16,5%</b><span>de mañanas con lúcido en los grupos MILD de ILDIS (con WBTB).</span></div><div class="stat"><b>45,8%</b><span>de éxito en otro estudio (NALDIS, 2017, citado en Aspy 2020) cuando la gente se dormía en menos de 5 min tras hacer MILD.</span></div><p class="src">Fuente: Aspy (2020).</p>`],
-    ['⏰', 'WBTB', 'Despertar y volver a dormir', `<p>Te despiertas tras unas 5 horas de sueño para practicar MILD o SSILD justo antes de las fases REM más largas del final de la noche.</p><ol><li>Alarma 5 h después de acostarte, lejos de la cama.</li><li>Levántate, apágala y haz la técnica unos minutos.</li><li>Vuelve a dormir lo antes posible.</li></ol><div class="stat"><b>18,3%</b><span>de éxito al dormirse en menos de 10 min tras la técnica, frente al 11,1 % si tardaban más (ILDIS).</span></div><p><b>Aviso honesto:</b> interrumpe tu sueño. Úsalo solo en noches sin clase al día siguiente; dormir poco entre semana te perjudica más de lo que te ayuda.</p><p class="src">Fuente: Aspy (2020).</p>`],
-    ['🎧', 'SSILD', 'Ciclos de los sentidos', `<p>Alternativa a MILD, igual de eficaz en ILDIS (16,9 % de mañanas con lúcido). Se hace tras unas 5 h de sueño.</p><ol><li>Vista: atiende a la oscuridad tras los párpados.</li><li>Oído: atiende a los sonidos.</li><li>Tacto: atiende a las sensaciones del cuerpo.</li><li>Haz 4 ciclos rápidos (2-3 s por sentido) y luego 4-6 lentos (unos 20 s por sentido). Después, duérmete.</li></ol><p class="src">Fuente: Aspy (2020).</p>`],
-    ['🔎', 'Señales de sueño', 'Lo que se repite en tus sueños', `<p>Son elementos típicos de tus sueños: personas, lugares, situaciones imposibles o emociones. Si aprendes a reconocerlos, es más fácil darte cuenta de que sueñas. La pestaña <b>Señales</b> detecta las palabras que se repiten en tu diario.</p><p>Tipos que proponen LaBerge y Rheingold: algo que haces que es raro, formas raras, contextos o lugares raros, y sensaciones o pensamientos extraños.</p><p class="src">Fuente: LaBerge y Rheingold (1990).</p>`],
-    ['👃', 'Pruebas de realidad', 'Útiles solo como complemento', `<p>Comprobar si estás soñando: tápate la nariz e intenta respirar, o mira tus manos o un texto dos veces. En sueños suele "fallar".</p><p><b>Lo que dicen los datos:</b> en ILDIS, hacer pruebas de realidad durante el día no mejoró los resultados en una semana. Úsalas cuando veas una de tus señales y pregúntate en serio si sueñas, no de forma automática.</p><p class="src">Fuente: Aspy (2020).</p>`],
-    ['🤲', 'Cuando te vuelvas lúcido', 'Que no se escape', `<ul><li>Calma: emocionarte demasiado suele despertarte.</li><li>Si la imagen se desvanece, frótate las manos o gira sobre ti mismo; LaBerge propone girar para mantenerte en el sueño.</li><li>Ten un plan sencillo pensado de antemano (volar, hablar con alguien…).</li><li>No esperes controlarlo todo: se estima que el control deliberado es posible en aproximadamente un tercio de los sueños lúcidos (citado en Aspy, 2020).</li></ul><p class="src">Fuentes: LaBerge y Rheingold (1990); Aspy (2020).</p>`]
+    ['📝', 'Recordar más sueños', 'Lo que más ayuda en la práctica', `<ul><li>Antes de dormir, proponte en serio: <i>"mañana voy a recordar lo que sueñe"</i>.</li><li>Al despertar, <b>no te muevas ni mires el móvil</b>: el recuerdo es muy frágil los primeros minutos.</li><li>Si solo tienes un trozo, tira de él: ¿dónde estabas?, ¿con quién?, ¿qué sentías?</li><li>Apunta primero palabras clave y luego desarrolla.</li><li>Duerme lo suficiente: los sueños más largos llegan al final de la noche.</li></ul><p class="src">Consejos prácticos basados en el diario de sueños; la relación entre recordar y lucidez viene de Aspy (2020).</p>`],
+    ['🌙', 'MILD', 'Inducción mnemónica (LaBerge)', `<p>Consiste en crear la intención de recordar que estás soñando la próxima vez que sueñes. En ILDIS fue de las técnicas más eficaces. Puedes practicarla con la guía de arriba.</p><ol><li>Al acostarte (o tras despertar a las 5 h con WBTB), recuerda un sueño reciente.</li><li>Repite con intención: <i>"La próxima vez que sueñe, me daré cuenta de que estoy soñando"</i>.</li><li>Imagina que vuelves a ese sueño, ves algo raro y te vuelves lúcido.</li><li>Repite hasta sentir la intención fijada y duérmete.</li></ol><div class="stat"><b>16,5%</b><span>de mañanas con lúcido en los grupos MILD de ILDIS (con WBTB).</span></div><div class="stat"><b>45,8%</b><span>de éxito en otro estudio (NALDIS, 2017, citado en Aspy 2020) cuando la gente se dormía en menos de 5 min tras hacer MILD.</span></div><p class="src">Fuente: Aspy (2020).</p>`],
+    ['⏰', 'WBTB', 'Despertar y volver a dormir', `<p>Te despiertas tras unas 5 horas de sueño para practicar MILD o SSILD justo antes de las fases REM más largas del final de la noche.</p><ol><li>Alarma 5 h después de acostarte, lejos de la cama.</li><li>Levántate, apágala y haz la técnica unos minutos.</li><li>Vuelve a dormir lo antes posible.</li></ol><div class="stat"><b>18,3%</b><span>de éxito al dormirse en menos de 10 min tras la técnica, frente al 11,1 % si tardaban más (ILDIS).</span></div><p><b>Aviso honesto:</b> interrumpe tu sueño. Úsalo solo en noches sin clase al día siguiente.</p><p class="src">Fuente: Aspy (2020).</p>`],
+    ['🎧', 'SSILD', 'Ciclos de los sentidos', `<p>Alternativa a MILD, igual de eficaz en ILDIS (16,9 % de mañanas con lúcido). Se hace tras unas 5 h de sueño. Tienes una guía con voz arriba.</p><ol><li>Vista: atiende a la oscuridad tras los párpados.</li><li>Oído: atiende a los sonidos.</li><li>Tacto: atiende a las sensaciones del cuerpo.</li><li>Haz 4 ciclos rápidos (unos segundos por sentido) y luego 4 lentos (unos 20 s por sentido). Después, duérmete.</li></ol><p class="src">Fuente: Aspy (2020).</p>`],
+    ['🔎', 'Señales de sueño', 'Lo que se repite en tus sueños', `<p>Son elementos típicos de tus sueños: personas, lugares, situaciones imposibles o emociones. Si aprendes a reconocerlos, es más fácil darte cuenta de que sueñas. La pestaña <b>Señales</b> detecta lo que se repite en tu diario.</p><p>Tipos que proponen LaBerge y Rheingold: algo que haces que es raro, formas raras, contextos o lugares raros, y sensaciones o pensamientos extraños.</p><p class="src">Fuente: LaBerge y Rheingold (1990).</p>`],
+    ['👃', 'Pruebas de realidad', 'Útiles solo como complemento', `<p>Comprobar si estás soñando: tápate la nariz e intenta respirar, o mira tus manos o un texto dos veces. En sueños suele "fallar". Prueba la versión interactiva de arriba.</p><p><b>Lo que dicen los datos:</b> en ILDIS, hacer pruebas de realidad durante el día no mejoró los resultados en una semana. Úsalas cuando veas una de tus señales y pregúntate en serio si sueñas, no de forma automática.</p><p class="src">Fuente: Aspy (2020).</p>`],
+    ['🧠', 'DILD y WILD', 'Dos formas de volverse lúcido', `<p><b>DILD</b>: te das cuenta de que sueñas estando ya dentro del sueño. Es lo que buscan MILD, SSILD y las señales de sueño, y es lo más habitual.</p><p><b>WILD</b>: intentar pasar de despierto a un sueño sin perder la consciencia (término de LaBerge). Suele hacerse tras WBTB, tumbado y relajado, observando las imágenes que aparecen al dormirse.</p><p><b>Honestidad:</b> hay mucha menos investigación sobre WILD que sobre MILD o SSILD, y en la transición pueden aparecer sensaciones raras o parálisis del sueño. Para empezar, mejor DILD.</p><p class="src">Fuente: LaBerge y Rheingold (1990).</p>`],
+    ['😶', 'Parálisis del sueño', 'Qué es y qué hacer', `<p>Es despertar con la mente despierta pero sin poder moverte durante unos segundos o minutos, a veces con imágenes o sensaciones muy reales. Pasa porque la parálisis normal del sueño REM dura un poco más de la cuenta.</p><div class="stat"><b>28%</b><span>de los estudiantes la ha tenido al menos una vez (7,6 % de la población general), según una revisión de 35 estudios.</span></div><ul><li>Recuerda que es eso y que pasa sola.</li><li>Respira despacio e intenta mover solo un dedo o los ojos.</li><li>Dormir poco o mal la hace más probable.</li><li>Si te pasa a menudo o te angustia mucho, coméntalo con un médico.</li></ul><p class="src">Fuente: Sharpless y Barber (2011).</p>`],
+    ['🚀', 'Tu primer lúcido', 'Ideas y plan', `<ul><li><b>Primero estabiliza:</b> calma, mira tus manos, frótalas.</li><li><b>Haz algo sencillo:</b> tocar una pared, mirar un detalle de cerca, hablar con alguien.</li><li><b>Luego prueba algo más:</b> volar, atravesar una puerta hacia un sitio que elijas.</li><li>Si notas que te despiertas, gira sobre ti mismo.</li><li>Al despertar, apúntalo enseguida y márcalo como lúcido.</li></ul><p class="src">Fuente: LaBerge y Rheingold (1990).</p>`],
+    ['🤲', 'Cuando te vuelvas lúcido', 'Que no se escape', `<ul><li>Calma: emocionarte demasiado suele despertarte.</li><li>Si la imagen se desvanece, frótate las manos o gira sobre ti mismo; LaBerge propone girar para mantenerte en el sueño.</li><li>No esperes controlarlo todo: se estima que el control deliberado es posible en aproximadamente un tercio de los sueños lúcidos (citado en Aspy, 2020).</li></ul><p class="src">Fuentes: LaBerge y Rheingold (1990); Aspy (2020).</p>`],
+    ['⚠️', 'Errores comunes', 'Lo que frena a casi todos', `<ul><li>Mirar el móvil nada más despertar (se borra el sueño).</li><li>Dejar de apuntar cuando no hay resultados.</li><li>Hacer WBTB entre semana y dormir mal.</li><li>Pruebas de realidad hechas sin pensar.</li><li>Esperar resultados en 3 días: lo normal es tardar semanas.</li></ul><p class="src">Consejos prácticos basados en las fuentes de esta sección.</p>`]
   ];
-  return T.map(([e, t, s, b]) => `<details class="card tech"><summary><span class="e">${e}</span><div><h3>${t}</h3><p>${s}</p></div><span class="chev">${ICON.chev}</span></summary><div class="body">${b}</div></details>`).join('') +
-    `<div class="card"><h3>Fuentes</h3>${SOURCES.map(([t, u]) => `<p class="small" style="margin:0 0 10px;color:#c9d6f0">${t}${u ? ` <a href="${u}" target="_blank" rel="noopener">Ver estudio</a>` : ''}</p>`).join('')}</div>`;
+  return `<div class="card"><h3>Practica ahora</h3><div class="practice">
+    <button class="pbtn" data-act="guide" data-g="mild"><span class="e">🌙</span><div><b>MILD guiado</b><span>3 minutos, con voz · antes de dormir</span></div></button>
+    <button class="pbtn" data-act="guide" data-g="ssild"><span class="e">🎧</span><div><b>SSILD guiado</b><span>5 minutos, con voz · tras despertar a las 5 h</span></div></button>
+    <button class="pbtn" data-act="rcheck"><span class="e">👃</span><div><b>Prueba de realidad</b><span>1 minuto · interactiva</span></div></button>
+  </div></div>` +
+    T.map(([e, t, s, b]) => `<details class="card tech"><summary><span class="e">${e}</span><div><h3>${t}</h3><p>${s}</p></div><span class="chev">${ICON.chev}</span></summary><div class="body">${b}</div></details>`).join('') +
+    `<div class="card"><h3>Fuentes</h3>${SOURCES.map(([t, u]) => `<p class="small" style="margin:0 0 10px;color:#c9d6f0">${t}${u ? ` <a href="${u}" target="_blank" rel="noopener" data-keep="1">Ver estudio</a>` : ''}</p>`).join('')}</div>`;
 }
+/* ---------- Prácticas guiadas ---------- */
+const GUIDES = {
+  mild: { name: 'MILD guiado', steps: [['Ponte cómodo y cierra los ojos. Respira despacio.', 12], ['Recuerda el último sueño que tuviste. Revívelo con todo el detalle que puedas.', 40], ['Busca en ese sueño algo raro: una señal de que estabas soñando.', 25], ['Repite por dentro, con intención: la próxima vez que sueñe, me daré cuenta de que estoy soñando.', 35], ['Imagina que vuelves a ese sueño, ves la señal y piensas: estoy soñando.', 40], ['Mantén esa intención y déjate dormir.', 10]] },
+  ssild: { name: 'SSILD guiado', steps: [['Cierra los ojos y relájate. Vamos a recorrer tus sentidos sin esfuerzo.', 10],
+    ...Array.from({ length: 4 }, () => [['Vista', 4], ['Oído', 4], ['Cuerpo', 4]]).flat(),
+    ['Ahora más despacio.', 5],
+    ...Array.from({ length: 4 }, () => [['Vista: la oscuridad tras los párpados', 20], ['Oído: los sonidos a tu alrededor', 20], ['Cuerpo: el peso y la temperatura de tu cuerpo', 20]]).flat(),
+    ['Ya está. Duérmete sin hacer nada más.', 8]] }
+};
+const G = { el: null, t: null, i: 0, left: 0, voice: true, paused: false, lock: null };
+function startGuide(id) {
+  const g = GUIDES[id]; if (!g) return; stopGuide();
+  G.id = id; G.i = -1; G.paused = false;
+  const el = document.createElement('div'); el.className = 'guide'; G.el = el;
+  el.innerHTML = `<div class="gsub" id="gName">${g.name}</div><div class="gring">${ring(0)}<b id="gSec"></b></div><div class="gstep anim" id="gStep"></div><div class="gsub" id="gCount"></div>
+    <div class="gbtns"><button class="btn" id="gVoice">${G.voice ? 'Voz: sí' : 'Voz: no'}</button><button class="btn" id="gPause">Pausa</button><button class="btn danger" id="gExit">Salir</button></div>`;
+  document.body.appendChild(el); document.body.classList.add('hide-tabs');
+  $('#gVoice').onclick = () => { G.voice = !G.voice; $('#gVoice').textContent = G.voice ? 'Voz: sí' : 'Voz: no'; if (!G.voice && canTTS) speechSynthesis.cancel(); };
+  $('#gPause').onclick = () => { G.paused = !G.paused; $('#gPause').textContent = G.paused ? 'Seguir' : 'Pausa'; };
+  $('#gExit').onclick = stopGuide;
+  try { if (navigator.wakeLock) navigator.wakeLock.request('screen').then((l) => (G.lock = l)).catch(() => {}); } catch (e) {}
+  nextStep();
+  G.t = setInterval(() => {
+    if (G.paused) return; G.left -= 0.25;
+    const st = GUIDES[G.id].steps[G.i]; if (!st) return;
+    const p = 1 - Math.max(0, G.left) / st[1]; const rr = $('.gring', G.el); if (rr) rr.innerHTML = ring(p) + `<b id="gSec">${Math.ceil(Math.max(0, G.left))}</b>`;
+    if (G.left <= 0) nextStep();
+  }, 250);
+}
+function nextStep() {
+  const g = GUIDES[G.id]; G.i++;
+  if (G.i >= g.steps.length) {
+    clearInterval(G.t); const s = $('#gStep'); s.classList.remove('anim'); void s.offsetWidth; s.classList.add('anim'); s.textContent = 'Felices sueños';
+    $('#gCount').textContent = ''; $('.gbtns', G.el).innerHTML = '<button class="btn primary" id="gDone">Cerrar</button>'; $('#gDone').onclick = stopGuide;
+    if (G.voice) speak('Felices sueños.');
+    const k = dkey(); if (G.id === 'mild') { DB.plan[k] = DB.plan[k] || {}; DB.plan[k].mild = true; save(); }
+    return;
+  }
+  const [txt, secs] = g.steps[G.i]; G.left = secs;
+  const s = $('#gStep'); s.classList.remove('anim'); void s.offsetWidth; s.classList.add('anim'); s.textContent = txt;
+  $('#gCount').textContent = `Paso ${G.i + 1} de ${g.steps.length}`;
+  if (G.voice && canTTS) { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(txt); const v = pickVoice(); u.lang = v ? v.lang : 'es-ES'; if (v) u.voice = v; u.rate = Math.min(1, DB.settings.rate || 1) * 0.9; speechSynthesis.speak(u); }
+}
+function stopGuide() {
+  clearInterval(G.t); if (canTTS) speechSynthesis.cancel(); TTS.on = false;
+  if (G.el) G.el.remove(); G.el = null; document.body.classList.remove('hide-tabs');
+  try { if (G.lock) G.lock.release(); } catch (e) {} G.lock = null;
+}
+const RCHECK = [
+  { q: 'Tápate la nariz con los dedos e intenta respirar por ella.', a: [['He podido respirar', 'Despierto no se puede. Si te pasa en un sueño: <b>¡estás soñando!</b> Calma, frótate las manos y decide qué hacer.'], ['No he podido', 'Estás despierto. Ahora pregúntate en serio: <b>¿cómo he llegado hasta aquí?</b> ¿Qué hacía hace 10 minutos?']] },
+  { q: 'Mira tus manos despacio y cuenta los dedos.', a: [['Todo normal', 'Bien. En los sueños las manos y los textos suelen cambiar o verse raros.'], ['Algo raro', 'Si algo no cuadra, sospecha: <b>puede que estés soñando</b>.']] },
+  { q: 'Lee una palabra cualquiera, aparta la mirada y vuelve a leerla.', a: [['Es igual', 'Perfecto, estás despierto. Lo que más ayuda es hacer esto cuando veas una de tus <b>señales de sueño</b>.'], ['Ha cambiado', 'En sueños el texto cambia al volver a mirarlo: <b>¡estás soñando!</b>']] }
+];
+function rcheck(i = 0, msg = '') {
+  const done = i >= RCHECK.length;
+  if (done) { const k = dkey(); DB.plan[k] = DB.plan[k] || {}; DB.plan[k].realidad = true; save(); }
+  openSheet(`<div class="ob-dots">${RCHECK.map((_, x) => `<i class="${x === i ? 'on' : ''}"></i>`).join('')}</div>
+    ${msg ? `<p class="small" style="background:rgba(125,211,252,.08);border:1px solid rgba(125,211,252,.2);border-radius:12px;padding:10px 12px;color:#dff4ff">${msg}</p>` : ''}
+    ${done ? `<h2>¡Hecho!</h2><p class="small">Prueba de realidad completada y marcada en tu plan de hoy.</p><button class="btn primary big block" data-act="closeSheet">Cerrar</button>`
+      : `<h2>${RCHECK[i].q}</h2><div style="display:grid;gap:10px;margin-top:14px">${RCHECK[i].a.map(([lab], j) => `<button class="btn big block" data-act="rcAns" data-i="${i}" data-j="${j}">${lab}</button>`).join('')}</div>`}`);
+}
+
 function wordStats() {
   const df = new Map(), forms = new Map();
   for (const d of Object.values(DB.dreams)) {
@@ -1151,39 +1307,37 @@ function lucidStats() {
 
 /* ---- Ajustes ---- */
 function renderSettings() {
-  const pin = !!DB.settings.pinHash, hl = !!DB.settings.health, rc = DB.settings.rc;
+  const S = DB.settings, pin = !!S.pinHash, hl = !!S.health, rc = S.rc;
   const opt = (arr, v) => arr.map(([val, lab]) => `<option value="${val}" ${String(val) === String(v) ? 'selected' : ''}>${lab}</option>`).join('');
-  const hours = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => [a + i, (a + i) + ':00']);
   return `${header('Ajustes', 'Sueños v' + VERSION)}
-  <div class="card"><div class="set-row"><div><div class="t">Tu nombre</div><div class="s">Para el saludo de la mañana</div></div><input class="input" id="nameIn" value="${esc(DB.name)}" placeholder="Tu nombre" style="width:140px;font-size:16px;padding:9px 12px"></div>
-  <div class="set-row"><div><div class="t">Bloqueo con PIN</div><div class="s">${pin ? 'Activado · se pide al abrir' : 'Desactivado'}</div></div>${pin ? '<div class="row"><button class="btn" data-act="pinSet">Cambiar</button><button class="btn danger" data-act="pinOff">Quitar</button></div>' : '<button class="btn primary" data-act="pinSet">Activar</button>'}</div></div>
+  <div class="card"><div class="set-row"><div><div class="t">Tu nombre</div><div class="s">Para el saludo</div></div><input class="input" id="nameIn" value="${esc(DB.name)}" placeholder="Tu nombre" style="width:140px;font-size:16px;padding:9px 12px"></div>
+  <div class="set-row"><div><div class="t">Bloqueo con PIN</div><div class="s">${pin ? 'Activado · se pide al abrir' : 'Desactivado'}</div></div>${pin ? '<div class="row"><button class="btn" data-act="pinChange">Cambiar</button><button class="btn danger" data-act="pinOff">Quitar</button></div>' : '<button class="btn primary" data-act="pinSet">Activar</button>'}</div>
+  ${pin ? `<div class="set-row"><div><div class="t">Si olvidas el PIN</div><div class="s">${S.secQ ? 'Pregunta de seguridad configurada' : 'Sin pregunta de seguridad'}${S.pinHint ? ' · con pista' : ''}</div></div><button class="btn" data-act="recovery">${S.secQ || S.pinHint ? 'Cambiar' : 'Configurar'}</button></div>` : ''}</div>
 
   <div class="section-title">Voz de lectura</div>
-  <div class="card"><div class="set-row"><div><div class="t">Voz</div><div class="s">La que lee tus sueños</div></div><select class="input" id="voiceSel" style="width:170px">${voiceOptions()}</select></div>
-  <div class="set-row" style="display:block"><div class="row between"><div class="t">Velocidad</div><span class="s" id="rateV">${rateLabel(DB.settings.rate)}</span></div><input type="range" id="rateIn" min="0.7" max="1.3" step="0.05" value="${DB.settings.rate || 1}" style="margin-top:10px"></div>
-  <div class="set-row"><div class="s" style="padding-right:10px">Para una voz más natural, descarga una voz "mejorada" o "premium" en español: Ajustes del iPhone → Accesibilidad → Contenido leído → Voces.</div><button class="btn" data-act="testVoice">Probar</button></div></div>
+  <div class="card"><div class="set-row"><div><div class="t">Voz</div><div class="s">La que lee tus sueños</div></div><select class="input" id="voiceSel" style="width:180px">${voiceOptions()}</select></div>
+  <div class="set-row" style="display:block"><div class="row between"><div class="t">Velocidad</div><span class="s" id="rateV">${rateLabel(S.rate)}</span></div><input type="range" id="rateIn" min="0.7" max="1.3" step="0.05" value="${S.rate || 1}" style="margin-top:10px"></div>
+  <div class="set-row"><div class="s" style="padding-right:10px">Para tener más voces (también de hombre, como Jorge o Diego): Ajustes del iPhone → Accesibilidad → Contenido leído → Voces → Español. Descarga las que quieras y vuelve a abrir Sueños. Si no se oye, quita el modo silencio.</div><button class="btn" data-act="testVoice">Probar</button></div></div>
 
   <div class="section-title">Avisos de pruebas de realidad</div>
-  <div class="card"><p class="small muted" style="margin:0 0 6px">Unos pocos avisos al día para preguntarte "¿estoy soñando?". Se añaden al Calendario del iPhone, que es quien te avisa.</p>
-  <div class="set-row"><div class="t">Avisos al día</div><select class="input" data-rc="n" style="width:110px">${opt([[3, '3'], [4, '4'], [5, '5'], [6, '6'], [7, '7'], [8, '8']], rc.n)}</select></div>
-  <div class="set-row"><div class="t">Desde</div><select class="input" data-rc="from" style="width:110px">${opt(hours(7, 14), rc.from)}</select></div>
-  <div class="set-row"><div class="t">Hasta</div><select class="input" data-rc="to" style="width:110px">${opt(hours(17, 23), rc.to)}</select></div>
-  <div class="set-row"><div class="t">Mensaje</div><select class="input" data-rc="msg" style="width:190px">${opt(RC_MSGS.map((m) => [m, m]), rc.msg)}</select></div>
-  <p class="small" style="margin:12px 0" id="rcPrev">Te avisará a las ${rcTimes().map(([h, m]) => pad(h) + ':' + pad(m)).join(', ')}.</p>
-  <button class="btn primary block" data-act="addRC">${rc.added ? 'Volver a añadir al Calendario' : 'Añadir avisos al Calendario'}</button>
-  ${rc.added ? '<p class="tiny dim" style="margin:10px 0 0">Si cambias la configuración, borra antes los avisos anteriores para no tenerlos repetidos.</p>' : ''}
+  <div class="card"><p class="small muted" style="margin:0 0 6px">Unos pocos avisos al día que dicen "¿Estás soñando?". Los guarda el Calendario del iPhone, que es quien te avisa aunque la app esté cerrada.</p>
+  <div class="set-row"><div class="t">Avisos al día</div><select class="input" data-rc="n" style="width:100px">${opt([3, 4, 5, 6, 7, 8].map((n) => [n, n]), rc.n)}</select></div>
+  <div class="set-row"><div class="t">Horario</div><select class="input" data-rc="franja" style="width:200px">${opt(Object.entries(RC_FRANJAS).map(([k, v]) => [k, v[2]]), rc.franja)}</select></div>
+  <p class="small" style="margin:12px 0" id="rcPrev">${rcPreview()}</p>
+  <a class="btn primary block" id="rcLink" href="${rcURL()}" target="_blank" rel="noopener" data-act="rcAdded" data-keep="1">${rc.added ? 'Volver a añadir al Calendario' : 'Añadir avisos al Calendario'}</a>
+  <p class="tiny dim" style="margin:10px 0 0">Se abrirá Safari con tus avisos: pulsa <b>Añadir todo</b>. Si cambias la configuración, borra antes los anteriores.</p>
   <details style="margin-top:8px"><summary class="muted small" style="cursor:pointer;padding:6px 0">Cómo quitarlos ›</summary><p class="small" style="color:#c9d6f0">En la app Calendario, toca uno de los avisos → <b>Eliminar evento</b> → <b>Eliminar todos los eventos futuros</b>. Repite con cada hora.</p></details></div>
 
   <div class="section-title">Datos de sueño · opcional</div>
   <div class="card"><div class="set-row"><div style="padding-right:10px"><div class="t">Usar datos de Salud</div><div class="s">Para Apple Watch, Amazfit/Zepp u otra pulsera que guarde el sueño en Salud. Muestra tus fases debajo de cada sueño.</div></div><button class="switch ${hl ? 'on' : ''}" data-act="toggleHealth" aria-label="Usar datos de Salud"></button></div>
-  ${hl ? `<div class="set-row"><div style="padding-right:10px"><div class="t">Traer al guardar un sueño</div><div class="s">Al guardar el sueño de hoy se abre el Atajo solo</div></div><button class="switch ${DB.settings.autoImport ? 'on' : ''}" data-act="toggleAuto" aria-label="Traer al guardar"></button></div>
-  <div class="set-row"><div><div class="t">Traer la última noche</div><div class="s">Prueba la conexión</div></div><button class="btn" data-act="importHealth">Traer</button></div>
-  <div class="set-row"><div><div class="t">Nombre del Atajo</div><div class="s">Tiene que coincidir exactamente</div></div><input class="input" id="scIn" value="${esc(DB.settings.shortcut)}" style="width:150px;font-size:16px;padding:9px 12px"></div>
-  <p class="tiny dim" style="margin:12px 0 0">Apple no deja que las apps web lean Salud directamente, así que en esta versión se usa un Atajo de iPhone que se configura una sola vez. Importante: tu pulsera pasa la noche a Salud cuando su app (Zepp) sincroniza; ábrela antes si la noche aún no aparece.</p>
+  ${hl ? `<div class="set-row"><div style="padding-right:10px"><div class="t">Traer al guardar un sueño</div><div class="s">Al guardar el sueño de hoy se abre el Atajo solo</div></div><button class="switch ${S.autoImport ? 'on' : ''}" data-act="toggleAuto" aria-label="Traer al guardar"></button></div>
+  <div class="set-row"><div><div class="t">Traer las últimas noches</div><div class="s">También rellena las que falten</div></div><button class="btn" data-act="importHealth">Traer</button></div>
+  <div class="set-row"><div><div class="t">Nombre del Atajo</div><div class="s">Tiene que coincidir exactamente</div></div><input class="input" id="scIn" value="${esc(S.shortcut)}" style="width:150px;font-size:16px;padding:9px 12px"></div>
+  <p class="tiny dim" style="margin:12px 0 0">Apple no deja que las apps web lean Salud directamente, así que se usa un Atajo de iPhone. Tu pulsera pasa la noche a Salud cuando su app (Zepp) sincroniza: ábrela antes si la noche aún no aparece.</p>
   <details style="margin-top:8px"><summary class="muted small" style="cursor:pointer;padding:6px 0">Cómo crear el Atajo ›</summary><ol class="steps" style="margin-top:12px">
     <li>Asegúrate de que tu reloj o pulsera guarda el sueño en Salud (en Zepp: Perfil → Apple Salud → permiso de Sueño).</li>
-    <li>Abre <b>Atajos</b> → <b>+</b> → nómbralo <code>${esc(DB.settings.shortcut)}</code>.</li>
-    <li>Añade <b>Buscar muestras médicas</b>: tipo <b>Sueño</b>, fecha de inicio <b>en los últimos 1 días</b>, ordenar por fecha de inicio, sin límite.</li>
+    <li>Abre <b>Atajos</b> → <b>+</b> → nómbralo <code>${esc(S.shortcut)}</code>.</li>
+    <li>Añade <b>Buscar muestras médicas</b>: tipo <b>Sueño</b>, fecha de inicio <b>en los últimos 3 días</b>, ordenar por fecha de inicio, sin límite.</li>
     <li>Añade <b>Repetir con cada ítem</b> en Muestras médicas.</li>
     <li>Dentro, añade <b>Texto</b> con <code>Valor ; Fecha de inicio ; Fecha de fin ; Fuente</code> (toca "Ítem de repetición" para elegir cada dato).</li>
     <li>Debajo: <b>Combinar</b> Resultado de la repetición con <b>Nuevas líneas</b> y después <b>Copiar al portapapeles</b>.</li>
@@ -1204,9 +1358,8 @@ function afterSettings() {
   $('#rateIn').addEventListener('input', (e) => { DB.settings.rate = +e.target.value; $('#rateV').textContent = rateLabel(DB.settings.rate); });
   $('#rateIn').addEventListener('change', () => save());
   $$('[data-rc]').forEach((s) => s.addEventListener('change', () => {
-    const f = s.dataset.rc; DB.settings.rc[f] = f === 'msg' ? s.value : +s.value;
-    if (DB.settings.rc.to <= DB.settings.rc.from) DB.settings.rc.to = Math.min(23, DB.settings.rc.from + 4);
-    save(); $('#rcPrev').textContent = 'Te avisará a las ' + rcTimes().map(([h, m]) => pad(h) + ':' + pad(m)).join(', ') + '.';
+    const f = s.dataset.rc; DB.settings.rc[f] = f === 'n' ? +s.value : s.value; save();
+    $('#rcPrev').textContent = rcPreview(); $('#rcLink').href = rcURL();
   }));
   if (canTTS) speechSynthesis.onvoiceschanged = () => { const sel = $('#voiceSel'); if (sel) sel.innerHTML = voiceOptions(); };
 }
@@ -1234,17 +1387,19 @@ async function pasteHealth() {
 }
 function handleHealthText(t) {
   const target = DB.importTarget || dkey(), res = parseHealth(t, target), box = $('#pasteRes');
+  const others = (res.all || []).filter((n) => n.date !== target && !DB.sleep[n.date] && dayDiff(n.date, dkey()) <= 7);
+  const othersTxt = others.map((n) => shortDate(n.date)).join(', ');
   if (res.error === 'missing') {
-    const other = DB.dreams[res.latest] && isReal(DB.dreams[res.latest]) && !DB.sleep[res.latest];
-    box.innerHTML = `<div class="card miss" style="margin-top:14px"><b>Salud todavía no tiene la noche del ${shortDate(target)}</b><p class="small" style="margin:6px 0 12px;color:#c9d6f0">La última noche que hay es la del ${shortDate(res.latest)}. Tu pulsera pasa los datos a Salud cuando su app (Zepp) sincroniza. Ábrela, espera a que termine y vuelve a intentarlo.</p><button class="btn primary block" data-act="retryHealth">Reintentar</button>${other ? `<button class="btn block" id="saveOther" style="margin-top:8px">Guardar en el sueño del ${shortDate(res.latest)}</button>` : ''}</div>`;
-    if (other) $('#saveOther').onclick = () => { const r2 = parseHealth(t, res.latest); if (!r2.error) { DB.sleep[res.latest] = r2; save(); closeSheet(); toast('Fases guardadas en el sueño del ' + shortDate(res.latest)); route(); } };
+    box.innerHTML = `<div class="card miss" style="margin-top:14px"><b>Salud todavía no tiene la noche del ${shortDate(target)}</b><p class="small" style="margin:6px 0 12px;color:#c9d6f0">La última que hay es la del ${shortDate(res.latest)}. Tu pulsera pasa los datos a Salud cuando su app (Zepp) sincroniza. Ábrela, espera a que termine y vuelve a intentarlo.</p><button class="btn primary block" data-act="retryHealth">Reintentar</button>${others.length ? `<button class="btn block" id="saveOthers" style="margin-top:8px">Guardar las noches que sí hay (${othersTxt})</button>` : ''}</div>`;
+    if (others.length) $('#saveOthers').onclick = () => { saveNights(res.all, null); closeSheet(); toast('Guardadas las noches del ' + othersTxt); route(); };
     return;
   }
   if (res.error) { box.innerHTML = `<p class="small" style="color:var(--bad);margin-top:14px">${res.error}</p>`; return; }
   const hasDream = isReal(DB.dreams[target]);
-  box.innerHTML = `<div style="margin-top:16px">${sleepCard(res, 'Noche del ' + shortDate(target))}<button class="btn primary big block" id="saveSleep">${hasDream ? 'Guardar debajo del sueño de hoy' : 'Guardar en el ' + shortDate(target)}</button></div>`;
+  box.innerHTML = `<div style="margin-top:16px">${sleepCard(res, 'Noche del ' + shortDate(target))}${others.length ? `<p class="small muted">También se guardarán las noches que faltaban: ${othersTxt}.</p>` : ''}<button class="btn primary big block" id="saveSleep">${hasDream ? 'Guardar debajo del sueño' : 'Guardar en el ' + shortDate(target)}</button></div>`;
   $('#saveSleep').onclick = () => {
-    DB.sleep[target] = res; save(); closeSheet(); toast('Fases de sueño guardadas');
+    const extra = saveNights(res.all, target); closeSheet();
+    toast('Fases guardadas' + (extra.length ? ' (y ' + extra.length + (extra.length === 1 ? ' noche más)' : ' noches más)') : ''));
     // En la pantalla de grabar no recargamos, para no perder lo que estás escribiendo
     if ((location.hash || '').startsWith('#/nuevo')) { const p = $('#wakePill'); if (p && F && F.date === target) p.textContent = wakeLabel(target); }
     else route();
@@ -1254,16 +1409,30 @@ function handleHealthText(t) {
 /* ---------- Voz que lee el sueño (voces del propio iPhone) ---------- */
 const canTTS = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
 const TTS = { on: false };
-function esVoices() { return canTTS ? speechSynthesis.getVoices().filter((v) => /^es([-_]|$)/i.test(v.lang)) : []; }
+const VOICE_M = ['jorge', 'diego', 'juan', 'carlos', 'eddy', 'reed', 'rocko', 'grandpa', 'abuelo', 'pablo', 'enrique', 'alvaro', 'raul', 'jose', 'antonio', 'andres'];
+const VOICE_F = ['monica', 'paulina', 'marisol', 'angelica', 'isabela', 'francisca', 'flo', 'sandy', 'shelley', 'grandma', 'abuela', 'helena', 'laura', 'soledad', 'lucia', 'elvira', 'dalia', 'elena', 'carmen', 'paloma', 'sabina'];
+const LANG_ES = { 'es-ES': 'España', 'es-MX': 'México', 'es-US': 'EE. UU.', 'es-AR': 'Argentina', 'es-CO': 'Colombia', 'es-CL': 'Chile', 'es-419': 'Latinoamérica' };
+function esVoices() {
+  if (!canTTS) return [];
+  const seen = new Set();
+  return speechSynthesis.getVoices().filter((v) => /^es([-_]|$)/i.test(v.lang)).filter((v) => {
+    const key = norm(v.name).trim() + '|' + v.lang.replace('_', '-').toLowerCase();
+    if (seen.has(key)) return false; seen.add(key); return true;
+  }).sort((a, b) => (/es[-_]ES/i.test(b.lang) - /es[-_]ES/i.test(a.lang)) || a.name.localeCompare(b.name));
+}
+function voiceLabel(v) {
+  const first = norm(v.name).split(/[\s(]/)[0];
+  const g = VOICE_M.includes(first) ? 'hombre' : VOICE_F.includes(first) ? 'mujer' : '';
+  return `${v.name}${g ? ' · ' + g : ''} · ${LANG_ES[v.lang.replace('_', '-')] || v.lang}`;
+}
 function pickVoice() {
   const vs = esVoices(); if (!vs.length) return null;
   if (DB.settings.voice) { const v = vs.find((x) => x.voiceURI === DB.settings.voice); if (v) return v; }
-  const sc = (v) => (/(premium|mejorad|enhanced|neural|natural)/i.test(v.name) ? 4 : 0) + (/es[-_]ES/i.test(v.lang) ? 2 : 0) + (v.localService ? 1 : 0);
+  const sc = (v) => (/(premium|mejorad|enhanced|neural|natural)/i.test(v.name + v.voiceURI) ? 4 : 0) + (/es[-_]ES/i.test(v.lang) ? 2 : 0) + (v.localService ? 1 : 0);
   return vs.slice().sort((a, b) => sc(b) - sc(a))[0];
 }
 function voiceOptions() {
-  const vs = esVoices();
-  return `<option value="">Automática</option>` + vs.map((v) => `<option value="${esc(v.voiceURI)}" ${DB.settings.voice === v.voiceURI ? 'selected' : ''}>${esc(v.name)} (${esc(v.lang)})</option>`).join('');
+  return `<option value="">Automática</option>` + esVoices().map((v) => `<option value="${esc(v.voiceURI)}" ${DB.settings.voice === v.voiceURI ? 'selected' : ''}>${esc(voiceLabel(v))}</option>`).join('');
 }
 const rateLabel = (r) => ((r || 1) < 0.95 ? 'Lenta' : (r || 1) > 1.05 ? 'Rápida' : 'Normal') + ' · ' + (+(r || 1)).toFixed(2) + 'x';
 function chunks(text) {
@@ -1277,6 +1446,9 @@ function chunks(text) {
 }
 function speak(text, onEnd) {
   if (!canTTS) { toast('Este dispositivo no permite leer en voz alta'); if (onEnd) onEnd(); return; }
+  // Intenta que suene aunque el iPhone esté en silencio (solo en versiones de iOS que lo permiten)
+  try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) {}
+  if (!DB.settings.ttsHinted) { DB.settings.ttsHinted = true; save(); toast('Si no se oye, quita el modo silencio del iPhone', 3600); }
   speechSynthesis.cancel();
   const v = pickVoice(), parts = chunks(text); let i = 0;
   TTS.on = true;
@@ -1292,37 +1464,22 @@ function speak(text, onEnd) {
 }
 function stopSpeak() { TTS.on = false; if (canTTS) speechSynthesis.cancel(); setListenUI(false); }
 function setListenUI(on) { const b = $('#listenBtn'); if (!b) return; b.classList.toggle('on', on); b.querySelector('.lt').textContent = on ? 'Parar' : 'Escuchar'; }
-function dreamSpeech(d) { return [d.title + '.', ...(d.parts.length > 1 ? d.parts.map((p, i) => `Parte ${i + 1}. ${p.text}`) : [d.text])].join(' '); }
+function dreamSpeech(d) {
+  const multi = d.parts.length > 1;
+  const end = (t) => (/[.!?…]$/.test(t.trim()) ? t.trim() : t.trim() + '.');
+  return [end(d.title), ...(multi ? d.parts.map((p, i) => (p.nap ? `Siesta${p.title ? ': ' + p.title : ''}. ` : partLabel(d.parts, i) + '. ') + end(p.text)) : [end(d.text)])].join(' ');
+}
 
-/* ---------- Avisos de pruebas de realidad (Calendario del iPhone) ---------- */
-const RC_MSGS = ['¿Estás soñando?', 'Prueba de realidad', 'Mírate las manos', 'Tápate la nariz e intenta respirar'];
-function rcTimes() {
-  const { n, from, to } = DB.settings.rc; const span = Math.max(60, (to - from) * 60), step = span / n; let seed = 11;
+/* ---------- Avisos de pruebas de realidad (archivos de Calendario alojados en la web) ---------- */
+const RC_FRANJAS = { manana: [9, 21, 'De 9 a 21 h'], normal: [10, 22, 'De 10 a 22 h'], tarde: [12, 23, 'De 12 a 23 h'] };
+function rcTimes(n, franja) {
+  n = n || DB.settings.rc.n; const [from, to] = RC_FRANJAS[franja || DB.settings.rc.franja] || RC_FRANJAS.normal;
+  const span = (to - from) * 60, step = span / n; let seed = 11;
   const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
   return Array.from({ length: n }, (_, i) => { const m = Math.round(from * 60 + step * i + step * (0.2 + 0.6 * rnd())); return [Math.floor(m / 60), m % 60]; });
 }
-const icsEsc = (s) => String(s).replace(/\\/g, '\\\\').replace(/;/g, '\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
-const icsFold = (l) => { const out = []; while (l.length > 70) { out.push(l.slice(0, 70)); l = ' ' + l.slice(70); } out.push(l); return out.join('\r\n'); };
-function buildICS() {
-  const t = new Date(), day = `${t.getFullYear()}${pad(t.getMonth() + 1)}${pad(t.getDate())}`;
-  const stamp = t.toISOString().replace(/[-:]/g, '').replace(/\.\d+/, '');
-  const msg = DB.settings.rc.msg, desc = 'Prueba de realidad: tápate la nariz e intenta respirar y pregúntate en serio si estás soñando. (Sueños)';
-  const ev = rcTimes().map(([h, m], i) => ['BEGIN:VEVENT', `UID:suenos-rc-${i}-${stamp}@suenos`, `DTSTAMP:${stamp}`, `DTSTART:${day}T${pad(h)}${pad(m)}00`, 'DURATION:PT1M', 'RRULE:FREQ=DAILY',
-    `SUMMARY:${icsEsc(msg)}`, `DESCRIPTION:${icsEsc(desc)}`, 'TRANSP:TRANSPARENT', 'BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${icsEsc(msg)}`, 'TRIGGER:PT0S', 'END:VALARM', 'END:VEVENT'].map(icsFold).join('\r\n'));
-  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Suenos//Avisos//ES', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', icsFold('X-WR-CALNAME:Sueños · pruebas de realidad'), ...ev, 'END:VCALENDAR'].join('\r\n') + '\r\n';
-}
-function rcFile() { return new File([buildICS()], 'suenos-avisos.ics', { type: 'text/calendar' }); }
-function addReminders() {
-  const url = URL.createObjectURL(new Blob([buildICS()], { type: 'text/calendar' }));
-  DB.settings.rc.added = new Date().toISOString(); save();
-  const w = window.open(url, '_blank');
-  if (!w) location.href = url;
-  setTimeout(() => openSheet(`<h2>Añadir avisos al Calendario</h2><p class="small">Si se ha abierto el Calendario, pulsa <b>Añadir todo</b>. Si no se ha abierto nada, comparte el archivo y elige <b>Calendario</b> (o guárdalo en Archivos y ábrelo desde ahí).</p><button class="btn primary block" data-act="shareRC">Compartir archivo de avisos</button><button class="btn ghost block" data-act="closeSheet" style="margin-top:8px">Hecho</button>`), 900);
-}
-async function shareRC() {
-  try { const f = rcFile(); if (navigator.canShare && navigator.canShare({ files: [f] })) { await navigator.share({ files: [f], title: 'Avisos de Sueños' }); return; } } catch (e) { if (e.name === 'AbortError') return; }
-  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([buildICS()], { type: 'text/calendar' })); a.download = 'suenos-avisos.ics'; document.body.appendChild(a); a.click(); setTimeout(() => a.remove(), 1000);
-}
+const rcPreview = () => 'Te avisará cada día a las ' + rcTimes().map(([h, m]) => pad(h) + ':' + pad(m)).join(', ') + '.';
+function rcURL() { const rc = DB.settings.rc; return new URL(`avisos-${rc.n}-${rc.franja in RC_FRANJAS ? rc.franja : 'normal'}.ics`, location.href).href; }
 
 /* ---------- Copia de seguridad ---------- */
 async function exportData() {
@@ -1356,6 +1513,8 @@ async function hashPin(p) {
   if (window.crypto && crypto.subtle) { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map((x) => x.toString(16).padStart(2, '0')).join(''); }
   let h = 5381; for (const c of s) h = ((h << 5) + h + c.charCodeAt(0)) >>> 0; return 'x' + h.toString(16);
 }
+const normAns = (s) => norm(String(s)).replace(/[^a-z0-9ñ ]/g, '').replace(/\s+/g, ' ').trim();
+const SEC_QS = ['¿Cómo se llamaba tu primera mascota?', '¿Cuál es tu comida favorita?', '¿Cómo se llama tu mejor amigo de la infancia?', '¿En qué calle vivías de pequeño?', '¿Cuál es tu película favorita?', '¿Cuál fue tu primer móvil?'];
 function padHTML() { return `<div class="dots">${'<i></i>'.repeat(4)}</div><div class="pad">${[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => `<button data-k="${n}">${n}</button>`).join('')}<button class="blank"></button><button data-k="0">0</button><button class="del" data-k="del" aria-label="Borrar">⌫</button></div>`; }
 function bindPad(root, onDone) {
   let v = '';
@@ -1371,24 +1530,86 @@ function bindPad(root, onDone) {
     if (v.length === 4) { const val = v; setTimeout(() => onDone(val, () => { const d = $('.dots', root); d.classList.add('shake'); setTimeout(() => d.classList.remove('shake'), 450); reset(); }, reset), 120); }
   }
 }
+const realS = () => (REAL || DB).settings; // ajustes reales (aunque los sueños estén ocultos)
 let unlocked = false;
 function showLock() {
   const L = $('#lock'); unlocked = false;
-  L.innerHTML = `<div class="moon"></div><h2>Sueños</h2><p class="muted" style="margin:0">Introduce tu PIN</p>${padHTML()}<button class="linkbtn" id="forgot">¿Olvidaste el PIN?</button>`;
+  L.innerHTML = `<div class="moon"></div><h2>Sueños</h2><p class="muted" id="lockMsg" style="margin:0;min-height:22px;text-align:center;max-width:300px">Introduce tu PIN</p>${padHTML()}<div style="display:flex;gap:22px">${DB.settings.pinHint ? '<button class="linkbtn" id="hintBtn">Ver pista</button>' : ''}<button class="linkbtn" id="forgot">¿Olvidaste el PIN?</button></div>`;
   L.hidden = false; document.body.classList.add('hide-tabs');
-  bindPad(L, async (val, fail) => { if ((await hashPin(val)) === DB.settings.pinHash) { unlocked = true; L.hidden = true; document.body.classList.remove('hide-tabs'); if (importPending()) setTimeout(pasteSheet, 250); } else fail(); });
-  $('#forgot').onclick = () => confirmSheet('¿Olvidaste el PIN?', 'Por seguridad, la única forma de quitarlo es <b>borrar todos los sueños</b> de este iPhone. Si tienes una copia exportada, podrás importarla después.', 'Borrar todo y quitar PIN', () => { localStorage.removeItem(KEY); load(); L.hidden = true; unlocked = true; document.body.classList.remove('hide-tabs'); route(); });
-  // el sheet debe quedar por encima del bloqueo
+  bindPad(L, async (val, fail) => {
+    if ((await hashPin(val)) === DB.settings.pinHash) { DB.settings.fails = 0; save(); unlock(); return; }
+    DB.settings.fails = (DB.settings.fails || 0) + 1; save();
+    if (DB.settings.fails >= 5) { enterHidden(); return; } // tras 5 fallos: se entra sin mostrar los sueños
+    fail();
+  });
+  if ($('#hintBtn')) $('#hintBtn').onclick = () => { $('#lockMsg').textContent = 'Pista: ' + DB.settings.pinHint; };
+  $('#forgot').onclick = forgotSheet;
   $('#sheet').style.zIndex = 90; $('#sheetBg').style.zIndex = 89;
 }
-function pinSetup() {
+function unlock() { unlocked = true; $('#lock').hidden = true; document.body.classList.remove('hide-tabs'); if (importPending()) setTimeout(pasteSheet, 250); }
+function forgotSheet() {
+  openSheet(`<h2>¿Olvidaste el PIN?</h2><p class="small">Tus sueños no se borran.</p><div style="display:grid;gap:10px;margin-top:12px">
+    ${DB.settings.secQ && DB.settings.secA ? '<button class="btn big block" data-act="secAsk">Responder mi pregunta de seguridad</button>' : ''}
+    <button class="btn big block" data-act="hideNow">Entrar sin mostrar mis sueños (1 hora)</button>
+    <button class="btn ghost block" data-act="closeSheet">Cancelar</button></div>`);
+}
+function secAsk() {
+  openSheet(`<h2>Pregunta de seguridad</h2><p>${esc(DB.settings.secQ)}</p><input class="input" id="secIn" placeholder="Tu respuesta" autocomplete="off" autocapitalize="off"><button class="btn primary big block" id="secOk" style="margin-top:12px">Comprobar</button>`);
+  $('#secOk').onclick = async () => {
+    if ((await hashPin('q:' + normAns($('#secIn').value))) === DB.settings.secA) {
+      DB.settings.fails = 0; DB.settings.pinHash = null; save(); closeSheet(); unlock(); toast('Correcto. Elige un PIN nuevo'); setTimeout(() => pinSetup(), 450);
+    } else { shakeEl($('#secIn')); toast('Respuesta incorrecta'); }
+  };
+}
+
+/* ---------- Sueños ocultos (cuando alguien no sabe el PIN) ----------
+   Durante 1 hora la app se abre como si no tuviera sueños. No se borra nada.
+   Para volver a verlos: Ajustes → Bloqueo con PIN → Cambiar → tu PIN. */
+let REAL = null; const HIDE_MS = 60 * 60 * 1000;
+function guestDB(real) { const g = DEFAULT(); g.welcomed = true; g.name = real.name; g.settings = JSON.parse(JSON.stringify(real.settings)); g.settings.hiddenUntil = 0; return g; }
+function enterHidden() {
+  const real = REAL || DB; real.settings.hiddenUntil = Date.now() + HIDE_MS; real.settings.fails = 0;
+  REAL = real; DB = guestDB(real); save();
+  closeSheet(); unlocked = true; $('#lock').hidden = true; document.body.classList.remove('hide-tabs');
+  go('#/inicio', true); route();
+}
+function resumeHidden() { REAL = DB; DB = guestDB(REAL); }
+function exitHidden() { if (!REAL) return; DB = REAL; REAL = null; DB.settings.hiddenUntil = 0; DB.settings.fails = 0; save(); }
+function checkHidden() { if (REAL && Date.now() > REAL.settings.hiddenUntil) { exitHidden(); if (DB.settings.pinHash) showLock(); return true; } return false; }
+// Pide el PIN actual; si los sueños estaban ocultos, los vuelve a mostrar
+function verifyPin(title, then) {
+  openSheet(`<h2 id="pinT">${title}</h2><p class="muted small" id="pinS" style="margin:0">Introduce tu PIN actual</p><div style="display:flex;flex-direction:column;align-items:center">${padHTML()}</div>`);
+  bindPad($('#sheet'), async (val, fail) => {
+    if ((await hashPin(val)) !== realS().pinHash) { fail(); return; }
+    if (REAL) { exitHidden(); closeSheet(); toast('Todo en orden'); route(); return; }
+    then();
+  });
+}
+function pinSetup(next) {
   let first = null;
   openSheet(`<h2 id="pinT">Nuevo PIN</h2><p class="muted small" id="pinS" style="margin:0">Elige 4 cifras</p><div style="display:flex;flex-direction:column;align-items:center">${padHTML()}</div>`);
   bindPad($('#sheet'), async (val, fail, reset) => {
     if (!first) { first = val; reset(); $('#pinT').textContent = 'Repite el PIN'; $('#pinS').textContent = 'Para confirmar'; return; }
     if (val !== first) { first = null; $('#pinT').textContent = 'No coinciden'; $('#pinS').textContent = 'Vuelve a elegir 4 cifras'; fail(); return; }
-    DB.settings.pinHash = await hashPin(val); save(); closeSheet(); toast('PIN activado'); route();
+    DB.settings.pinHash = await hashPin(val); DB.settings.fails = 0; save(); toast('PIN activado');
+    recoverySheet(true, next || (() => { closeSheet(); if ((location.hash || '').startsWith('#/ajustes')) route(); }));
   });
+}
+function recoverySheet(first, done) {
+  const S = DB.settings;
+  openSheet(`${first === 'ob' ? obDots(1) : ''}<h2>${first ? 'Por si olvidas el PIN' : 'Si olvidas el PIN'}</h2><p class="small">Opcional, pero muy recomendable. Sin esto, si olvidas el PIN solo podrás entrar con tus sueños ocultos.</p>
+    <label class="field"><span>Pista del PIN (se verá en la pantalla de bloqueo)</span><input class="input" id="hintIn" maxlength="60" value="${esc(S.pinHint || '')}" placeholder="Ej: el año de mi viaje"></label>
+    <label class="field"><span>Pregunta de seguridad</span><select class="input" id="secQIn">${SEC_QS.map((q) => `<option ${q === S.secQ ? 'selected' : ''}>${q}</option>`).join('')}</select></label>
+    <label class="field"><span>Respuesta</span><input class="input" id="secAIn" autocomplete="off" autocapitalize="off" placeholder="${S.secA ? 'Déjalo vacío para no cambiarla' : 'Tu respuesta'}"></label>
+    <div class="grid2"><button class="btn" id="recSkip">Ahora no</button><button class="btn primary" id="recOk">Guardar</button></div>`);
+  const fin = done || (() => { closeSheet(); route(); });
+  $('#recSkip').onclick = fin;
+  $('#recOk').onclick = async () => {
+    DB.settings.pinHint = $('#hintIn').value.trim();
+    const a = $('#secAIn').value;
+    if (a.trim()) { DB.settings.secQ = $('#secQIn').value; DB.settings.secA = await hashPin('q:' + normAns(a)); }
+    save(); toast('Guardado'); fin();
+  };
 }
 
 /* =========================================================
@@ -1402,8 +1623,10 @@ function go(h, replace) { if (replace) location.replace(h); else location.hash =
 function route() {
   const parts = (location.hash || '#/inicio').replace(/^#\/?/, '').split('/');
   const name = ROUTES[parts[0]] ? parts[0] : 'inicio', arg = parts[1], arg2 = parts[2];
+  checkHidden();
   if (rec.on) stopRec();
   if (TTS.on) stopSpeak();
+  if (G.el) stopGuide();
   const v = $('#view');
   const dir = lastRoute == null || ORDER[name] === ORDER[lastRoute] ? 'enter' : ORDER[name] > ORDER[lastRoute] ? 'enter-r' : 'enter-l';
   v.classList.remove('enter', 'enter-r', 'enter-l'); v.innerHTML = ROUTES[name](arg, arg2); void v.offsetWidth; v.classList.add(dir);
@@ -1441,10 +1664,18 @@ const ACT = {
   },
   activePart: (el) => { stopRec(); syncTexts(); F.active = +el.dataset.i; refreshParts(); },
   saveDream, noDream,
+  nap: (el) => { syncTexts(); const p = F.parts[+el.dataset.i]; p.nap = !p.nap; if (!p.at && F.date === dkey()) p.at = new Date().toISOString(); refreshParts(); draftSoon(); },
+  guide: (el) => startGuide(el.dataset.g),
+  rcheck: () => rcheck(0),
+  rcAns: (el) => { const i = +el.dataset.i, j = +el.dataset.j; rcheck(i + 1, RCHECK[i].a[j][1]); },
+  rcAdded: () => { DB.settings.rc.added = new Date().toISOString(); save(); },
+  secAsk, hideNow: () => enterHidden(),
+  pinChange: () => verifyPin('Cambiar PIN', () => pinSetup()),
+  recovery: () => recoverySheet(false),
+  nextTip: () => { tipOff++; const c = $('#tipCard'); if (c) { c.innerHTML = tipInner(); c.classList.remove('swap'); void c.offsetWidth; c.classList.add('swap'); } },
   saveNone: (el) => saveNone(el.dataset.v),
   listen: (el) => { if (TTS.on) { stopSpeak(); return; } const d = DB.dreams[el.dataset.k]; if (!d) return; setListenUI(true); speak(dreamSpeech(d), () => setListenUI(false)); },
   testVoice: () => { if (TTS.on) { stopSpeak(); return; } speak('Hola' + (DB.name ? ' ' + DB.name : '') + '. Así sonará la voz que lee tus sueños.'); },
-  addRC: addReminders, shareRC,
   toggleHealth: () => { DB.settings.health = !DB.settings.health; save(); route(); },
   toggleAuto: (el) => { DB.settings.autoImport = !DB.settings.autoImport; save(); el.classList.toggle('on', DB.settings.autoImport); },
   retryHealth: () => { closeSheet(); setTimeout(() => importHealth(DB.importTarget || dkey()), 300); },
@@ -1464,21 +1695,21 @@ const ACT = {
   parsePasted: () => handleHealthText($('#pasteArea').value),
   export: exportData,
   import: () => $('#fileIn').click(),
-  wipe: () => confirmSheet('¿Borrar todo?', 'Se eliminarán todos tus sueños, datos de sueño y ajustes de este iPhone. Exporta una copia antes si quieres conservarlos.', 'Borrar todo', () => { localStorage.removeItem(KEY); load(); DB.welcomed = true; save(); toast('Datos borrados'); go('#/inicio'); route(); }),
-  pinSet: pinSetup,
-  pinOff: () => confirmSheet('¿Quitar el PIN?', 'La app se abrirá sin pedir código.', 'Quitar PIN', () => { DB.settings.pinHash = null; save(); toast('PIN quitado'); route(); }),
+  wipe: () => confirmSheet('¿Borrar todo?', 'Se eliminarán todos tus sueños, datos de sueño y ajustes de este iPhone. Exporta una copia antes si quieres conservarlos.', 'Borrar todo', () => { if (REAL) { DB = guestDB(REAL); toast('Datos borrados'); go('#/inicio'); route(); return; } localStorage.removeItem(KEY); load(); DB.welcomed = true; save(); toast('Datos borrados'); go('#/inicio'); route(); }),
+  pinSet: () => pinSetup(),
+  pinOff: () => verifyPin('Quitar PIN', () => { DB.settings.pinHash = null; DB.settings.secQ = ''; DB.settings.secA = ''; DB.settings.pinHint = ''; save(); closeSheet(); toast('PIN quitado'); route(); }),
   obNext: () => { const n = $('#obName'); DB.name = n ? n.value.trim().slice(0, 24) : DB.name; save(); obGo(1); },
   obSkipPin: () => obGo(2),
   obHealth: (el) => { DB.settings.health = el.dataset.v === '1'; save(); obGo(3); },
   obRC: (el) => { DB.settings.rc.wanted = el.dataset.v === '1'; save(); obGo(4); },
   welcomeOk: () => { DB.welcomed = true; save(); closeSheet(); route(); },
   welcomeSetup: () => { DB.welcomed = true; save(); closeSheet(); go('#/ajustes'); },
-  welcomeRC: () => { DB.welcomed = true; save(); closeSheet(); setTimeout(addReminders, 350); }
+  welcomeRC: () => { DB.welcomed = true; DB.settings.rc.added = new Date().toISOString(); save(); closeSheet(); window.open(rcURL(), '_blank'); }
 };
 document.addEventListener('click', (e) => {
   const el = e.target.closest('[data-act]'); if (!el) return;
   const fn = ACT[el.dataset.act]; if (!fn) return;
-  if (el.tagName === 'A') e.preventDefault();
+  if (el.tagName === 'A' && !el.dataset.keep) e.preventDefault();
   fn(el, e);
 });
 // Escribir y pulsar Enter en "añadir señal"
@@ -1501,7 +1732,7 @@ function obGo(i) {
     bindPad($('#sheet'), async (val, fail, reset) => {
       if (!first) { first = val; reset(); $('#pinT').textContent = 'Repite el PIN'; $('#pinS').textContent = 'Para confirmar'; return; }
       if (val !== first) { first = null; $('#pinT').textContent = 'No coinciden'; $('#pinS').textContent = 'Vuelve a elegir 4 cifras'; fail(); return; }
-      DB.settings.pinHash = await hashPin(val); save(); toast('PIN activado'); obGo(2);
+      DB.settings.pinHash = await hashPin(val); save(); toast('PIN activado'); recoverySheet('ob', () => obGo(2));
     });
   } else if (i === 2) {
     openSheet(`${obDots(2)}<h2>¿Usas reloj o pulsera para dormir?</h2><p class="small">Si tu Apple Watch, Amazfit u otra pulsera guarda el sueño en la app Salud, Sueños puede mostrar tus fases (REM, profundo…) debajo de cada sueño. Es opcional: la app funciona igual sin nada.</p><div style="display:grid;gap:10px;margin-top:16px"><button class="btn primary big block" data-act="obHealth" data-v="1">Sí, quiero usar Salud</button><button class="btn big block" data-act="obHealth" data-v="0">No, ahora no</button></div>`);
@@ -1518,7 +1749,8 @@ let hiddenAt = 0;
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) { hiddenAt = Date.now(); if (rec.on) stopRec(); if (TTS.on) stopSpeak(); return; }
   if ((location.hash || '#/inicio').startsWith('#/inicio')) route(); // refresca saludo/fecha si cambió el día
-  if (DB.settings.pinHash && hiddenAt && Date.now() - hiddenAt > 3 * 60 * 1000) showLock();
+  if (checkHidden()) return;
+  if (!REAL && DB.settings.pinHash && hiddenAt && Date.now() - hiddenAt > 3 * 60 * 1000) showLock();
   else if (importPending()) setTimeout(pasteSheet, 250);
   sky.start();
 });
@@ -1553,13 +1785,16 @@ const sky = (() => {
 
 /* ---------- Inicio ---------- */
 load();
+if (DB.settings.hiddenUntil > Date.now()) resumeHidden(); else if (DB.settings.hiddenUntil) { DB.settings.hiddenUntil = 0; save(); }
 if (!location.hash) location.replace('#/inicio');
 route();
 sky.start();
-if (DB.welcomed && DB.settings.pinHash) showLock();
+if (DB.welcomed && DB.settings.pinHash && !REAL) showLock();
 // Pantalla de carga
-setTimeout(() => { const sp = $('#splash'); if (sp) { sp.classList.add('out'); setTimeout(() => sp.remove(), 600); } }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 950);
-if (!DB.welcomed) setTimeout(showWelcome, 1250);
+const hideSplash = () => { const sp = $('#splash'); if (sp && !sp.classList.contains('out')) { sp.classList.add('out'); setTimeout(() => sp.remove(), 800); } };
+setTimeout(hideSplash, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 2900);
+if ($('#splash')) $('#splash').addEventListener('click', hideSplash);
+if (!DB.welcomed) setTimeout(showWelcome, 3100);
 if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
 </script>
 </body>
