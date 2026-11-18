@@ -288,9 +288,62 @@ body.hide-tabs #tabbar{transform:translate(-50%,140%);transition:transform .3s}
 @keyframes pop{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}75%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(1)}}
 
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important}}
+
+/* ===== v1.2 ===== */
+#splash{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  background:radial-gradient(120% 70% at 50% -10%,#0d2257 0%,#061235 45%,#030816 100%);transition:opacity .5s ease,visibility 0s .5s}
+#splash.out{opacity:0;visibility:hidden}
+#splash .sm{width:84px;height:84px;border-radius:50%;box-shadow:inset -20px -7px 0 0 #dbeafe;transform:rotate(-20deg);filter:drop-shadow(0 0 26px rgba(147,197,253,.75));animation:moonIn 1s var(--ease) both}
+#splash b{font:700 28px ui-rounded,-apple-system,sans-serif;letter-spacing:.01em;animation:rise .8s var(--ease) .25s both}
+@keyframes moonIn{from{opacity:0;transform:translateY(26px) rotate(-60deg) scale(.7)}to{opacity:1;transform:rotate(-20deg)}}
+#view.enter-r>*{animation:inR .48s var(--ease) both}
+#view.enter-l>*{animation:inL .48s var(--ease) both}
+#view.enter-r>*:nth-child(2),#view.enter-l>*:nth-child(2){animation-delay:.04s}
+#view.enter-r>*:nth-child(3),#view.enter-l>*:nth-child(3){animation-delay:.08s}
+#view.enter-r>*:nth-child(4),#view.enter-l>*:nth-child(4){animation-delay:.12s}
+#view.enter-r>*:nth-child(5),#view.enter-l>*:nth-child(5){animation-delay:.16s}
+#view.enter-r>*:nth-child(n+6),#view.enter-l>*:nth-child(n+6){animation-delay:.2s}
+@keyframes inR{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+@keyframes inL{from{opacity:0;transform:translateX(-26px)}to{opacity:1;transform:none}}
+.card[data-act]{transition:transform .18s var(--ease)}.card[data-act]:active{transform:scale(.985)}
+#sheet{transition:transform .5s cubic-bezier(.2,1.08,.3,1),visibility 0s .5s}
+.orb.on.talk{transform:scale(1.06);box-shadow:0 0 0 10px rgba(125,211,252,.16),0 0 80px rgba(56,189,248,.8)}
+.orb.on{transition:transform .25s var(--ease),box-shadow .25s}
+.orb.on.talk .ring{animation-duration:1.1s}
+.bars.talk i{animation-duration:.42s}
+.bars i{height:5px}
+/* Partes */
+.part{border:1px solid var(--stroke);border-radius:var(--r);padding:14px;margin-bottom:12px;background:rgba(4,10,30,.35);transition:border-color .25s,box-shadow .25s;animation:rise .4s var(--ease) both}
+.part.active{border-color:rgba(125,211,252,.45);box-shadow:0 0 0 4px rgba(125,211,252,.07)}
+.part-h{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-weight:700}
+.part-h .t{flex:1}.part-h .tm{font-size:13px;color:var(--muted);font-weight:600}
+.part-h .x{appearance:none;border:0;background:rgba(255,255,255,.07);color:var(--muted);width:28px;height:28px;border-radius:9px;cursor:pointer}
+.part.collapsed{cursor:pointer;padding:12px 14px}.part.collapsed .part-h{margin:0}
+.part.collapsed .snip{font-size:14px;color:var(--muted);margin-top:4px}
+.part textarea{min-height:130px}
+.sugg{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center}
+.sugg .lbl{font-size:12px;color:var(--dim);margin-right:2px}
+.chip.s{border-style:dashed;color:var(--accent2);font-size:13.5px;padding:6px 11px}
+.chip.theme.on{background:rgba(99,102,241,.25);border-color:rgba(165,180,252,.6)}
+.ptl{position:relative;padding-left:18px;margin-bottom:12px}
+.ptl::before{content:"";position:absolute;left:5px;top:22px;bottom:-14px;width:2px;background:linear-gradient(180deg,rgba(125,211,252,.4),rgba(125,211,252,0))}
+.ptl:last-child::before{display:none}
+.ptl .dotp{position:absolute;left:0;top:17px;width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#7dd3fc,#6366f1);box-shadow:0 0 10px rgba(125,211,252,.6)}
+.ptl .card{margin:0}
+.ptl .ph{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px;font-size:13px;color:var(--muted);font-weight:700}
+/* Voz */
+.listen{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1px solid var(--stroke2);background:var(--card2);color:var(--text);font:inherit;font-size:14.5px;font-weight:600;cursor:pointer}
+.listen svg{width:17px;height:17px}
+.listen.on{background:linear-gradient(135deg,#38bdf8,#6366f1);border-color:transparent}
+.listen .eq{display:none;gap:2px;align-items:flex-end;height:14px}.listen.on .eq{display:inline-flex}.listen.on .ic{display:none}
+.listen .eq i{width:3px;background:#fff;border-radius:2px;animation:wave .8s ease-in-out infinite}.listen .eq i:nth-child(2){animation-delay:.2s}.listen .eq i:nth-child(3){animation-delay:.4s}
+select.input{appearance:none;-webkit-appearance:none;font-size:16px;padding:10px 12px}
+input[type=range]{width:100%;accent-color:#60a5fa}
+.miss{border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.06)}
 </style>
 </head>
 <body>
+<div id="splash" aria-hidden="true"><div class="sm"></div><b>Sueños</b></div>
 <canvas id="sky" aria-hidden="true"></canvas>
 <div class="nebula a"></div><div class="nebula b"></div>
 <div id="app"><main id="view"></main></div>
@@ -317,12 +370,13 @@ body.hide-tabs #tabbar{transform:translate(-50%,140%);transition:transform .3s}
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const KEY = 'suenos.v1';
-const VERSION = '1.1';
+const VERSION = '1.2';
 
 /* ---------- Datos ---------- */
 const DEFAULT = () => ({
-  v: 1, name: '', dreams: {}, sleep: {}, plan: {}, signs: [], draft: null, pendingImport: 0, welcomed: false,
-  settings: { pinHash: null, shortcut: 'Sueños Salud', health: false, autoImport: true }
+  v: 2, name: '', dreams: {}, sleep: {}, plan: {}, signs: [], draft: null, pendingImport: 0, importTarget: null, welcomed: false,
+  settings: { pinHash: null, shortcut: 'Sueños Salud', health: false, autoImport: true, voice: '', rate: 1,
+    rc: { n: 5, from: 10, to: 22, msg: '¿Estás soñando?', added: null, wanted: false } }
 });
 let DB;
 function load() {
@@ -330,8 +384,19 @@ function load() {
   try { raw = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { raw = null; }
   DB = Object.assign(DEFAULT(), raw || {});
   DB.settings = Object.assign(DEFAULT().settings, (raw && raw.settings) || {});
+  DB.settings.rc = Object.assign(DEFAULT().settings.rc, (raw && raw.settings && raw.settings.rc) || {});
   // Usuarios de la v1.0: si ya habían traído datos de Salud, se deja activado
   if (raw && raw.settings && raw.settings.health === undefined) DB.settings.health = Object.keys(DB.sleep || {}).length > 0;
+  migrate();
+}
+// v1.2: cada sueño pasa a tener "partes" (una por cada vez que te despiertas)
+function migrate() {
+  for (const d of Object.values(DB.dreams)) {
+    if (d.kind) continue;
+    if (!Array.isArray(d.parts)) d.parts = [{ id: 'p1', at: d.recordedAt || null, text: d.text || '', lucid: d.lucid || null, emotions: d.emotions || [] }];
+    if (!Array.isArray(d.tags)) d.tags = [];
+  }
+  if (DB.draft && !Array.isArray(DB.draft.parts)) DB.draft = null;
 }
 function save() {
   try { localStorage.setItem(KEY, JSON.stringify(DB)); }
@@ -367,6 +432,54 @@ const LUCID = { si: 'Lúcido', casi: 'Casi lúcido', no: 'No lúcido' };
 const KIND = { olvido: 'No recordé el sueño', nada: 'Noche sin sueños' };
 const isReal = (d) => !!d && !d.kind;
 const realCount = () => Object.values(DB.dreams).filter(isReal).length;
+const LUCID_RANK = { si: 3, casi: 2, no: 1 };
+// Rellena los campos generales del sueño a partir de sus partes
+function deriveDream(d) {
+  const ps = d.parts.filter((p) => p.text && p.text.trim());
+  d.text = ps.map((p) => p.text.trim()).join('\n\n');
+  d.lucid = ps.reduce((b, p) => ((LUCID_RANK[p.lucid] || 0) > (LUCID_RANK[b] || 0) ? p.lucid : b), null);
+  d.emotions = [...new Set(ps.flatMap((p) => p.emotions || []))];
+  d.recordedAt = (ps.find((p) => p.at) || {}).at || d.recordedAt || null;
+  return d;
+}
+
+/* ---------- Detector de emociones y temas (sin IA externa, todo en el móvil) ---------- */
+const EMO_RX = {
+  miedo: /\b(miedo|asust|terror|aterr|panico|pavor|horror|angusti|temblaba|nervios)/,
+  alegria: /\b(feliz|felic|alegr|content[oa]s?\b|divert|disfrut|riendo|reia|reiamos|risas?\b|genial|emocionad)/,
+  tristeza: /\b(trist|llor|pena\b|deprim|melancol|nostalg|echaba de menos)/,
+  enfado: /\b(enfad|cabre|rabia|furios|odiaba|enoj|discut|pele(a|aba|abamos|ando)\b)/,
+  calma: /\b(tranquil|calma\b|en paz|relaj|seren|a gusto)/,
+  amor: /\b(amor\b|enamor|bes(o|os|aba|abamos|ar)\b|abraz|carin|romant)/,
+  verguenza: /\b(verguenz|avergonz|ridicul|desnud)/,
+  raro: /\b(rar[oa]s?\b|extran|imposible|absurd|surreal|de repente|sin sentido|magia|magic|transform|se convirti)/
+};
+const THEMES = [
+  ['volar', 'Volar', /\bvol(ar|aba|abas|aban|abamos|e|o|amos|ando|ado)\b|\bflot/],
+  ['caer', 'Caer', /\b(cai|caia|caian|caer|cayendo|cayo|caida|precipicio)\b/],
+  ['persecucion', 'Persecución', /\b(perseg|persigu|huir\b|huia|huiamos|escap)/],
+  ['agua', 'Agua o mar', /\b(agua|mar|playa|piscina|nad(ar|aba|ando|abamos)|rio|lago|olas?|inund\w*|lluvia|oceano)\b/],
+  ['estudios', 'Clase o examen', /\b(colegio|instituto|insti|clase|profe|profesor|profesora|examen|universidad|deberes)\b/],
+  ['familia', 'Familia', /\b(madre|padre|mama|papa|herman|abuel|prim[oa]s?\b|tio\b|tia\b|famili)/],
+  ['pareja', 'Pareja', /\b(novi[oa]|pareja)\b/],
+  ['amigos', 'Amigos', /\bamig/],
+  ['animales', 'Animales', /\b(perros?|gatos?|caballo|serpiente|arana|pajaro|animal\w*|lobo|leon|tiburon|peces|pez)\b/],
+  ['casa', 'Casa', /\b(casa|habitacion|cuarto|salon|cocina|piso)\b/],
+  ['viaje', 'Viaje o vehículo', /\b(coche|avion|tren|autobus|moto|viaj|conduc)/],
+  ['muerte', 'Muerte', /\b(muert|morir|moria|fallec|funeral|cementerio)/],
+  ['dientes', 'Dientes', /\b(dientes?|muelas?)\b/],
+  ['perderse', 'Perderse o llegar tarde', /\b(me perdi|perdido|perdida|perdiendo|llegar tarde|llegaba tarde|no encontraba)/],
+  ['movil', 'Móvil o pantallas', /\b(movil|telefono|pantalla|mensajes?)\b/],
+  ['fiesta', 'Fiesta', /\b(fiesta|discoteca|cumpleanos|concierto)\b/],
+  ['deporte', 'Deporte o pelea', /\b(futbol|partido|gimnasio|gym|boxeo|entren|combate|pelea)/]
+];
+const THEME = Object.fromEntries(THEMES.map(([id, n]) => [id, n]));
+function analyze(text) {
+  const t = ' ' + norm(text || '') + ' ';
+  const emos = Object.keys(EMO_RX).filter((k) => EMO_RX[k].test(t));
+  if (/\bpesadilla/.test(t) || (emos.includes('miedo') && /\b(muert|morir|moria|sangre|monstruo|demonio|perseg|persigu|matar|mataba|asesin)/.test(t))) emos.push('pesadilla');
+  return { emos: [...new Set(emos)], themes: THEMES.filter(([, , rx]) => rx.test(t)).map(([id]) => id) };
+}
 const ST = {
   w: { n: 'Despierto', c: '#e2e8f0' }, r: { n: 'REM', c: '#38bdf8' },
   l: { n: 'Ligero', c: '#3b82f6' }, d: { n: 'Profundo', c: '#6366f1' }, a: { n: 'Dormido', c: '#60a5fa' }
@@ -381,6 +494,7 @@ const ICON = {
   heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>',
   moon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 13.2A8.5 8.5 0 1 1 10.8 3.5a6.6 6.6 0 0 0 9.7 9.7z"/></svg>',
   spark: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/></svg>',
+  speaker: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>',
   chev: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>'
 };
 const TIPS = [
@@ -430,9 +544,9 @@ function bestStreak() {
 function wakeInfo(k) {
   const sl = DB.sleep[k], dr = DB.dreams[k];
   if (sl && sl.wake) return { t: hm(sl.wake), src: 'pulsera' };
-  if (dr && dr.recordedAt) return { t: hm(dr.recordedAt), src: 'al empezar a dictar' };
-  if (DB.draft && DB.draft.date === k && DB.draft.recordedAt) return { t: hm(DB.draft.recordedAt), src: 'al empezar a dictar' };
-  return null;
+  const firstAt = (ps) => (ps && (ps.find((p) => p.at) || {}).at) || null;
+  const at = (dr && dr.recordedAt) || (F && F.date === k && firstAt(F.parts)) || (DB.draft && DB.draft.date === k && firstAt(DB.draft.parts));
+  return at ? { t: hm(at), src: 'al empezar a dictar' } : null;
 }
 function phase() {
   const n = realCount();
@@ -507,7 +621,7 @@ function mapStage(v) {
   if (/dormid|asleep|unspecified|sueno|sleep/.test(t)) return 'a';
   return null;
 }
-function parseHealth(text) {
+function parseHealth(text, target) {
   const lines = String(text || '').split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
   let samples = [];
   for (const line of lines) {
@@ -537,7 +651,10 @@ function parseHealth(text) {
   const sleepMin = (gr) => gr.items.filter((x) => x.st !== 'w').reduce((a, x) => a + (x.e - x.s), 0);
   // La noche más reciente con al menos 2 h de sueño (no la más larga)
   const nights = groups.filter((gr) => sleepMin(gr) >= 120 * 6e4);
-  const G = (nights.length ? nights : groups).sort((a, b) => b.end - a.end)[0];
+  const pool = (nights.length ? nights : groups).sort((a, b) => b.end - a.end);
+  let G = pool[0];
+  // Si se pide la noche de un día concreto (el del sueño), solo vale la que termina ese día
+  if (target) { const m = pool.find((gr) => dkey(new Date(gr.end)) === target); if (!m) return { error: 'missing', latest: dkey(new Date(pool[0].end)) }; G = m; }
   const t0 = new Date(Math.floor(G.start / 6e4) * 6e4), n = Math.ceil((G.end - t0) / 6e4);
   if (n > 20 * 60) return { error: 'Los datos abarcan demasiadas horas. Revisa que el Atajo busque solo el último día.' };
   const PRI = { r: 6, d: 6, l: 6, w: 5, a: 4 };
@@ -560,7 +677,7 @@ function parseHealth(text) {
   const hasStages = !!(st.r || st.d || st.l);
   if (hasStages && st.a) { st.l = (st.l || 0) + st.a; delete st.a; seg.forEach((x) => { if (x[2] === 'a') x[2] = 'l'; }); }
   const total = (st.r || 0) + (st.d || 0) + (st.l || 0) + (st.a || 0);
-  return { date: dkey(wake), bed: bed.toISOString(), wake: wake.toISOString(), span: last - first + 1, total, st, seg, hasStages, importedAt: new Date().toISOString() };
+  return { date: target || dkey(wake), bed: bed.toISOString(), wake: wake.toISOString(), span: last - first + 1, total, st, seg, hasStages, importedAt: new Date().toISOString() };
 }
 
 /* ---------- UI helpers ---------- */
@@ -594,140 +711,279 @@ function renderHome() {
   let today;
   if (!dr) today = `<div class="card cta" data-act="go" data-to="#/nuevo"><div class="orb lg">${ICON.mic}</div><h2>¿Qué has soñado?</h2><p>Toca y dicta antes de que se te olvide</p></div>`;
   else if (dr.kind) today = `<div class="card today-done" data-act="go" data-to="#/nuevo/${k}"><div class="check none">${ICON.moon}</div><div style="flex:1;min-width:0"><div class="muted small">Hoy</div><h2>${KIND[dr.kind]}</h2><p class="muted small" style="margin:0">Si lo recuerdas más tarde, toca aquí para añadirlo.</p></div></div>`;
-  else today = `<div class="card today-done" data-act="go" data-to="#/sueno/${k}"><div class="check">${dr.lucid === 'si' ? ICON.spark : ICON.check}</div><div style="flex:1;min-width:0"><div class="muted small">Sueño de hoy apuntado</div><h2>${esc(dr.title)}</h2><p class="muted small clamp" style="margin:0">${esc(dr.text)}</p></div></div>`;
+  else today = `<div class="card today-done" data-act="go" data-to="#/sueno/${k}"><div class="check">${dr.lucid === 'si' ? ICON.spark : ICON.check}</div><div style="flex:1;min-width:0"><div class="muted small">Sueño de hoy apuntado${dr.parts.length > 1 ? ' · ' + dr.parts.length + ' partes' : ''}</div><h2>${esc(dr.title)}</h2><p class="muted small clamp" style="margin:0">${esc(dr.text)}</p><button class="btn" data-act="go" data-to="#/nuevo/${k}/add" style="margin-top:12px;padding:8px 13px;font-size:13.5px">+ Añadir otra parte</button></div></div>`;
   return `<section class="hello"><h1>${greet}${DB.name ? ', ' + esc(DB.name) : ''}</h1><p>${longDate(k)}</p></section>
   ${today}
-  <div class="card"><div class="streak"><div class="num">${s}</div><div><div style="font-weight:700">${s === 1 ? 'día seguido' : 'días seguidos'}</div><div class="muted small">${dr || s === 0 ? 'Mejor racha: ' + bestStreak() : 'Apunta hoy para no perder la racha'}</div></div></div><div class="week">${week}</div></div>
+  <div class="card"><div class="streak"><div class="num" id="streakNum" data-n="${s}">${s}</div><div><div style="font-weight:700">${s === 1 ? 'día seguido' : 'días seguidos'}</div><div class="muted small">${dr || s === 0 ? 'Mejor racha: ' + bestStreak() : 'Apunta hoy para no perder la racha'}</div></div></div><div class="week">${week}</div></div>
   <div class="card row" data-act="go" data-to="#/lucidos/plan" style="cursor:pointer"><div class="ringwrap">${ring(done / tasks.length)}<b>${done}/${tasks.length}</b></div><div style="flex:1"><div style="font-weight:700">Plan de hoy</div><div class="muted small">${phase().name}</div></div><span class="dim">${ICON.chev}</span></div>
   <div class="card tip"><div class="e">${ICON.spark}</div><div><div class="muted small" style="font-weight:700;margin-bottom:2px">Consejo del día</div><div class="small">${tip[1]}</div></div></div>`;
 }
+function afterHome() {
+  const el = $('#streakNum'); if (!el) return; const n = +el.dataset.n; if (n < 2) return;
+  const t0 = performance.now();
+  const step = (t) => { const p = Math.min(1, (t - t0) / 700); el.textContent = Math.round(n * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
 
-/* ---- Nuevo / editar sueño ---- */
+/* ---- Nuevo / editar sueño (con partes) ---- */
 let F = null; // formulario actual
-function renderNew(arg) {
+const newPart = (at) => ({ id: 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), at: at || null, text: '', lucid: null, emotions: [] });
+function renderNew(arg, arg2) {
   const k = arg && /^\d{4}-\d{2}-\d{2}$/.test(arg) ? arg : dkey();
   const ex = DB.dreams[k];
-  if (isReal(ex)) F = { date: k, title: ex.title, text: ex.text, lucid: ex.lucid, emotions: [...(ex.emotions || [])], recordedAt: ex.recordedAt, editing: true };
-  else if (ex) F = { date: k, title: '', text: '', lucid: null, emotions: [], recordedAt: ex.recordedAt, editing: false, wasNone: true };
-  else if (DB.draft && DB.draft.date === k) F = Object.assign({ emotions: [] }, DB.draft, { editing: false });
-  else F = { date: k, title: '', text: '', lucid: null, emotions: [], recordedAt: null, editing: false };
-  return `${header(F.editing ? 'Editar sueño' : 'Nuevo sueño', longDate(k), true)}
+  if (isReal(ex)) {
+    F = { date: k, title: ex.title, parts: JSON.parse(JSON.stringify(ex.parts)), tags: [...(ex.tags || [])], tagsTouched: true, editing: true, active: ex.parts.length - 1 };
+    if (arg2 === 'add') { F.parts.push(newPart(k === dkey() ? new Date().toISOString() : null)); F.active = F.parts.length - 1; F.adding = true; }
+  } else if (DB.draft && DB.draft.date === k) F = Object.assign({ tags: [], tagsTouched: false, active: 0 }, JSON.parse(JSON.stringify(DB.draft)), { editing: false });
+  else F = { date: k, title: '', parts: [newPart(ex && ex.recordedAt)], tags: [], tagsTouched: false, editing: false, active: 0 };
+  if (F.active == null || F.active >= F.parts.length) F.active = F.parts.length - 1;
+  const ttl = F.adding ? 'Añadir parte' : F.editing ? 'Editar sueño' : 'Nuevo sueño';
+  return `${header(ttl, longDate(k), true)}
   <div class="meta"><span class="pill">Sueño del ${shortDate(k)}</span><span class="pill" id="wakePill">${wakeLabel(k)}</span></div>
   <div class="rec-area"><button class="orb lg" id="micBtn" data-act="mic" aria-label="Dictar"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span id="micIco">${ICON.mic}</span></button>
     <div class="bars" id="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    <p class="status" id="micStatus">Toca el micro y cuéntalo todo</p></div>
-  <label class="field"><span>Tu sueño</span><textarea id="txt" placeholder="Estaba en…">${esc(F.text)}</textarea></label>
-  <p class="tiny dim" style="margin:-6px 4px 16px">Si el dictado de la app falla, toca el texto y usa el 🎤 del teclado del iPhone.</p>
+    <p class="status" id="micStatus">${micIdle()}</p></div>
+  <div id="parts">${partsHTML()}</div>
+  <button class="btn ghost block" data-act="addPart" style="margin:0 0 6px;border-color:var(--stroke);color:var(--accent2)">+ Añadir otra parte</button>
+  <p class="tiny dim" style="margin:0 4px 18px">Si te despertaste varias veces, cuenta cada trozo en una parte distinta.</p>
   <label class="field"><span>Nombre del sueño</span><input class="input" id="title" maxlength="80" placeholder="Ej: La casa bajo el mar" value="${esc(F.title)}"></label>
-  <div class="field"><span>¿Fue lúcido?</span><div class="seg" id="lucidSeg">${['si', 'casi', 'no'].map((v) => `<button data-act="lucid" data-v="${v}" class="${F.lucid === v ? 'on' : ''}">${{ si: 'Sí', casi: 'Casi', no: 'No' }[v]}</button>`).join('')}</div></div>
-  <div class="field"><span>Emoción</span><div class="chips">${EMOS.map(([id, e, n]) => `<button class="chip ${F.emotions.includes(id) ? 'on' : ''}" data-act="emo" data-v="${id}">${n}</button>`).join('')}</div></div>
+  <div class="field"><span>Temas detectados</span><div class="chips" id="themes">${themesHTML()}</div></div>
   <button class="btn primary big block" data-act="saveDream">${F.editing ? 'Guardar cambios' : 'Guardar sueño'}</button>
   ${F.editing ? '' : `<button class="btn ghost block" data-act="noDream" style="margin-top:10px;border-color:var(--stroke);color:var(--muted)">No recuerdo ningún sueño</button>
   <p class="tiny dim" style="text-align:center;margin-top:10px">Se guarda un borrador automático mientras escribes.</p>`}`;
 }
+function micIdle() { return F && F.parts.length > 1 ? `Toca el micro para dictar la parte ${F.active + 1}` : 'Toca el micro y cuéntalo todo'; }
 function wakeLabel(k) { const w = wakeInfo(k); return w ? `Despertar ${w.t} · ${w.src}` : 'Despertar: al empezar a dictar'; }
+function partsHTML() {
+  const multi = F.parts.length > 1;
+  return F.parts.map((p, i) => {
+    const head = multi ? `<div class="part-h"><span class="t">Parte ${i + 1}</span><span class="tm">${p.at ? hm(p.at) : ''}</span><button class="x" data-act="delPart" data-i="${i}" aria-label="Quitar parte">✕</button></div>` : '';
+    if (multi && i !== F.active) return `<div class="part collapsed" data-act="activePart" data-i="${i}">${head}<div class="snip clamp">${p.text ? esc(p.text) : '<span class="dim">Vacía · toca para escribir</span>'}</div></div>`;
+    return `<div class="part ${multi ? 'active' : ''}" data-i="${i}" ${multi ? '' : 'style="border:0;padding:0;background:none;box-shadow:none;animation:none"'}>${head}
+      <label class="field" style="margin-bottom:8px">${multi ? '' : '<span>Tu sueño</span>'}<textarea class="ptxt" data-i="${i}" placeholder="Estaba en…">${esc(p.text)}</textarea></label>
+      <div class="field" style="margin:12px 0 10px"><span>¿Fue lúcido?</span><div class="seg">${['si', 'casi', 'no'].map((v) => `<button data-act="lucid" data-i="${i}" data-v="${v}" class="${p.lucid === v ? 'on' : ''}">${{ si: 'Sí', casi: 'Casi', no: 'No' }[v]}</button>`).join('')}</div></div>
+      <div class="field" style="margin:0"><span>Emoción</span><div class="chips">${EMOS.map(([id, , n]) => `<button class="chip ${p.emotions.includes(id) ? 'on' : ''}" data-act="emo" data-i="${i}" data-v="${id}">${n}</button>`).join('')}</div>
+      <div class="sugg" id="sugg${i}">${suggHTML(i)}</div></div></div>`;
+  }).join('');
+}
+function suggHTML(i) {
+  const p = F.parts[i]; if (!p || !p.text.trim()) return '';
+  const s = analyze(p.text).emos.filter((e) => !p.emotions.includes(e));
+  return s.length ? `<span class="lbl">Sugerido:</span>${s.map((e) => `<button class="chip s" data-act="emo" data-i="${i}" data-v="${e}">+ ${EMO[e].n}</button>`).join('')}` : '';
+}
+function detectedThemes() { return analyze(F.parts.map((p) => p.text).join(' ')).themes; }
+function themesHTML() {
+  const det = detectedThemes();
+  if (!F.tagsTouched) F.tags = [...new Set([...F.tags, ...det])];
+  const all = [...new Set([...F.tags, ...det])];
+  if (!all.length) return '<span class="small dim">Aparecerán solos al contar el sueño (agua, volar, familia…)</span>';
+  return all.map((id) => (THEME[id] ? `<button class="chip theme ${F.tags.includes(id) ? 'on' : ''}" data-act="theme" data-v="${id}">${THEME[id]}</button>` : '')).join('');
+}
+function refreshParts() {
+  $('#parts').innerHTML = partsHTML(); bindParts();
+  if (!rec.on) { const s = $('#micStatus'); if (s) s.textContent = micIdle(); }
+}
+function bindParts() {
+  $$('.ptxt').forEach((ta) => {
+    const i = +ta.dataset.i;
+    const autosize = () => { ta.style.height = 'auto'; ta.style.height = Math.max(130, ta.scrollHeight + 2) + 'px'; };
+    autosize(); ta._autosize = autosize;
+    ta.addEventListener('input', () => { if (rec.on && !rec.writing) stopRec(); F.parts[i].text = ta.value; markRecorded(i); autosize(); draftSoon(); suggSoon(i); });
+    ta.addEventListener('focus', () => { if (rec.on) stopRec(); F.active = i; });
+  });
+}
 function afterNew() {
-  const ta = $('#txt'), ti = $('#title');
-  const autosize = () => { ta.style.height = 'auto'; ta.style.height = Math.max(170, ta.scrollHeight + 2) + 'px'; };
-  autosize();
-  ta.addEventListener('input', () => { if (rec.on && !rec.writing) stopRec(); F.text = ta.value; markRecorded(); autosize(); draftSoon(); });
-  ta.addEventListener('focus', () => { if (rec.on) stopRec(); });
-  ti.addEventListener('input', () => { F.title = ti.value; draftSoon(); });
-  rec.autosize = autosize;
+  bindParts();
+  const ti = $('#title'); ti.addEventListener('input', () => { F.title = ti.value; draftSoon(); });
+  if (F.adding) setTimeout(() => { const el = $('.part.active'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 350);
 }
-function markRecorded() {
-  if (!F.recordedAt && F.date === dkey()) { F.recordedAt = new Date().toISOString(); const p = $('#wakePill'); if (p && !DB.sleep[F.date]) p.textContent = `Despertar ${hm(F.recordedAt)} · al empezar a dictar`; }
+const activeTA = () => $(`.ptxt[data-i="${F.active}"]`);
+function markRecorded(i) {
+  if (i == null) i = F.active; const p = F.parts[i];
+  if (p && !p.at && F.date === dkey()) { p.at = new Date().toISOString(); const tm = $(`.part[data-i="${i}"] .tm`); if (tm) tm.textContent = hm(p.at); }
+  const pill = $('#wakePill'); if (pill) pill.textContent = wakeLabel(F.date);
 }
+let suggT;
+function suggSoon(i) { clearTimeout(suggT); suggT = setTimeout(() => { const s = $('#sugg' + i); if (s) s.innerHTML = suggHTML(i); const th = $('#themes'); if (th) th.innerHTML = themesHTML(); }, 600); }
 let draftT;
 function draftSoon() { clearTimeout(draftT); draftT = setTimeout(saveDraft, 400); }
-function saveDraft() { if (!F || F.editing) return; DB.draft = { date: F.date, title: F.title, text: F.text, lucid: F.lucid, emotions: F.emotions, recordedAt: F.recordedAt }; save(); }
+function saveDraft() { if (!F || F.editing) return; DB.draft = { date: F.date, title: F.title, parts: F.parts, tags: F.tags, tagsTouched: F.tagsTouched, active: F.active }; save(); }
+function syncTexts() { F.parts.forEach((p, i) => { const ta = $(`.ptxt[data-i="${i}"]`); if (ta) p.text = ta.value; }); }
 function saveDream() {
-  stopRec();
-  const ta = $('#txt'), ti = $('#title');
-  F.text = ta.value.trim(); F.title = ti.value.trim();
-  if (!F.text) { ta.classList.add('shake'); setTimeout(() => ta.classList.remove('shake'), 450); toast('Cuenta tu sueño primero'); return; }
+  stopRec(); syncTexts();
+  const ti = $('#title'); F.title = ti.value.trim();
+  const parts = F.parts.map((p) => Object.assign({}, p, { text: p.text.trim() })).filter((p) => p.text);
+  if (!parts.length) { const ta = activeTA(); if (ta) { ta.classList.add('shake'); setTimeout(() => ta.classList.remove('shake'), 450); } toast('Cuenta tu sueño primero'); return; }
   if (!F.title) { ti.classList.add('shake'); setTimeout(() => ti.classList.remove('shake'), 450); ti.focus(); toast('Ponle un nombre al sueño'); return; }
-  const prev = DB.dreams[F.date] || {};
-  DB.dreams[F.date] = { date: F.date, title: F.title, text: F.text, lucid: F.lucid, emotions: F.emotions, recordedAt: F.recordedAt || prev.recordedAt || null, createdAt: prev.createdAt || new Date().toISOString(), updatedAt: new Date().toISOString() };
+  if (!F.tagsTouched) F.tags = [...new Set([...F.tags, ...detectedThemes()])];
+  const prev = DB.dreams[F.date] || {}, now = new Date().toISOString();
+  const d = deriveDream({ date: F.date, title: F.title, parts, tags: F.tags, recordedAt: isReal(prev) ? prev.recordedAt : null, createdAt: prev.createdAt || now, updatedAt: now });
+  DB.dreams[F.date] = d;
   if (DB.draft && DB.draft.date === F.date) DB.draft = null;
   save();
-  celebrate(F.lucid === 'si' ? '¡Sueño lúcido!' : F.editing ? 'Cambios guardados' : '¡Sueño guardado!');
-  const k = F.date, wasEditing = F.editing;
+  celebrate(d.lucid === 'si' ? '¡Sueño lúcido!' : F.adding ? 'Parte añadida' : F.editing ? 'Cambios guardados' : '¡Sueño guardado!');
+  const k = F.date, auto = !F.editing || F.adding;
   setTimeout(() => {
     go('#/sueno/' + k, true);
-    // Con Salud activado, trae la noche automáticamente al guardar el sueño de hoy
-    if (!wasEditing && DB.settings.health && DB.settings.autoImport && k === dkey() && !DB.sleep[k]) setTimeout(importHealth, 700);
+    // Con Salud activado, trae las fases de esta noche al guardar el sueño de hoy
+    if (auto && DB.settings.health && DB.settings.autoImport && k === dkey() && !DB.sleep[k]) setTimeout(() => importHealth(k), 800);
   }, 650);
 }
 function noDream() {
-  const k = F.date, typed = ($('#txt') || {}).value;
+  syncTexts();
+  const typed = F.parts.some((p) => p.text.trim());
   openSheet(`<h2>¿Qué ha pasado esta noche?</h2><p class="small">Registrarlo también cuenta para tu racha: el hábito es abrir la app cada mañana. Si luego lo recuerdas, podrás añadirlo.</p>
-    ${typed && typed.trim() ? '<p class="small" style="color:var(--warn)">Se descartará lo que has escrito.</p>' : ''}
+    ${typed ? '<p class="small" style="color:var(--warn)">Se descartará lo que has escrito.</p>' : ''}
     <div style="display:grid;gap:10px;margin-top:14px"><button class="btn block big" data-act="saveNone" data-v="olvido">No me acuerdo de lo que soñé</button><button class="btn block big" data-act="saveNone" data-v="nada">No he soñado nada</button><button class="btn ghost block" data-act="closeSheet">Cancelar</button></div>`);
 }
 function saveNone(kind) {
   stopRec();
-  const k = F.date, prev = DB.dreams[k] || {};
-  DB.dreams[k] = { date: k, kind, title: '', text: '', lucid: null, emotions: [], recordedAt: F.recordedAt || prev.recordedAt || (k === dkey() ? new Date().toISOString() : null), createdAt: prev.createdAt || new Date().toISOString(), updatedAt: new Date().toISOString() };
+  const k = F.date, prev = DB.dreams[k] || {}, at = (F.parts.find((p) => p.at) || {}).at;
+  DB.dreams[k] = { date: k, kind, title: '', text: '', lucid: null, emotions: [], recordedAt: at || prev.recordedAt || (k === dkey() ? new Date().toISOString() : null), createdAt: prev.createdAt || new Date().toISOString(), updatedAt: new Date().toISOString() };
   if (DB.draft && DB.draft.date === k) DB.draft = null;
   save(); closeSheet(); celebrate('Registrado');
   setTimeout(() => go('#/inicio', true), 650);
 }
 
-/* ---- Dictado por voz ---- */
+/* ---- Dictado por voz ----
+   El reconocimiento de voz web del iPhone no pone puntuación y trata cada pausa como frase nueva.
+   Aquí se arregla: minúscula al continuar una frase, punto tras una pausa larga y comandos de voz
+   ("coma", "punto", "punto y aparte", "dos puntos", "abre/cierra interrogación"…). */
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-const rec = { on: false, r: null, base: '', writing: false, restarts: 0, t0: 0, autosize: null };
+const rec = { on: false, r: null, base: '', segs: [], gen: 0, lastAt: 0, writing: false, got: false, startedAt: 0, retries: 0, restarts: 0, part: 0, pn: null, talkT: 0 };
+const PAUSE_PUNTO = 1800; // ms de silencio para poner punto
+const capFirst = (t) => t.replace(/^(\s*[¿¡"«]?)(\p{Ll})/u, (m, a, b) => a + b.toUpperCase());
+function lowerFirst(t) {
+  const m = t.match(/^(\p{Lu})(\p{Ll}*)/u); if (!m) return t;
+  if (rec.pn && rec.pn.has(norm(m[0]))) return t; // nombres propios conocidos
+  return m[1].toLowerCase() + t.slice(1);
+}
+function properNouns() {
+  const set = new Set(); if (DB.name) set.add(norm(DB.name));
+  const src = [rec.base, ...Object.values(DB.dreams).map((d) => d.text || '')].join(' ');
+  for (const m of src.matchAll(/[\p{Ll},]\s+(\p{Lu}\p{Ll}+)/gu)) set.add(norm(m[1]));
+  return set;
+}
+function applyCommands(t, isFinal) {
+  let s = ' ' + t + ' ';
+  s = s.replace(/\s+punto y aparte\b/gi, '.\n')
+    .replace(/\s+(nuevo p[aá]rrafo|nueva l[ií]nea)\b/gi, '\n')
+    .replace(/\s+punto y seguido\b/gi, '.')
+    .replace(/\s+puntos suspensivos\b/gi, '…')
+    .replace(/\s+dos puntos\b/gi, ':')
+    .replace(/\s+(signo de interrogaci[oó]n|cierra(r)? (la )?interrogaci[oó]n)\b/gi, '?')
+    .replace(/\s+abre(r)? (la )?interrogaci[oó]n\s+/gi, ' ¿')
+    .replace(/\s+(signo de exclamaci[oó]n|cierra(r)? (la )?exclamaci[oó]n)\b/gi, '!')
+    .replace(/\s+abre(r)? (la )?exclamaci[oó]n\s+/gi, ' ¡')
+    .replace(/\s+coma\b/gi, ',');
+  if (isFinal) s = s.replace(/\s+punto\s*$/i, '.');
+  s = s.replace(/\s+([,.;:!?…])/g, '$1').replace(/\n\s+/g, '\n').replace(/[ \t]+$/g, '').replace(/^\s+/, '');
+  s = s.replace(/([.!?…]\s+|\n)(\p{Ll})/gu, (m, a, b) => a + b.toUpperCase());
+  return s;
+}
+function appendSeg(out, t, gap) {
+  if (!t) return out;
+  if (!out.trim()) return capFirst(t.replace(/^[,.;:]\s*/, ''));
+  let o = out.replace(/[ \t]+$/, '');
+  const startsP = /^[,.;:!?…]/.test(t);
+  if (!startsP && !/[.!?…:;,\n]$/.test(o) && gap >= PAUSE_PUNTO) o += '.';
+  const sentence = /[.!?…]$/.test(o) || /\n$/.test(o);
+  if (!startsP) t = sentence ? capFirst(t) : lowerFirst(t);
+  return o + (startsP || /\n$/.test(o) ? '' : ' ') + t;
+}
+function composeDictation() {
+  const keep = [];
+  for (const s of rec.segs) {
+    if (!s.text) continue;
+    const prev = keep[keep.length - 1];
+    if (prev && prev.gen === s.gen) { // iOS a veces repite el texto acumulado
+      const a = norm(prev.text), b = norm(s.text);
+      if (b.startsWith(a)) { keep[keep.length - 1] = Object.assign({}, s, { gap: prev.gap }); continue; }
+      if (a.endsWith(b)) continue;
+    }
+    keep.push(s);
+  }
+  let out = rec.base;
+  for (const s of keep) out = appendSeg(out, applyCommands(s.text, s.final), s.gap);
+  return out;
+}
 function setMicUI(on, msg) {
   const b = $('#micBtn'); if (!b) return;
   b.classList.toggle('on', on); $('#bars').classList.toggle('on', on);
+  if (!on) { b.classList.remove('talk'); $('#bars').classList.remove('talk'); }
   $('#micIco').innerHTML = on ? ICON.stop : ICON.mic;
-  $('#micStatus').textContent = msg || (on ? 'Escuchando… toca para parar' : 'Toca el micro para seguir dictando');
+  $('#micStatus').textContent = msg || (on ? 'Escuchando… toca para parar' : micIdle());
+}
+function micTalk() {
+  const b = $('#micBtn'), bars = $('#bars'); if (!b) return;
+  b.classList.add('talk'); if (bars) bars.classList.add('talk');
+  clearTimeout(rec.talkT); rec.talkT = setTimeout(() => { b.classList.remove('talk'); if (bars) bars.classList.remove('talk'); }, 450);
 }
 function startRec() {
   if (!SR) {
-    openSheet(`<h2>Dicta con el teclado</h2><p>Este navegador no deja que la app use el dictado directamente. Haz esto: toca el cuadro de texto y pulsa el <b>micrófono del teclado</b> del iPhone (abajo a la derecha). Transcribe muy bien y no inventa palabras.</p><button class="btn primary block" data-act="focusText">Entendido</button>`);
+    openSheet(`<h2>Dicta con el teclado</h2><p>Este navegador no deja que la app use el dictado directamente. Toca el cuadro de texto y pulsa el <b>micrófono del teclado</b> del iPhone.</p><button class="btn primary block" data-act="focusText">Entendido</button>`);
     return;
   }
-  const ta = $('#txt');
+  const ta = activeTA(); if (!ta) return;
   markRecorded();
-  rec.base = ta.value.replace(/\s+$/, ''); rec.on = true; rec.restarts = 0; rec.t0 = Date.now();
-  const r = new SR(); rec.r = r;
+  rec.part = F.active; rec.base = ta.value.replace(/\s+$/, ''); rec.segs = []; rec.on = true; rec.retries = 0; rec.restarts = 0; rec.lastAt = Date.now(); rec.pn = properNouns();
+  setMicUI(true, 'Preparando el micro…');
+  listen();
+}
+function listen() {
+  const r = new SR(); rec.r = r; rec.gen++; rec.got = false; rec.startedAt = Date.now();
+  const gen = rec.gen;
   r.lang = 'es-ES'; r.continuous = true; r.interimResults = true; r.maxAlternatives = 1;
+  r.onaudiostart = () => { if (rec.r === r && rec.on) setMicUI(true); };
   r.onresult = (e) => {
-    const finals = []; let interim = '';
-    for (let i = 0; i < e.results.length; i++) {
-      const res = e.results[i], t = (res[0] && res[0].transcript || '').trim();
-      if (!t) continue;
-      if (res.isFinal) {
-        const last = finals[finals.length - 1];
-        if (last && norm(t).startsWith(norm(last))) finals[finals.length - 1] = t;      // iOS a veces repite el texto acumulado
-        else if (!(last && norm(last).endsWith(norm(t)))) finals.push(t);
-      } else interim = t;
+    if (rec.r !== r) return;
+    rec.got = true; micTalk(); const now = Date.now();
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      const res = e.results[i], t = ((res[0] && res[0].transcript) || '').trim(); if (!t) continue;
+      let s = rec.segs.find((x) => x.gen === gen && x.i === i);
+      if (!s) { s = { gen, i, gap: now - rec.lastAt, text: '', final: false }; rec.segs.push(s); }
+      s.text = t; s.final = res.isFinal;
     }
-    let shown = finals.join(' ');
-    if (interim) shown = shown && norm(interim).startsWith(norm(shown)) ? interim : (shown ? shown + ' ' : '') + interim;
-    rec.writing = true;
-    ta.value = rec.base ? rec.base + (shown ? ' ' + shown : '') : cap(shown);
-    rec.writing = false;
-    F.text = ta.value; rec.autosize && rec.autosize(); draftSoon();
+    rec.lastAt = now;
+    const ta = $(`.ptxt[data-i="${rec.part}"]`); if (!ta || !F.parts[rec.part]) return;
+    rec.writing = true; ta.value = composeDictation(); rec.writing = false;
+    F.parts[rec.part].text = ta.value; if (ta._autosize) ta._autosize(); draftSoon(); suggSoon(rec.part);
   };
   r.onerror = (e) => {
-    if (e.error === 'no-speech' || e.error === 'aborted') return;
-    rec.on = false; setMicUI(false, '');
-    if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
-      openSheet(`<h2>Sin permiso de micrófono</h2><p>El iPhone no ha dejado usar el micro. Puedes:</p><ul class="small" style="color:#c9d6f0"><li>Volver a tocar el micro y pulsar <b>Permitir</b>.</li><li>Ajustes del iPhone → Apps → Safari → Micrófono → Preguntar/Permitir.</li><li>O usar el <b>🎤 del teclado</b>: toca el texto y pulsa el micro del teclado.</li></ul><button class="btn primary block" data-act="focusText">Usar el teclado</button>`);
-    } else toast('El dictado se ha cortado (' + e.error + '). Vuelve a tocar el micro.');
+    if (rec.r !== r) return;
+    if (e.error === 'not-allowed') {
+      rec.on = false; setMicUI(false, '');
+      openSheet(`<h2>Sin permiso de micrófono</h2><p>El iPhone no ha dejado usar el micro. Vuelve a tocar el micro y pulsa <b>Permitir</b>. Si no te lo pregunta: Ajustes del iPhone → Apps → Safari → Micrófono → Preguntar.</p><button class="btn primary block" data-act="closeSheet">Entendido</button>`);
+    }
+    // El resto de fallos (sobre todo al arrancar) se reintentan solos en onend
   };
   r.onend = () => {
-    if (rec.on && rec.r === r) {
-      rec.base = ta.value.replace(/\s+$/, '');
-      if (++rec.restarts > 40) { rec.on = false; setMicUI(false); return; }
-      try { r.start(); } catch (err) { rec.on = false; setMicUI(false); }
-    } else setMicUI(false);
+    if (rec.r !== r) return;
+    if (!rec.on) { setMicUI(false); finishDictation(); return; }
+    if (!rec.got && Date.now() - rec.startedAt < 2500) { // no arrancó bien: reintento silencioso
+      if (++rec.retries > 4) { rec.on = false; setMicUI(false, 'El micro no ha arrancado. Vuelve a tocarlo.'); return; }
+      setTimeout(() => { if (rec.on) listen(); }, 300); return;
+    }
+    rec.base = composeDictation(); rec.segs = []; // pausa larga: seguimos escuchando
+    if (++rec.restarts > 80) { rec.on = false; setMicUI(false); finishDictation(); return; }
+    setTimeout(() => { if (rec.on) listen(); }, 100);
   };
-  try { r.start(); setMicUI(true); } catch (err) { rec.on = false; toast('No se pudo iniciar el dictado'); }
+  try { r.start(); }
+  catch (err) { setTimeout(() => { if (rec.on && rec.r === r) { if (++rec.retries > 4) { rec.on = false; setMicUI(false, 'El micro no ha arrancado. Vuelve a tocarlo.'); } else listen(); } }, 300); }
 }
-function stopRec() { if (!rec.on) return; rec.on = false; try { rec.r && rec.r.stop(); } catch (e) {} setMicUI(false); if (F) { F.text = ($('#txt') || {}).value || F.text; saveDraft(); } }
+function finishDictation() {
+  if (!F || !F.parts[rec.part]) return;
+  const ta = $(`.ptxt[data-i="${rec.part}"]`); if (!ta) return;
+  let v = composeDictation().replace(/\s+$/, '');
+  if (v && /[\p{L}\p{N}]$/u.test(v)) v += '.';
+  ta.value = v; F.parts[rec.part].text = v; if (ta._autosize) ta._autosize();
+  rec.base = v; rec.segs = []; saveDraft(); suggSoon(rec.part);
+}
+function stopRec() {
+  if (!rec.on) return; rec.on = false;
+  try { if (rec.r) rec.r.stop(); } catch (e) {}
+  setMicUI(false); finishDictation();
+}
 
 /* ---- Diario ---- */
 let diaryQ = '', diaryF = 'todos';
@@ -757,7 +1013,7 @@ function diaryList() {
     const sl = DB.sleep[k], db = `<div class="datebox"><b>${dt.getDate()}</b><span>${MESES[dt.getMonth()].slice(0, 3)}</span></div>`;
     if (d.kind) { out += `<div class="card dream none" data-act="go" data-to="#/sueno/${k}">${db}<div style="flex:1;min-width:0"><h3>${KIND[d.kind]}</h3><div class="tags"><span>${cap(DIAS[dt.getDay()])} ${shortDate(k)}</span></div></div></div>`; continue; }
     const emos = (d.emotions || []).filter((e) => EMO[e]).map((e) => EMO[e].n).join(' · ');
-    out += `<div class="card dream" data-act="go" data-to="#/sueno/${k}">${db}<div style="flex:1;min-width:0"><h3>${esc(d.title)}</h3><p class="clamp">${esc(d.text)}</p><div class="tags">${d.lucid === 'si' ? '<span class="pill lucid">Lúcido</span>' : d.lucid === 'casi' ? '<span class="pill casi">Casi</span>' : ''}<span>${cap(DIAS[dt.getDay()]).slice(0, 3)} ${shortDate(k)}${emos ? ' · ' + emos : ''}${sl ? ' · ' + dur(sl.total) + ' dormido' : ''}</span></div></div></div>`;
+    out += `<div class="card dream" data-act="go" data-to="#/sueno/${k}">${db}<div style="flex:1;min-width:0"><h3>${esc(d.title)}</h3><p class="clamp">${esc(d.text)}</p><div class="tags">${d.lucid === 'si' ? '<span class="pill lucid">Lúcido</span>' : d.lucid === 'casi' ? '<span class="pill casi">Casi</span>' : ''}<span>${cap(DIAS[dt.getDay()]).slice(0, 3)} ${shortDate(k)}${emos ? ' · ' + emos : ''}${d.parts && d.parts.length > 1 ? ' · ' + d.parts.length + ' partes' : ''}${sl ? ' · ' + dur(sl.total) + ' dormido' : ''}</span></div></div></div>`;
   }
   return out;
 }
@@ -777,15 +1033,24 @@ function renderDetail(k) {
   const d = DB.dreams[k];
   if (!d) return `${header('Sueño', '', true)}<div class="empty"><span class="big">${ICON.moon}</span>Este sueño ya no existe.</div>`;
   const sl = DB.sleep[k], dt = fromKey(k);
-  const sleepPart = sl ? sleepCard(sl) : DB.settings.health && k === dkey() ? `<div class="card row between"><div><div style="font-weight:700">Datos de sueño</div><div class="muted small">Aún no hay datos de Salud de hoy</div></div><button class="btn" data-act="importHealth">Traer</button></div>` : '';
+  const sleepPart = sl ? sleepCard(sl) : DB.settings.health && k === dkey() ? `<div class="card row between"><div style="padding-right:10px"><div style="font-weight:700">Fases de esta noche</div><div class="muted small">Tráelas desde Salud para verlas aquí</div></div><button class="btn" data-act="importHealth" data-k="${k}">Traer</button></div>` : '';
   if (d.kind) return `${header(KIND[d.kind], cap(DIAS[dt.getDay()]) + ' ' + fullDate(k), true)}
   <div class="card"><p class="muted" style="margin:0 0 14px">Registraste esta mañana sin sueño. Si lo recuerdas ahora, puedes añadirlo.</p><button class="btn primary block" data-act="go" data-to="#/nuevo/${k}">Ahora lo recuerdo</button></div>
   ${sleepPart}<button class="btn danger block" data-act="delDream" data-k="${k}" style="margin-top:6px">Borrar registro</button>`;
   const wake = sl ? `Despertar ${hm(sl.wake)} (pulsera)${d.recordedAt ? ` · dictado a las ${hm(d.recordedAt)}` : ''}` : d.recordedAt ? `Despertar ${hm(d.recordedAt)} (al empezar a dictar)` : '';
+  const multi = d.parts.length > 1;
+  const lp = (l) => (l ? `<span class="pill ${l === 'si' ? 'lucid' : l === 'casi' ? 'casi' : ''}">${LUCID[l]}</span>` : '');
+  const ep = (es) => (es || []).map((e) => (EMO[e] ? `<span class="pill">${EMO[e].n}</span>` : '')).join('');
+  const tp = (d.tags || []).map((t) => (THEME[t] ? `<span class="pill" style="background:rgba(99,102,241,.18);border-color:rgba(165,180,252,.3)">${THEME[t]}</span>` : '')).join('');
+  const body = multi
+    ? d.parts.map((p, i) => `<div class="ptl"><span class="dotp"></span><div class="card"><div class="ph">Parte ${i + 1}${p.at ? ' · ' + hm(p.at) : ''} ${lp(p.lucid)}${ep(p.emotions)}</div><div class="dream-text">${highlight(p.text)}</div></div></div>`).join('')
+    : `<div class="card"><div class="dream-text">${highlight(d.text)}</div></div>`;
   return `<header class="top"><button class="icon-btn" data-act="back" aria-label="Volver">${ICON.back}</button><div style="flex:1"></div><button class="icon-btn" data-act="go" data-to="#/nuevo/${k}" aria-label="Editar">${ICON.edit}</button></header>
-  <section class="detail"><h1>${esc(d.title)}</h1><div class="when">${cap(DIAS[dt.getDay()])} ${fullDate(k)}${wake ? '<br>' + wake : ''}</div>
-  <div class="row wrap" style="gap:7px;margin-bottom:16px">${d.lucid ? `<span class="pill ${d.lucid === 'si' ? 'lucid' : d.lucid === 'casi' ? 'casi' : ''}">${LUCID[d.lucid]}</span>` : ''}${(d.emotions || []).map((e) => EMO[e] ? `<span class="pill">${EMO[e].n}</span>` : '').join('')}</div></section>
-  <div class="card"><div class="dream-text">${highlight(d.text)}</div></div>
+  <section class="detail"><h1>${esc(d.title)}</h1><div class="when">${cap(DIAS[dt.getDay()])} ${fullDate(k)}${wake ? '<br>' + wake : ''}${multi ? '<br>' + d.parts.length + ' partes' : ''}</div>
+  <div class="row wrap" style="gap:7px;margin-bottom:14px">${lp(d.lucid)}${multi ? '' : ep(d.emotions)}${tp}</div>
+  <button class="listen" id="listenBtn" data-act="listen" data-k="${k}"><span class="ic">${ICON.speaker}</span><span class="eq"><i></i><i></i><i></i></span><span class="lt">Escuchar</span></button></section>
+  <div style="margin-top:16px">${body}</div>
+  ${k === dkey() ? `<button class="btn ghost block" data-act="go" data-to="#/nuevo/${k}/add" style="margin:0 0 14px;border-color:var(--stroke);color:var(--accent2)">+ Añadir otra parte</button>` : ''}
   ${sleepPart}
   <button class="btn danger block" data-act="delDream" data-k="${k}" style="margin-top:6px">Borrar sueño</button>`;
 }
@@ -807,7 +1072,8 @@ function lucidPlan() {
     const on = taskDone(k, t.id);
     return `<div class="task"><button class="tcheck ${on ? 'on' : ''}" data-act="task" data-id="${t.id}" ${t.auto ? 'data-auto="1"' : ''} aria-label="Marcar">${ICON.check}</button><div style="flex:1"><div class="when">${t.when}</div><div class="tt">${t.t}</div><details><summary>¿Cómo se hace? ›</summary><div class="how">${t.d}</div>${t.src ? `<div class="src">${t.src}</div>` : ''}</details></div></div>`;
   }).join('')}</div>
-  <div class="card"><h3>Últimos 7 días</h3><div class="week">${hist}</div></div>`;
+  <div class="card"><h3>Últimos 7 días</h3><div class="week">${hist}</div></div>
+  ${DB.settings.rc.added ? '' : `<div class="card row" data-act="go" data-to="#/ajustes" style="cursor:pointer"><div style="flex:1"><div style="font-weight:700">Avisos de pruebas de realidad</div><div class="muted small">Recordatorios suaves durante el día en tu Calendario</div></div><span class="dim">${ICON.chev}</span></div>`}`;
 }
 const SOURCES = [
   ['Aspy, D. J. (2020). Findings From the International Lucid Dream Induction Study. Frontiers in Psychology, 11:1746.', 'https://doi.org/10.3389/fpsyg.2020.01746'],
@@ -846,12 +1112,19 @@ function wordStats() {
   return [...df.entries()].filter(([, c]) => c >= 2).sort((a, b) => b[1] - a[1]).slice(0, 25)
     .map(([n, c]) => ({ n, c, w: [...forms.get(n).entries()].sort((a, b) => b[1] - a[1])[0][0] }));
 }
+function themeCountsHTML() {
+  const c = {}; Object.values(DB.dreams).filter(isReal).forEach((d) => (d.tags || []).forEach((t) => (c[t] = (c[t] || 0) + 1)));
+  const arr = Object.entries(c).filter(([t]) => THEME[t]).sort((a, b) => b[1] - a[1]).slice(0, 10); if (!arr.length) return '';
+  const max = arr[0][1];
+  return `<div class="card"><h3>Temas que se repiten</h3>${arr.map(([t, n]) => `<div class="hbar"><span>${THEME[t]}</span><div class="bar"><i style="--w:${(n / max) * 100}%"></i></div><span class="muted small" style="text-align:right">${n}</span></div>`).join('')}<p class="tiny dim" style="margin:10px 0 0">Los temas que más se repiten son buenas señales de sueño: si los ves despierto, pregúntate si estás soñando.</p></div>`;
+}
 function lucidSigns() {
   const words = wordStats(), signsN = DB.signs.map(norm), total = realCount();
   const emoCount = {}; Object.values(DB.dreams).forEach((d) => (d.emotions || []).forEach((e) => (emoCount[e] = (emoCount[e] || 0) + 1)));
   const emoArr = Object.entries(emoCount).sort((a, b) => b[1] - a[1]); const maxE = emoArr[0] ? emoArr[0][1] : 1;
   return `<div class="card"><h3>Tus señales de sueño</h3>${DB.signs.length ? `<div class="chips">${DB.signs.map((s, i) => `<span class="sign">${esc(s)}<button data-act="delSign" data-i="${i}" aria-label="Quitar">✕</button></span>`).join('')}</div><p class="tiny dim" style="margin:12px 0 0">Se resaltan en tus sueños. Cuando veas una de estas cosas despierto, pregúntate: "¿estoy soñando?".</p>` : '<p class="muted small" style="margin:0">Aún no has marcado ninguna. Añádelas abajo o escríbelas tú.</p>'}
   <div class="row" style="margin-top:12px"><input class="input" id="newSign" placeholder="Añadir señal (ej: colegio)" style="font-size:16px;padding:11px 13px"><button class="btn" data-act="addSign">Añadir</button></div></div>
+  ${themeCountsHTML()}
   <div class="card"><h3>Se repite en tus sueños</h3>${words.length ? words.map((x) => `<div class="wordrow"><span class="w">${esc(x.w)}</span><span class="c">en ${x.c} de ${total} sueños</span>${signsN.includes(x.n) ? '<span class="pill">Señal</span>' : `<button class="btn" style="padding:7px 11px;font-size:13px" data-act="markSign" data-w="${esc(x.w)}">+ Señal</button>`}</div>`).join('') : `<p class="muted small" style="margin:0">Cuando lleves unos cuantos sueños, aquí aparecerán las palabras que se repiten entre ellos.</p>`}</div>
   <div class="card"><h3>Emociones más frecuentes</h3>${emoArr.length ? emoArr.map(([e, c]) => `<div class="hbar"><span>${EMO[e].n}</span><div class="bar"><i style="--w:${(c / maxE) * 100}%"></i></div><span class="muted small" style="text-align:right">${c}</span></div>`).join('') : '<p class="muted small" style="margin:0">Marca emociones al guardar tus sueños.</p>'}</div>`;
 }
@@ -878,16 +1151,35 @@ function lucidStats() {
 
 /* ---- Ajustes ---- */
 function renderSettings() {
-  const pin = !!DB.settings.pinHash, hl = !!DB.settings.health;
+  const pin = !!DB.settings.pinHash, hl = !!DB.settings.health, rc = DB.settings.rc;
+  const opt = (arr, v) => arr.map(([val, lab]) => `<option value="${val}" ${String(val) === String(v) ? 'selected' : ''}>${lab}</option>`).join('');
+  const hours = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => [a + i, (a + i) + ':00']);
   return `${header('Ajustes', 'Sueños v' + VERSION)}
   <div class="card"><div class="set-row"><div><div class="t">Tu nombre</div><div class="s">Para el saludo de la mañana</div></div><input class="input" id="nameIn" value="${esc(DB.name)}" placeholder="Tu nombre" style="width:140px;font-size:16px;padding:9px 12px"></div>
   <div class="set-row"><div><div class="t">Bloqueo con PIN</div><div class="s">${pin ? 'Activado · se pide al abrir' : 'Desactivado'}</div></div>${pin ? '<div class="row"><button class="btn" data-act="pinSet">Cambiar</button><button class="btn danger" data-act="pinOff">Quitar</button></div>' : '<button class="btn primary" data-act="pinSet">Activar</button>'}</div></div>
+
+  <div class="section-title">Voz de lectura</div>
+  <div class="card"><div class="set-row"><div><div class="t">Voz</div><div class="s">La que lee tus sueños</div></div><select class="input" id="voiceSel" style="width:170px">${voiceOptions()}</select></div>
+  <div class="set-row" style="display:block"><div class="row between"><div class="t">Velocidad</div><span class="s" id="rateV">${rateLabel(DB.settings.rate)}</span></div><input type="range" id="rateIn" min="0.7" max="1.3" step="0.05" value="${DB.settings.rate || 1}" style="margin-top:10px"></div>
+  <div class="set-row"><div class="s" style="padding-right:10px">Para una voz más natural, descarga una voz "mejorada" o "premium" en español: Ajustes del iPhone → Accesibilidad → Contenido leído → Voces.</div><button class="btn" data-act="testVoice">Probar</button></div></div>
+
+  <div class="section-title">Avisos de pruebas de realidad</div>
+  <div class="card"><p class="small muted" style="margin:0 0 6px">Unos pocos avisos al día para preguntarte "¿estoy soñando?". Se añaden al Calendario del iPhone, que es quien te avisa.</p>
+  <div class="set-row"><div class="t">Avisos al día</div><select class="input" data-rc="n" style="width:110px">${opt([[3, '3'], [4, '4'], [5, '5'], [6, '6'], [7, '7'], [8, '8']], rc.n)}</select></div>
+  <div class="set-row"><div class="t">Desde</div><select class="input" data-rc="from" style="width:110px">${opt(hours(7, 14), rc.from)}</select></div>
+  <div class="set-row"><div class="t">Hasta</div><select class="input" data-rc="to" style="width:110px">${opt(hours(17, 23), rc.to)}</select></div>
+  <div class="set-row"><div class="t">Mensaje</div><select class="input" data-rc="msg" style="width:190px">${opt(RC_MSGS.map((m) => [m, m]), rc.msg)}</select></div>
+  <p class="small" style="margin:12px 0" id="rcPrev">Te avisará a las ${rcTimes().map(([h, m]) => pad(h) + ':' + pad(m)).join(', ')}.</p>
+  <button class="btn primary block" data-act="addRC">${rc.added ? 'Volver a añadir al Calendario' : 'Añadir avisos al Calendario'}</button>
+  ${rc.added ? '<p class="tiny dim" style="margin:10px 0 0">Si cambias la configuración, borra antes los avisos anteriores para no tenerlos repetidos.</p>' : ''}
+  <details style="margin-top:8px"><summary class="muted small" style="cursor:pointer;padding:6px 0">Cómo quitarlos ›</summary><p class="small" style="color:#c9d6f0">En la app Calendario, toca uno de los avisos → <b>Eliminar evento</b> → <b>Eliminar todos los eventos futuros</b>. Repite con cada hora.</p></details></div>
+
   <div class="section-title">Datos de sueño · opcional</div>
-  <div class="card"><div class="set-row"><div style="padding-right:10px"><div class="t">Usar datos de Salud</div><div class="s">Para Apple Watch, Amazfit/Zepp u otra pulsera que guarde el sueño en Salud. Muestra tus fases bajo cada sueño.</div></div><button class="switch ${hl ? 'on' : ''}" data-act="toggleHealth" aria-label="Usar datos de Salud"></button></div>
+  <div class="card"><div class="set-row"><div style="padding-right:10px"><div class="t">Usar datos de Salud</div><div class="s">Para Apple Watch, Amazfit/Zepp u otra pulsera que guarde el sueño en Salud. Muestra tus fases debajo de cada sueño.</div></div><button class="switch ${hl ? 'on' : ''}" data-act="toggleHealth" aria-label="Usar datos de Salud"></button></div>
   ${hl ? `<div class="set-row"><div style="padding-right:10px"><div class="t">Traer al guardar un sueño</div><div class="s">Al guardar el sueño de hoy se abre el Atajo solo</div></div><button class="switch ${DB.settings.autoImport ? 'on' : ''}" data-act="toggleAuto" aria-label="Traer al guardar"></button></div>
   <div class="set-row"><div><div class="t">Traer la última noche</div><div class="s">Prueba la conexión</div></div><button class="btn" data-act="importHealth">Traer</button></div>
   <div class="set-row"><div><div class="t">Nombre del Atajo</div><div class="s">Tiene que coincidir exactamente</div></div><input class="input" id="scIn" value="${esc(DB.settings.shortcut)}" style="width:150px;font-size:16px;padding:9px 12px"></div>
-  <p class="tiny dim" style="margin:12px 0 0">Apple no deja que las apps web lean Salud directamente, así que en esta versión se usa un Atajo de iPhone que se configura una sola vez.</p>
+  <p class="tiny dim" style="margin:12px 0 0">Apple no deja que las apps web lean Salud directamente, así que en esta versión se usa un Atajo de iPhone que se configura una sola vez. Importante: tu pulsera pasa la noche a Salud cuando su app (Zepp) sincroniza; ábrela antes si la noche aún no aparece.</p>
   <details style="margin-top:8px"><summary class="muted small" style="cursor:pointer;padding:6px 0">Cómo crear el Atajo ›</summary><ol class="steps" style="margin-top:12px">
     <li>Asegúrate de que tu reloj o pulsera guarda el sueño en Salud (en Zepp: Perfil → Apple Salud → permiso de Sueño).</li>
     <li>Abre <b>Atajos</b> → <b>+</b> → nómbralo <code>${esc(DB.settings.shortcut)}</code>.</li>
@@ -896,6 +1188,7 @@ function renderSettings() {
     <li>Dentro, añade <b>Texto</b> con <code>Valor ; Fecha de inicio ; Fecha de fin ; Fuente</code> (toca "Ítem de repetición" para elegir cada dato).</li>
     <li>Debajo: <b>Combinar</b> Resultado de la repetición con <b>Nuevas líneas</b> y después <b>Copiar al portapapeles</b>.</li>
     <li>Ejecútalo una vez y pulsa <b>Permitir</b> el acceso a Salud.</li></ol></details>` : ''}</div>
+
   <div class="section-title">Tus datos</div>
   <div class="card"><p class="small muted" style="margin:0 0 12px">Todo se guarda solo en este iPhone. Si borras la app se pierde, así que haz copia de vez en cuando.</p>
   <div class="grid2"><button class="btn" data-act="export">Exportar copia</button><button class="btn" data-act="import">Importar copia</button></div>
@@ -905,13 +1198,23 @@ function renderSettings() {
 }
 function afterSettings() {
   $('#nameIn').addEventListener('change', (e) => { DB.name = e.target.value.trim().slice(0, 24); save(); toast('Nombre guardado'); });
-  $('#scIn') && $('#scIn').addEventListener('change', (e) => { DB.settings.shortcut = e.target.value.trim() || 'Sueños Salud'; save(); toast('Nombre del Atajo guardado'); });
+  if ($('#scIn')) $('#scIn').addEventListener('change', (e) => { DB.settings.shortcut = e.target.value.trim() || 'Sueños Salud'; save(); toast('Nombre del Atajo guardado'); });
   $('#fileIn').addEventListener('change', importFile);
+  $('#voiceSel').addEventListener('change', (e) => { DB.settings.voice = e.target.value; save(); });
+  $('#rateIn').addEventListener('input', (e) => { DB.settings.rate = +e.target.value; $('#rateV').textContent = rateLabel(DB.settings.rate); });
+  $('#rateIn').addEventListener('change', () => save());
+  $$('[data-rc]').forEach((s) => s.addEventListener('change', () => {
+    const f = s.dataset.rc; DB.settings.rc[f] = f === 'msg' ? s.value : +s.value;
+    if (DB.settings.rc.to <= DB.settings.rc.from) DB.settings.rc.to = Math.min(23, DB.settings.rc.from + 4);
+    save(); $('#rcPrev').textContent = 'Te avisará a las ' + rcTimes().map(([h, m]) => pad(h) + ':' + pad(m)).join(', ') + '.';
+  }));
+  if (canTTS) speechSynthesis.onvoiceschanged = () => { const sel = $('#voiceSel'); if (sel) sel.innerHTML = voiceOptions(); };
 }
 
 /* ---------- Importar desde Salud ---------- */
-function importHealth() {
-  DB.pendingImport = Date.now(); save();
+function importHealth(arg) {
+  const target = typeof arg === 'string' ? arg : (arg && arg.dataset && arg.dataset.k) || dkey();
+  DB.pendingImport = Date.now(); DB.importTarget = target; save();
   const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if (isIOS) { location.href = 'shortcuts://run-shortcut?name=' + encodeURIComponent(DB.settings.shortcut); setTimeout(() => { if (!document.hidden) pasteSheet(); }, 2500); }
   else pasteSheet();
@@ -919,7 +1222,8 @@ function importHealth() {
 function importPending() { return DB.pendingImport && Date.now() - DB.pendingImport < 10 * 60 * 1000; }
 function pasteSheet() {
   DB.pendingImport = 0; save();
-  openSheet(`<h2>Pegar datos de Salud</h2><p class="small">El Atajo ha copiado tu sueño. Pulsa el botón y luego <b>Permitir pegar</b> si te lo pregunta.</p>
+  const target = DB.importTarget || dkey();
+  openSheet(`<h2>Fases de la noche del ${shortDate(target)}</h2><p class="small">El Atajo ha copiado tus datos de Salud. Pulsa el botón y luego <b>Permitir pegar</b> si te lo pregunta.</p>
     <button class="btn primary big block" data-act="pasteHealth">Pegar datos</button>
     <details style="margin-top:14px"><summary class="muted small" style="cursor:pointer">¿No funciona el botón? Pega aquí a mano ›</summary><textarea id="pasteArea" placeholder="Mantén pulsado y elige Pegar" style="min-height:110px;margin-top:10px;font-size:14px"></textarea><button class="btn block" data-act="parsePasted" style="margin-top:8px">Usar este texto</button></details>
     <div id="pasteRes"></div>`);
@@ -929,16 +1233,95 @@ async function pasteHealth() {
   catch (e) { toast('No se pudo leer el portapapeles. Usa "Pega aquí a mano".'); const d = $('#sheet details'); if (d) d.open = true; }
 }
 function handleHealthText(t) {
-  const res = parseHealth(t), box = $('#pasteRes');
+  const target = DB.importTarget || dkey(), res = parseHealth(t, target), box = $('#pasteRes');
+  if (res.error === 'missing') {
+    const other = DB.dreams[res.latest] && isReal(DB.dreams[res.latest]) && !DB.sleep[res.latest];
+    box.innerHTML = `<div class="card miss" style="margin-top:14px"><b>Salud todavía no tiene la noche del ${shortDate(target)}</b><p class="small" style="margin:6px 0 12px;color:#c9d6f0">La última noche que hay es la del ${shortDate(res.latest)}. Tu pulsera pasa los datos a Salud cuando su app (Zepp) sincroniza. Ábrela, espera a que termine y vuelve a intentarlo.</p><button class="btn primary block" data-act="retryHealth">Reintentar</button>${other ? `<button class="btn block" id="saveOther" style="margin-top:8px">Guardar en el sueño del ${shortDate(res.latest)}</button>` : ''}</div>`;
+    if (other) $('#saveOther').onclick = () => { const r2 = parseHealth(t, res.latest); if (!r2.error) { DB.sleep[res.latest] = r2; save(); closeSheet(); toast('Fases guardadas en el sueño del ' + shortDate(res.latest)); route(); } };
+    return;
+  }
   if (res.error) { box.innerHTML = `<p class="small" style="color:var(--bad);margin-top:14px">${res.error}</p>`; return; }
-  const isToday = res.date === dkey();
-  box.innerHTML = `<div style="margin-top:16px">${sleepCard(res, 'Noche del ' + shortDate(res.date))}${isToday ? '' : `<p class="small" style="color:var(--warn)">Estos datos son de la noche que terminó el ${fullDate(res.date)}, no de hoy. Si esperabas la de esta noche, abre Zepp (o la app de tu reloj) para que sincronice con Salud y vuelve a intentarlo.</p>`}<button class="btn primary big block" id="saveSleep">Guardar en el ${shortDate(res.date)}</button></div>`;
+  const hasDream = isReal(DB.dreams[target]);
+  box.innerHTML = `<div style="margin-top:16px">${sleepCard(res, 'Noche del ' + shortDate(target))}<button class="btn primary big block" id="saveSleep">${hasDream ? 'Guardar debajo del sueño de hoy' : 'Guardar en el ' + shortDate(target)}</button></div>`;
   $('#saveSleep').onclick = () => {
-    DB.sleep[res.date] = res; save(); closeSheet(); toast('Datos de sueño guardados en el ' + shortDate(res.date));
+    DB.sleep[target] = res; save(); closeSheet(); toast('Fases de sueño guardadas');
     // En la pantalla de grabar no recargamos, para no perder lo que estás escribiendo
-    if ((location.hash || '').startsWith('#/nuevo')) { const p = $('#wakePill'); if (p && F && F.date === res.date) p.textContent = wakeLabel(res.date); }
+    if ((location.hash || '').startsWith('#/nuevo')) { const p = $('#wakePill'); if (p && F && F.date === target) p.textContent = wakeLabel(target); }
     else route();
   };
+}
+
+/* ---------- Voz que lee el sueño (voces del propio iPhone) ---------- */
+const canTTS = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+const TTS = { on: false };
+function esVoices() { return canTTS ? speechSynthesis.getVoices().filter((v) => /^es([-_]|$)/i.test(v.lang)) : []; }
+function pickVoice() {
+  const vs = esVoices(); if (!vs.length) return null;
+  if (DB.settings.voice) { const v = vs.find((x) => x.voiceURI === DB.settings.voice); if (v) return v; }
+  const sc = (v) => (/(premium|mejorad|enhanced|neural|natural)/i.test(v.name) ? 4 : 0) + (/es[-_]ES/i.test(v.lang) ? 2 : 0) + (v.localService ? 1 : 0);
+  return vs.slice().sort((a, b) => sc(b) - sc(a))[0];
+}
+function voiceOptions() {
+  const vs = esVoices();
+  return `<option value="">Automática</option>` + vs.map((v) => `<option value="${esc(v.voiceURI)}" ${DB.settings.voice === v.voiceURI ? 'selected' : ''}>${esc(v.name)} (${esc(v.lang)})</option>`).join('');
+}
+const rateLabel = (r) => ((r || 1) < 0.95 ? 'Lenta' : (r || 1) > 1.05 ? 'Rápida' : 'Normal') + ' · ' + (+(r || 1)).toFixed(2) + 'x';
+function chunks(text) {
+  const out = [];
+  (String(text).replace(/\s+/g, ' ').match(/[^.!?…]+[.!?…]*\s*/g) || []).forEach((s) => {
+    s = s.trim();
+    while (s.length > 220) { let cut = s.lastIndexOf(',', 220); if (cut < 80) cut = s.lastIndexOf(' ', 220); if (cut < 40) cut = 220; out.push(s.slice(0, cut + 1)); s = s.slice(cut + 1).trim(); }
+    if (s) out.push(s);
+  });
+  return out;
+}
+function speak(text, onEnd) {
+  if (!canTTS) { toast('Este dispositivo no permite leer en voz alta'); if (onEnd) onEnd(); return; }
+  speechSynthesis.cancel();
+  const v = pickVoice(), parts = chunks(text); let i = 0;
+  TTS.on = true;
+  const next = () => {
+    if (!TTS.on) return;
+    if (i >= parts.length) { TTS.on = false; if (onEnd) onEnd(); return; }
+    const u = new SpeechSynthesisUtterance(parts[i++]);
+    u.lang = v ? v.lang : 'es-ES'; if (v) u.voice = v; u.rate = DB.settings.rate || 1; u.pitch = 1;
+    u.onend = next; u.onerror = () => { TTS.on = false; if (onEnd) onEnd(); };
+    speechSynthesis.speak(u);
+  };
+  next();
+}
+function stopSpeak() { TTS.on = false; if (canTTS) speechSynthesis.cancel(); setListenUI(false); }
+function setListenUI(on) { const b = $('#listenBtn'); if (!b) return; b.classList.toggle('on', on); b.querySelector('.lt').textContent = on ? 'Parar' : 'Escuchar'; }
+function dreamSpeech(d) { return [d.title + '.', ...(d.parts.length > 1 ? d.parts.map((p, i) => `Parte ${i + 1}. ${p.text}`) : [d.text])].join(' '); }
+
+/* ---------- Avisos de pruebas de realidad (Calendario del iPhone) ---------- */
+const RC_MSGS = ['¿Estás soñando?', 'Prueba de realidad', 'Mírate las manos', 'Tápate la nariz e intenta respirar'];
+function rcTimes() {
+  const { n, from, to } = DB.settings.rc; const span = Math.max(60, (to - from) * 60), step = span / n; let seed = 11;
+  const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+  return Array.from({ length: n }, (_, i) => { const m = Math.round(from * 60 + step * i + step * (0.2 + 0.6 * rnd())); return [Math.floor(m / 60), m % 60]; });
+}
+const icsEsc = (s) => String(s).replace(/\\/g, '\\\\').replace(/;/g, '\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+const icsFold = (l) => { const out = []; while (l.length > 70) { out.push(l.slice(0, 70)); l = ' ' + l.slice(70); } out.push(l); return out.join('\r\n'); };
+function buildICS() {
+  const t = new Date(), day = `${t.getFullYear()}${pad(t.getMonth() + 1)}${pad(t.getDate())}`;
+  const stamp = t.toISOString().replace(/[-:]/g, '').replace(/\.\d+/, '');
+  const msg = DB.settings.rc.msg, desc = 'Prueba de realidad: tápate la nariz e intenta respirar y pregúntate en serio si estás soñando. (Sueños)';
+  const ev = rcTimes().map(([h, m], i) => ['BEGIN:VEVENT', `UID:suenos-rc-${i}-${stamp}@suenos`, `DTSTAMP:${stamp}`, `DTSTART:${day}T${pad(h)}${pad(m)}00`, 'DURATION:PT1M', 'RRULE:FREQ=DAILY',
+    `SUMMARY:${icsEsc(msg)}`, `DESCRIPTION:${icsEsc(desc)}`, 'TRANSP:TRANSPARENT', 'BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${icsEsc(msg)}`, 'TRIGGER:PT0S', 'END:VALARM', 'END:VEVENT'].map(icsFold).join('\r\n'));
+  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Suenos//Avisos//ES', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', icsFold('X-WR-CALNAME:Sueños · pruebas de realidad'), ...ev, 'END:VCALENDAR'].join('\r\n') + '\r\n';
+}
+function rcFile() { return new File([buildICS()], 'suenos-avisos.ics', { type: 'text/calendar' }); }
+function addReminders() {
+  const url = URL.createObjectURL(new Blob([buildICS()], { type: 'text/calendar' }));
+  DB.settings.rc.added = new Date().toISOString(); save();
+  const w = window.open(url, '_blank');
+  if (!w) location.href = url;
+  setTimeout(() => openSheet(`<h2>Añadir avisos al Calendario</h2><p class="small">Si se ha abierto el Calendario, pulsa <b>Añadir todo</b>. Si no se ha abierto nada, comparte el archivo y elige <b>Calendario</b> (o guárdalo en Archivos y ábrelo desde ahí).</p><button class="btn primary block" data-act="shareRC">Compartir archivo de avisos</button><button class="btn ghost block" data-act="closeSheet" style="margin-top:8px">Hecho</button>`), 900);
+}
+async function shareRC() {
+  try { const f = rcFile(); if (navigator.canShare && navigator.canShare({ files: [f] })) { await navigator.share({ files: [f], title: 'Avisos de Sueños' }); return; } } catch (e) { if (e.name === 'AbortError') return; }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([buildICS()], { type: 'text/calendar' })); a.download = 'suenos-avisos.ics'; document.body.appendChild(a); a.click(); setTimeout(() => a.remove(), 1000);
 }
 
 /* ---------- Copia de seguridad ---------- */
@@ -960,7 +1343,7 @@ function importFile(e) {
       const d = JSON.parse(rd.result); if (!d || typeof d.dreams !== 'object') throw new Error('formato');
       const n = Object.keys(d.dreams).length;
       confirmSheet('¿Importar copia?', `Contiene ${n} sueños. Se sustituirán los datos actuales de este iPhone (tu PIN se mantiene).`, 'Importar', () => {
-        const pin = DB.settings.pinHash; DB = Object.assign(DEFAULT(), d); DB.settings = Object.assign(DEFAULT().settings, d.settings || {}, { pinHash: pin }); save(); toast('Copia importada ✓'); route();
+        const pin = DB.settings.pinHash; DB = Object.assign(DEFAULT(), d); DB.settings = Object.assign(DEFAULT().settings, d.settings || {}, { pinHash: pin }); migrate(); save(); toast('Copia importada'); route();
       }, false);
     } catch (err) { toast('Ese archivo no es una copia válida de Sueños'); }
   };
@@ -1012,17 +1395,21 @@ function pinSetup() {
    ROUTER Y EVENTOS
    ========================================================= */
 const ROUTES = { inicio: renderHome, nuevo: renderNew, diario: renderDiary, sueno: renderDetail, lucidos: renderLucid, ajustes: renderSettings };
-const AFTER = { nuevo: afterNew, diario: afterDiary, ajustes: afterSettings };
-let navStack = [];
+const AFTER = { inicio: afterHome, nuevo: afterNew, diario: afterDiary, ajustes: afterSettings };
+const ORDER = { inicio: 0, diario: 1, sueno: 1.5, nuevo: 2, lucidos: 3, ajustes: 4 };
+let lastRoute = null;
 function go(h, replace) { if (replace) location.replace(h); else location.hash = h; }
 function route() {
   const parts = (location.hash || '#/inicio').replace(/^#\/?/, '').split('/');
-  const name = ROUTES[parts[0]] ? parts[0] : 'inicio', arg = parts[1];
+  const name = ROUTES[parts[0]] ? parts[0] : 'inicio', arg = parts[1], arg2 = parts[2];
   if (rec.on) stopRec();
+  if (TTS.on) stopSpeak();
   const v = $('#view');
-  v.classList.remove('enter'); v.innerHTML = ROUTES[name](arg); void v.offsetWidth; v.classList.add('enter');
+  const dir = lastRoute == null || ORDER[name] === ORDER[lastRoute] ? 'enter' : ORDER[name] > ORDER[lastRoute] ? 'enter-r' : 'enter-l';
+  v.classList.remove('enter', 'enter-r', 'enter-l'); v.innerHTML = ROUTES[name](arg, arg2); void v.offsetWidth; v.classList.add(dir);
+  lastRoute = name;
   window.scrollTo(0, 0);
-  if (AFTER[name]) AFTER[name](arg);
+  if (AFTER[name]) AFTER[name](arg, arg2);
   $$('#tabbar a').forEach((a) => a.classList.toggle('on', a.dataset.tab === name || (name === 'sueno' && a.dataset.tab === 'diario')));
 }
 window.addEventListener('hashchange', route);
@@ -1032,15 +1419,35 @@ const ACT = {
   back: () => { if (history.length > 1) history.back(); else go('#/inicio'); },
   closeSheet,
   mic: () => (rec.on ? stopRec() : startRec()),
-  focusText: () => { closeSheet(); setTimeout(() => { const t = $('#txt'); if (t) t.focus(); }, 350); },
-  lucid: (el) => { F.lucid = F.lucid === el.dataset.v ? null : el.dataset.v; $$('#lucidSeg button').forEach((b) => b.classList.toggle('on', b.dataset.v === F.lucid)); draftSoon(); },
-  emo: (el) => { const v = el.dataset.v; F.emotions = F.emotions.includes(v) ? F.emotions.filter((x) => x !== v) : [...F.emotions, v]; el.classList.toggle('on'); draftSoon(); },
+  focusText: () => { closeSheet(); setTimeout(() => { const t = activeTA(); if (t) t.focus(); }, 350); },
+  lucid: (el) => { const p = F.parts[+el.dataset.i]; p.lucid = p.lucid === el.dataset.v ? null : el.dataset.v; el.parentNode.querySelectorAll('button').forEach((b) => b.classList.toggle('on', b.dataset.v === p.lucid)); draftSoon(); },
+  emo: (el) => {
+    const i = +el.dataset.i, p = F.parts[i], v = el.dataset.v, on = !p.emotions.includes(v);
+    p.emotions = on ? [...p.emotions, v] : p.emotions.filter((x) => x !== v);
+    el.closest('.part').querySelectorAll(`.chips .chip[data-v="${v}"]`).forEach((c) => c.classList.toggle('on', on));
+    const s = $('#sugg' + i); if (s) s.innerHTML = suggHTML(i); draftSoon();
+  },
+  theme: (el) => { const v = el.dataset.v; F.tagsTouched = true; F.tags = F.tags.includes(v) ? F.tags.filter((x) => x !== v) : [...F.tags, v]; el.classList.toggle('on', F.tags.includes(v)); draftSoon(); },
+  addPart: () => {
+    stopRec(); syncTexts();
+    if (!F.parts[F.parts.length - 1].text.trim()) { F.active = F.parts.length - 1; refreshParts(); toast('Primero cuenta algo en la última parte'); return; }
+    F.parts.push(newPart(F.date === dkey() ? new Date().toISOString() : null)); F.active = F.parts.length - 1; refreshParts(); draftSoon();
+    setTimeout(() => { const el = $('.part.active'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 60);
+  },
+  delPart: (el, e) => {
+    e.stopPropagation(); stopRec(); syncTexts();
+    const i = +el.dataset.i, doIt = () => { F.parts.splice(i, 1); F.active = Math.min(F.active, F.parts.length - 1); refreshParts(); draftSoon(); const th = $('#themes'); if (th) th.innerHTML = themesHTML(); };
+    if (F.parts[i].text.trim()) confirmSheet('¿Quitar la parte ' + (i + 1) + '?', 'Se borrará lo que has escrito en ella.', 'Quitar', doIt); else doIt();
+  },
+  activePart: (el) => { stopRec(); syncTexts(); F.active = +el.dataset.i; refreshParts(); },
   saveDream, noDream,
   saveNone: (el) => saveNone(el.dataset.v),
+  listen: (el) => { if (TTS.on) { stopSpeak(); return; } const d = DB.dreams[el.dataset.k]; if (!d) return; setListenUI(true); speak(dreamSpeech(d), () => setListenUI(false)); },
+  testVoice: () => { if (TTS.on) { stopSpeak(); return; } speak('Hola' + (DB.name ? ' ' + DB.name : '') + '. Así sonará la voz que lee tus sueños.'); },
+  addRC: addReminders, shareRC,
   toggleHealth: () => { DB.settings.health = !DB.settings.health; save(); route(); },
   toggleAuto: (el) => { DB.settings.autoImport = !DB.settings.autoImport; save(); el.classList.toggle('on', DB.settings.autoImport); },
-  obNext: () => obStep(),
-  obHealth: (el) => { DB.settings.health = el.dataset.v === '1'; save(); obStep(); },
+  retryHealth: () => { closeSheet(); setTimeout(() => importHealth(DB.importTarget || dkey()), 300); },
   delDream: (el) => confirmSheet('¿Borrar este sueño?', 'No se puede deshacer.', 'Borrar', () => { delete DB.dreams[el.dataset.k]; save(); toast('Sueño borrado'); go('#/diario', true); }),
   filter: (el) => { diaryF = el.dataset.v; $$('.filters .chip').forEach((c) => c.classList.toggle('on', c.dataset.v === diaryF)); $('#list').innerHTML = diaryList(); },
   ltab: (el) => go('#/lucidos/' + el.dataset.v, true),
@@ -1060,8 +1467,13 @@ const ACT = {
   wipe: () => confirmSheet('¿Borrar todo?', 'Se eliminarán todos tus sueños, datos de sueño y ajustes de este iPhone. Exporta una copia antes si quieres conservarlos.', 'Borrar todo', () => { localStorage.removeItem(KEY); load(); DB.welcomed = true; save(); toast('Datos borrados'); go('#/inicio'); route(); }),
   pinSet: pinSetup,
   pinOff: () => confirmSheet('¿Quitar el PIN?', 'La app se abrirá sin pedir código.', 'Quitar PIN', () => { DB.settings.pinHash = null; save(); toast('PIN quitado'); route(); }),
+  obNext: () => { const n = $('#obName'); DB.name = n ? n.value.trim().slice(0, 24) : DB.name; save(); obGo(1); },
+  obSkipPin: () => obGo(2),
+  obHealth: (el) => { DB.settings.health = el.dataset.v === '1'; save(); obGo(3); },
+  obRC: (el) => { DB.settings.rc.wanted = el.dataset.v === '1'; save(); obGo(4); },
   welcomeOk: () => { DB.welcomed = true; save(); closeSheet(); route(); },
-  welcomeSetup: () => { DB.welcomed = true; save(); closeSheet(); go('#/ajustes'); }
+  welcomeSetup: () => { DB.welcomed = true; save(); closeSheet(); go('#/ajustes'); },
+  welcomeRC: () => { DB.welcomed = true; save(); closeSheet(); setTimeout(addReminders, 350); }
 };
 document.addEventListener('click', (e) => {
   const el = e.target.closest('[data-act]'); if (!el) return;
@@ -1077,23 +1489,34 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.
 document.addEventListener('dblclick', (e) => e.preventDefault(), { passive: false });
 
 /* ---------- Bienvenida (primera vez) ---------- */
-let obI = 0;
-function obStep() {
-  if (obI === 0) { const n = $('#obName'); DB.name = n ? n.value.trim().slice(0, 24) : DB.name; save(); }
-  obI++;
-  const dots = (i) => `<div class="ob-dots">${[0, 1, 2].map((x) => `<i class="${x === i ? 'on' : ''}"></i>`).join('')}</div>`;
-  if (obI === 1) openSheet(`${dots(1)}<h2>¿Usas reloj o pulsera para dormir?</h2><p class="small">Si tu Apple Watch, Amazfit u otra pulsera guarda el sueño en la app Salud, Sueños puede mostrar tus fases (REM, profundo…) debajo de cada sueño. Es opcional: la app funciona igual sin nada.</p><div style="display:grid;gap:10px;margin-top:16px"><button class="btn primary big block" data-act="obHealth" data-v="1">Sí, quiero usar Salud</button><button class="btn big block" data-act="obHealth" data-v="0">No, ahora no</button></div>`);
-  else openSheet(`${dots(2)}<h2>Todo listo${DB.name ? ', ' + esc(DB.name) : ''}</h2><ol class="steps"><li>Cada mañana, nada más despertar, toca el <b>micro</b> y cuenta tu sueño.</li><li>Ponle un nombre. Se guarda con la fecha del día en que te despiertas.</li><li>¿No recuerdas nada? Márcalo igual: el hábito es lo que importa.</li><li>Sigue el <b>plan diario</b> de la pestaña Lúcidos.</li></ol>${DB.settings.health ? '<p class="small muted">Para conectar Salud, ve a Ajustes → Datos de sueño. Se configura una sola vez.</p><div class="grid2"><button class="btn big" data-act="welcomeSetup">Configurar Salud</button><button class="btn primary big" data-act="welcomeOk">Empezar</button></div>' : '<button class="btn primary big block" data-act="welcomeOk">Empezar</button>'}`);
-}
+const obDots = (i) => `<div class="ob-dots">${[0, 1, 2, 3, 4].map((x) => `<i class="${x === i ? 'on' : ''}"></i>`).join('')}</div>`;
 function showWelcome() {
-  obI = 0;
-  openSheet(`<div class="ob-dots"><i class="on"></i><i></i><i></i></div><h2>Bienvenido a Sueños</h2><p>Tu diario para recordar tus sueños y aprender a tener sueños lúcidos.</p><label class="field"><span>¿Cómo te llamas?</span><input class="input" id="obName" maxlength="24" placeholder="Tu nombre" autocomplete="given-name"></label><button class="btn primary big block" data-act="obNext">Continuar</button>`);
+  openSheet(`${obDots(0)}<h2>Bienvenido a Sueños</h2><p>Tu diario para recordar tus sueños y aprender a tener sueños lúcidos.</p><label class="field"><span>¿Cómo te llamas?</span><input class="input" id="obName" maxlength="24" placeholder="Tu nombre" autocomplete="given-name"></label><button class="btn primary big block" data-act="obNext">Continuar</button>`);
+}
+function obGo(i) {
+  if (i === 1) {
+    if (DB.settings.pinHash) return obGo(2);
+    let first = null;
+    openSheet(`${obDots(1)}<h2 id="pinT">¿Proteger tus sueños con un PIN?</h2><p class="small" id="pinS" style="margin:0 0 4px">Opcional. Se pedirá al abrir la app y puedes quitarlo cuando quieras en Ajustes. Elige 4 cifras o pulsa Saltar.</p><div style="display:flex;flex-direction:column;align-items:center">${padHTML()}</div><button class="btn ghost block" data-act="obSkipPin" style="margin-top:14px;border-color:var(--stroke);color:var(--muted)">Saltar</button>`);
+    bindPad($('#sheet'), async (val, fail, reset) => {
+      if (!first) { first = val; reset(); $('#pinT').textContent = 'Repite el PIN'; $('#pinS').textContent = 'Para confirmar'; return; }
+      if (val !== first) { first = null; $('#pinT').textContent = 'No coinciden'; $('#pinS').textContent = 'Vuelve a elegir 4 cifras'; fail(); return; }
+      DB.settings.pinHash = await hashPin(val); save(); toast('PIN activado'); obGo(2);
+    });
+  } else if (i === 2) {
+    openSheet(`${obDots(2)}<h2>¿Usas reloj o pulsera para dormir?</h2><p class="small">Si tu Apple Watch, Amazfit u otra pulsera guarda el sueño en la app Salud, Sueños puede mostrar tus fases (REM, profundo…) debajo de cada sueño. Es opcional: la app funciona igual sin nada.</p><div style="display:grid;gap:10px;margin-top:16px"><button class="btn primary big block" data-act="obHealth" data-v="1">Sí, quiero usar Salud</button><button class="btn big block" data-act="obHealth" data-v="0">No, ahora no</button></div>`);
+  } else if (i === 3) {
+    openSheet(`${obDots(3)}<h2>¿Avisos para hacer pruebas de realidad?</h2><p class="small">Unos pocos avisos durante el día para preguntarte "¿estoy soñando?". Se añaden al Calendario del iPhone y puedes cambiarlos o quitarlos cuando quieras.</p><div style="display:grid;gap:10px;margin-top:16px"><button class="btn primary big block" data-act="obRC" data-v="1">Sí, quiero avisos</button><button class="btn big block" data-act="obRC" data-v="0">No, ahora no</button></div>`);
+  } else {
+    const extra = [DB.settings.health ? '<button class="btn big" data-act="welcomeSetup">Configurar Salud</button>' : '', DB.settings.rc.wanted ? '<button class="btn big" data-act="welcomeRC">Añadir avisos</button>' : ''].filter(Boolean);
+    openSheet(`${obDots(4)}<h2>Todo listo${DB.name ? ', ' + esc(DB.name) : ''}</h2><ol class="steps"><li>Cada mañana, nada más despertar, toca el <b>micro</b> y cuenta tu sueño.</li><li>Si te despiertas varias veces, añade cada trozo como una <b>parte</b>.</li><li>¿No recuerdas nada? Márcalo igual: el hábito es lo que importa.</li><li>Sigue el <b>plan diario</b> de la pestaña Lúcidos.</li></ol>${extra.length ? `<div class="grid2" style="margin-bottom:10px">${extra.join('')}</div>` : ''}<button class="btn primary big block" data-act="welcomeOk">Empezar</button>`);
+  }
 }
 
 /* ---------- Ciclo de vida ---------- */
 let hiddenAt = 0;
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) { hiddenAt = Date.now(); if (rec.on) stopRec(); return; }
+  if (document.hidden) { hiddenAt = Date.now(); if (rec.on) stopRec(); if (TTS.on) stopSpeak(); return; }
   if ((location.hash || '#/inicio').startsWith('#/inicio')) route(); // refresca saludo/fecha si cambió el día
   if (DB.settings.pinHash && hiddenAt && Date.now() - hiddenAt > 3 * 60 * 1000) showLock();
   else if (importPending()) setTimeout(pasteSheet, 250);
@@ -1133,8 +1556,10 @@ load();
 if (!location.hash) location.replace('#/inicio');
 route();
 sky.start();
-if (DB.settings.pinHash) showLock();
-if (!DB.welcomed && !DB.settings.pinHash) setTimeout(showWelcome, 500);
+if (DB.welcomed && DB.settings.pinHash) showLock();
+// Pantalla de carga
+setTimeout(() => { const sp = $('#splash'); if (sp) { sp.classList.add('out'); setTimeout(() => sp.remove(), 600); } }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 950);
+if (!DB.welcomed) setTimeout(showWelcome, 1250);
 if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
 </script>
 </body>
